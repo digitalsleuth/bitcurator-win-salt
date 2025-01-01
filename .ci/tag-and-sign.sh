@@ -48,6 +48,15 @@ fi
 
 echo "==> Creating GitHub Release"
 RELEASE_ID=`curl -XPOST -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" -q https://api.github.com/repos/digitalsleuth/bitcurator-win-salt/releases -d "{\"tag_name\": \"$TAG_NAME\", \"prerelease\": $PRERELEASE}" | jq .id`
+#RELEASE_ID=`curl -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" -q https://api.github.com/repos/digitalsleuth/bitcurator-win-salt/releases | jq -r ".[] | select(.tag_name == \"${TAG_NAME}\") | .id"`
+
+if [[ -z $RELEASE_ID ]]
+then
+  echo "==> Release ID is null, aborting"
+  exit 1
+else
+  echo "==> Release ID is ${RELEASE_ID}, continuing"
+fi
 
 echo "==> Downloading zip file for tag from GitHub"
 curl -qL -o /tmp/bitcurator-win-salt-${TAG_NAME}.zip https://github.com/digitalsleuth/bitcurator-win-salt/archive/$TAG_NAME.zip
@@ -56,7 +65,7 @@ echo "==> Generating SHA256 of zip"
 sha256sum /tmp/bitcurator-win-salt-$TAG_NAME.zip > /tmp/bitcurator-win-salt-$TAG_NAME.zip.sha256
 
 echo "==> Generating GPG Signature of SHA256"
-gpg --armor --clearsign --digest-algo SHA256 -u 4CF992E3 /tmp/bitcurtor-win-salt-$TAG_NAME.zip.sha256
+gpg --armor --clearsign --digest-algo SHA256 -u 4CF992E3 /tmp/bitcurator-win-salt-$TAG_NAME.zip.sha256
 
 echo "==> Generating GPG Signature of zip file"
 gpg --armor --detach-sign -u 4CF992E3 /tmp/bitcurator-win-salt-$TAG_NAME.zip
@@ -71,6 +80,7 @@ then
 else
   echo "==> Hashes match, continuing"
 fi
+
 echo "==> Uploading bitcurator-win-salt-$TAG_NAME.zip.sha256"
 curl -XPOST -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" -H "Content-Type: text/plain" -q "https://uploads.github.com/repos/digitalsleuth/bitcurator-win-salt/releases/${RELEASE_ID}/assets?name=bitcurator-win-salt-${TAG_NAME}.zip.sha256" --data-binary @/tmp/bitcurator-win-salt-$TAG_NAME.zip.sha256
 

@@ -37,6 +37,7 @@ include:
   - bitcurator.downloads.packages.firefox
   - bitcurator.downloads.packages.portals
   - bitcurator.downloads.standalones.antiword
+  - bitcurator.downloads.standalones.deark
   - bitcurator.downloads.standalones.demystify-lite
   - bitcurator.downloads.standalones.droid
   - bitcurator.downloads.standalones.exiftool
@@ -103,6 +104,7 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.firefox
       - sls: bitcurator.downloads.packages.portals
       - sls: bitcurator.downloads.standalones.antiword
+      - sls: bitcurator.downloads.standalones.deark
       - sls: bitcurator.downloads.standalones.demystify-lite
       - sls: bitcurator.downloads.standalones.droid
       - sls: bitcurator.downloads.standalones.exiftool

@@ -3,8 +3,10 @@
 {% set START_MENU = PROGRAMDATA + '\Microsoft\Windows\Start Menu\Programs' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set hash = '3201e8a2e407728111b17a633da9b9a2ce1f7a02bb23a39881b6cb9028674b4e' %}
+{% set gui_hash = 'b6dccc93561456c87a6de4cf635bc6c28db50171b09b13e93ede5541e235cddf' %}
 {% set castver = '0.15.6' %}
 {% set wslver = '1.2.5.0' %}
+{% set gui = false %}
 
 include:
   - bitcurator.wsl.wsl2-update

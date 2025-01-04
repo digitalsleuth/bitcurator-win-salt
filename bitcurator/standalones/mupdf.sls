@@ -9,6 +9,7 @@
 
 {% set version = '1.25.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
+{% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set hash = '8cdd89ab8e638e7fd9e2ae3e75dd980aafe507bea63ad7a2eeaff1be403fff8c' %}
 
 mupdf-download:
@@ -34,6 +35,16 @@ mupdf-rename:
     - force: True
     - require:
       - archive: mupdf-extract
+
+mupdf-shortcut:
+  file.shortcut:
+    - name: '{{ PROGRAMDATA }}\Microsoft\Windows\Start Menu\Programs\mupdf.lnk'
+    - target: '{{ inpath }}\mupdf\mupdf.exe'
+    - force: True
+    - working_dir: '{{ inpath }}\mupdf\'
+    - makedirs: True
+    - require:
+      - file: mupdf-rename
 
 mupdf-env-vars:
   win_path.exists:

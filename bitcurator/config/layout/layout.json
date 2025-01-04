@@ -645,10 +645,10 @@
 	  "PyMuPDF": {
         "CbName": "python_packages_pymupdf",
         "CbContent": "PyMuPDF",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\LSoft Technologies\\Active@ Disk Editor\\DiskEditor.exe",
+        "DAID": "",
         "AUMID": false,
         "DALP": false,
-        "StartMenu": true,
+        "StartMenu": false,
         "Checked": true,
         "Enabled": true,
         "ExtraTiles": []

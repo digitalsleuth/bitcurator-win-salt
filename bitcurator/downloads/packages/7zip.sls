@@ -1,7 +1,7 @@
 # Name: 7-Zip
 # Website: https://7-zip.org
 # Description: Zip Compiler and Extractor
-# Category: Archival
+# Category: Utilities
 # Author: Igor Pavlov
 # License: GNU LGPL (https://www.7-zip.org/faq.html)
 # Version: 24.06

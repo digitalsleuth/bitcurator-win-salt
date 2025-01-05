@@ -1,7 +1,7 @@
 # Name: HxD 
 # Website: https://mh-nexus.de
 # Description: Hex Editor
-# Category: Archival
+# Category: Raw Parsers / Decoders
 # Author: Mael Horz
 # License: https://mh-nexus.de/en/about.php
 # Version: 2.5.0.0

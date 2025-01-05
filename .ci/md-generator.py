@@ -23,22 +23,13 @@ header_regex = re.compile(r"#\s*(?P<key>.*?):\s*(?P<value>.*)")
 today = strftime("%Y-%m-%d", localtime())
 doc_header = f'--- \ntitle: "BitCurator Tool List" \nauthor: Corey Forman (digitalsleuth) \ndate: {today} \nmainfont: DejaVuSans \ngeometry: "left=2cm,right=2cm,top=1cm,bottom=2cm" \noutput: pdf_document\n---\n  \n'
 taglines = {
-    "Acquisition and Analysis": "Tools used for the acquisition and bulk processing / analysis of evidence items",
+    "Archival": "Tools used for digital archiving",
     "Browsers": "Web browsers",
-    "Databases": "Database browsers",
-    "Documents / Editors": "Applications to create, modify, disassemble, and analyze document files.",
-    "Email": "Analyze email artifacts",
-    "Executables": "Reverse engineering, static, and dynamic analysis of executables",
-    "Installers": "Decompile and deconstruct installers",
-    "Logs": "Event and Web log analysis",
-    "Mobile Analysis": "Analysis of mobile devices and applications",
-    "Network": "Network traffic analysis tools",
+    "Documents / Editors": "Applications to create, modify document files.",
     "Raw Parsers / Decoders": "Basic tools for byte-level analysis of data blobs",
-    "Registry": "Analysis of Windows registry artifacts",
     "Requirements": "Applications required to make everything else work",
     "Terminals": "Use of Linux-emulated terminals on Windows",
     "Utilities": "Basic utilities to assist in data analysis or transfer",
-    "Windows Analysis": "Tools to conduct forensic analysis on various Windows artifacts",
 }
 
 

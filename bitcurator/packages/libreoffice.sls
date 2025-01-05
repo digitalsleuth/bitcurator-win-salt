@@ -1,7 +1,7 @@
 # Name: libreoffice
 # Website: https://www.libreoffice.org/download/download-libreoffice/
 # Description: Open source Office-like document suite
-# Category: Archival
+# Category: Documents / Editors
 # Author: The Document Foundation
 # License: Free Software - Multiple (https://www.libreoffice.org/about-us/licenses)
 # Version: 24.8.4.2

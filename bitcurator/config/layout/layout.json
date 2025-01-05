@@ -4,17 +4,6 @@
     "HeaderName": "header_archival",
     "HeaderContent": "Archival",
     "Tools": {
-      "7-Zip": {
-        "CbName": "packages_7zip",
-        "CbContent": "7-Zip",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\7-Zip\\7zFM.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
 	  "Advanced Renamer": {
         "CbName": "packages_advanced_renamer",
         "CbContent": "Advanced Renamer",
@@ -118,17 +107,6 @@
         "CbName": "packages_bulk_rename_utility",
         "CbContent": "Bulk Rename Utility",
         "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Bulk Rename Utility\\Bulk Rename Utility.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "Chrome": {
-        "CbName": "packages_chrome",
-        "CbContent": "Chrome",
-        "DAID": "Chrome",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
@@ -334,17 +312,6 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-      "Firefox": {
-        "CbName": "packages_firefox",
-        "CbContent": "Firefox",
-        "DAID": "308046B0AF4A39CB",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
       "FITS": {
         "CbName": "standalones_fits",
         "CbContent": "FITS",
@@ -411,32 +378,10 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-      "Hex Editor Neo": {
-        "CbName": "packages_free_hex_editor_neo",
-        "CbContent": "Hex Editor Neo",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\HHD Software\\Hex Editor Neo\\HexFrame.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
 	  "HFS Explorer": {
         "CbName": "packages_hfs_explorer",
         "CbContent": "HFS Explorer",
         "DAID": "{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\HFSExplorer\\bin\\hfsexplorer.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "HxD": {
-        "CbName": "installers_hxd",
-        "CbContent": "HxD",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\HxD\\HxD.exe",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
@@ -499,17 +444,6 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-	  "LibreOffice": {
-        "CbName": "packages_libreoffice",
-        "CbContent": "LibreOffice",
-        "DAID": "TheDocumentFoundation.LibreOffice.Startcenter",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
 	  "mailbagit": {
         "CbName": "python_packages_mailbagit",
         "CbContent": "mailbagit",
@@ -543,17 +477,6 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-	  "Microsoft PowerToys": {
-        "CbName": "packages_ms_powertoys",
-        "CbContent": "Microsoft PowerToys",
-        "DAID": "Microsoft.PowerToysWin32",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
 	  "MKVToolNix": {
         "CbName": "packages_mkvtoolnix",
         "CbContent": "MKVToolNix",
@@ -576,17 +499,6 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-      "Notepad++": {
-        "CbName": "packages_notepad_plus_plus",
-        "CbContent": "Notepad++",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Notepad++\\notepad++.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
       "nsrllookup": {
         "CbName": "standalones_nsrllookup",
         "CbContent": "nsrllookup",
@@ -601,17 +513,6 @@
 	  "OpenAI Whisper": {
         "CbName": "python_packages_openai_whisper",
         "CbContent": "OpenAI Whisper",
-        "DAID": "",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": false,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "OpenHashTab": {
-        "CbName": "packages_openhashtab",
-        "CbContent": "OpenHashTab",
         "DAID": "",
         "AUMID": false,
         "DALP": false,
@@ -697,54 +598,10 @@
         "Enabled": true,
         "ExtraTiles": []
       },
-      "Sublime Text": {
-        "CbName": "packages_sublime_text",
-        "CbContent": "Sublime Text",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Sublime Text\\sublime_text.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "TeraCopy": {
-        "CbName": "packages_teracopy",
-        "CbContent": "TeraCopy",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\TeraCopy\\TeraCopy.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
 	  "TreeSize Pro": {
         "CbName": "packages_treesize_pro",
         "CbContent": "TreeSize Pro",
         "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\JAM Software\\TreeSize\\TreeSize.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "VLC": {
-        "CbName": "packages_vlc",
-        "CbContent": "VLC",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\VideoLAN\\VLC\\vlc.exe",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "Voidtools Everything": {
-        "CbName": "packages_voidtools_everything",
-        "CbContent": "Voidtools Everything",
-        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Everything\\Everything.exe",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
@@ -774,11 +631,200 @@
         "Enabled": true,
         "ExtraTiles": []
       },
+      "WinMerge": {
+        "CbName": "packages_winmerge",
+        "CbContent": "WinMerge",
+        "DAID": "Thingamahoochie.WinMerge",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      }
+	}
+  },
+  {
+    "TVI": "tvi_browsers",
+    "HeaderName": "header_browsers",
+    "HeaderContent": "Browsers",
+    "Tools": {
+      "Chrome": {
+        "CbName": "packages_chrome",
+        "CbContent": "Chrome",
+        "DAID": "Chrome",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "Firefox": {
+        "CbName": "packages_firefox",
+        "CbContent": "Firefox",
+        "DAID": "308046B0AF4A39CB",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      }
+    }
+  },
+  {
+    "TVI": "tvi_documents",
+    "HeaderName": "header_documents",
+    "HeaderContent": "Documents / Editors",
+    "Tools": {
+	  "LibreOffice": {
+        "CbName": "packages_libreoffice",
+        "CbContent": "LibreOffice",
+        "DAID": "TheDocumentFoundation.LibreOffice.Startcenter",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "Notepad++": {
+        "CbName": "packages_notepad_plus_plus",
+        "CbContent": "Notepad++",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Notepad++\\notepad++.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "Sublime Text": {
+        "CbName": "packages_sublime_text",
+        "CbContent": "Sublime Text",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Sublime Text\\sublime_text.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      }
+    }
+  },
+  {
+    "TVI": "tvi_raw",
+    "HeaderName": "header_raw",
+    "HeaderContent": "Raw Parsers / Decoders",
+    "Tools": {
+      "Hex Editor Neo": {
+        "CbName": "packages_free_hex_editor_neo",
+        "CbContent": "Hex Editor Neo",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\HHD Software\\Hex Editor Neo\\HexFrame.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "HxD": {
+        "CbName": "installers_hxd",
+        "CbContent": "HxD",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\HxD\\HxD.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      }
+    }
+  },
+  {
+    "TVI": "tvi_terminals",
+    "HeaderName": "header_terminals",
+    "HeaderContent": "Terminals",
+    "Tools": {
       "Windows Terminal": {
         "CbName": "installers_windows_terminal",
         "CbContent": "Windows Terminal",
         "DAID": "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App",
         "AUMID": true,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      }
+    }
+  },
+  {
+    "TVI": "tvi_utilities",
+    "HeaderName": "header_utilities",
+    "HeaderContent": "Utilities",
+    "Tools": {
+      "7-Zip": {
+        "CbName": "packages_7zip",
+        "CbContent": "7-Zip",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\7-Zip\\7zFM.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+	  "Microsoft PowerToys": {
+        "CbName": "packages_ms_powertoys",
+        "CbContent": "Microsoft PowerToys",
+        "DAID": "Microsoft.PowerToysWin32",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "OpenHashTab": {
+        "CbName": "packages_openhashtab",
+        "CbContent": "OpenHashTab",
+        "DAID": "",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": false,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "TeraCopy": {
+        "CbName": "packages_teracopy",
+        "CbContent": "TeraCopy",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\TeraCopy\\TeraCopy.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "VLC": {
+        "CbName": "packages_vlc",
+        "CbContent": "VLC",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\VideoLAN\\VLC\\vlc.exe",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "Voidtools Everything": {
+        "CbName": "packages_voidtools_everything",
+        "CbContent": "Voidtools Everything",
+        "DAID": "{6D809377-6AF0-444B-8957-A3773F02200E}\\Everything\\Everything.exe",
+        "AUMID": false,
         "DALP": false,
         "StartMenu": true,
         "Checked": true,
@@ -795,18 +841,7 @@
         "Checked": true,
         "Enabled": true,
         "ExtraTiles": []
-      },
-      "WinMerge": {
-        "CbName": "packages_winmerge",
-        "CbContent": "WinMerge",
-        "DAID": "Thingamahoochie.WinMerge",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
       }
-	}
+    }
   }
 ]

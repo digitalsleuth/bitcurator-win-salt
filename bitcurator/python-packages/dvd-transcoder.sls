@@ -4,12 +4,12 @@
 # Category: Archival
 # Author: Bay Area Video Coalition and Corey Forman
 # License: None
-# Version: 2.0.0
+# Version: 2.1.0
 # Notes: Requires ffmpeg, mediainfo cli optional
 
-{% set version = '2.0.0' %}
+{% set version = '2.1.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '15e2d235446d5d1daafa7087ce4155d49f9b1df27429c5ae737173a100becea8' %}
+{% set hash = 'c46bf22078cd91998417c45d06d743f7f3b0666105efa9f285e4cec2882a8f68' %}
 
 include:
   - bitcurator.packages.python3

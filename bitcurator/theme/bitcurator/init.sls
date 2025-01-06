@@ -25,40 +25,20 @@
 {% set horizontals = [(h1, "H1"), (h2, "H2"), (h3, "H3"), (h4, "H4"), (h5, "H5"), (h6, "H6")] %}
 {% set verticals = [(v1, "V1"), (v2, "V2"), (v3, "V3")] %}
 {% set dwidth = horiz * 2 %}
-{% set start_folders = [('01','Acquisition and Analysis'),
-                        ('02','Archival'),
-                        ('03','Databases'),
-                        ('04','Document Analysis'),
-                        ('05','Document Viewers'),
-                        ('06','Email'),
-                        ('07','Executables'),
-                        ('08','Installers'),
-                        ('09','Logs'),
-                        ('10','Mobile Analysis'),
-                        ('11','Network'),
-                        ('12','Raw Parsers and Decoders'),
-                        ('13','Registry'),
-                        ('14','Terminals'),
-                        ('15','Utilities'),
-                        ('16','Windows Analysis')
+{% set start_folders = [('01','Archival'),
+                        ('02','Browsers'),
+                        ('03','Documents and Editors'),
+                        ('04','Raw Parsers and Decoders'),
+                        ('05','Terminals'),
+                        ('06','Utilities'),
                        ] %}
-{% set shortcuts = [('Acquisition and Analysis', ['FEX Imager','FIT','FTK Imager','Active@ Disk Editor\Active@ Disk Editor','Arsenal Image Mounter','Autopsy\Autopsy 4.21.0','Magnet AXIOM\AXIOM Examine','Magnet AXIOM\AXIOM Process','gkape','Magnet ACQUIRE\Magnet ACQUIRE','Magnet Chromebook Acquisition Assistant v1\Magnet Chromebook Acquisition Assistant v1','Magnet Web Page Saver Portable V3','OSFMount\OSFMount','Tableau\Tableau Imager\Tableau Imager','X-Ways']),
-                    ('Archival',[]),
+{% set shortcuts = [
+                    ('Archival', ['Advanced Renamer\Advanced Renamer','Beyond Compare 5','Bulk Extractor 1.5.5\BEViewer with Bulk Extractor 1.5.5 (64-bit)','Bulk Rename Utility\Bulk Rename Utility','Demystify-Lite','DROID','dupeGuru\dupeGuru','Duplicate Cleaner 5\Duplicate Cleaner Pro 5','ePADD','Exact Audio Copy\Exact Audio Copy','FilelistCreator','FileZilla FTP Client\FileZilla','AccessData\FTK Imager\FTK Imager','GIMP 2.10.38','HashMyFiles','HFSExplorer\HFSExplorer','IsoBuster\IsoBuster (64bit)','jhove','MKVToolNix\MKVToolNiv','mupdf','OpenRefine\OpenRefine','PowerGREP 5','TreeSize\TreeSize','vRenamer','WinDirStat','WinMerge\WinMerge']),
                     ('Browsers', ['Firefox','Google Chrome','Microsoft Edge']),
-                    ('Databases', ['ADOQuery','DataEdit','DB Browser (SQLCipher)','DB Browser (SQLite)','DBeaver Community\DBeaver','SDBExplorer','SQLiteQuery','SQLiteStudio\SQLiteStudio','SysTools SQL MDF Viewer\SysTools SQL MDF Viewer']),
-                    ('Document Analysis', ['ExifTool GUI','OffVis','PDFStreamDumper\PdfStreamDumper.exe','SSView']),
-                    ('Document Viewers', ['Acrobat Reader','EZViewer','LibreOffice 7.6\LibreOffice Calc','LibreOffice 7.6\LibreOffice Impress','LibreOffice 7.6\LibreOffice Writer','LibreOffice 7.6\LibreOffice','Notepad++','Sublime Text','Visual Studio Code\Visual Studio Code']),
-                    ('Email', ['Aid4Mail 5\Aid4Mail5','EHB','Email Header Analyzer - Web Based','Kernel Exchange EDB Viewer\Kernel Exchange EDB Viewer','Kernel OST Viewer\Kernel OST Viewer','Kernel Outlook PST Viewer\Kernel Outlook PST Viewer','MailView','PST Walker Software\MSG Viewer','SysTools Outlook PST Viewer\SysTools Outlook PST Viewer','BitRecover EML Viewer',"4n6 Software\\4n6 Email Forensics Wizard",'PST Walker Software\PST Walker']),
-                    ('Executables', ['rohitab.com\API Monitor v2\API Monitor v2 (Alpha) 64-bit','Explorer Suite\CFF Explorer','BinText','Cutter','DIE','dotPeek64','ExeInfoPE','McAfee FileInsight\FileInsight','IDA Freeware 8.3\IDA Freeware 8.3','ILSpy','KsDumper11','Magnet Process Capture','MalCat','Explorer Suite\Tools\PE Detective','Process Hacker 2\PE Viewer','PE-Bear','PEiD','PEStudio','Portex Analyzer','PPEE','Process Hacker 2\Process Hacker 2','Regshot x64 Unicode','Rehex','Resource Hacker','Scylla x64','Explorer Suite\Signature Explorer','Explorer Suite\Task Explorer (64-bit)','Total PE 2','VB Decompiler Lite\VB Decompiler Lite','WinDbg','x64dbg','x32dbg']),
-                    ('Installers', ['AutoIT Extractor','lessmsi','MSI Viewer','Py2ExeDecompiler','UniExtract']),
-                    ('Logs', ['EventFinder','EZViewer','HttpLogBrowser\HttpLogBrowser','Log Parser 2.2\Log Parser 2.2','LogParser-Studio','LogViewer2']),
-                    ('Mobile Analysis', ['ALEAPP-GUI','Android Studio\Android Studio','Bytecode Viewer','iBackup Viewer\iBackup Viewer','ILEAPP-GUI','iPhoneAnalyzer','iTunes Backup Analyzer','JD-GUI','VLEAPP-GUI','VOW Software\plist Editor Pro\plist Editor Pro','UFADE']),
-                    ('Network', ['Burp Suite Community Edition\Burp Suite Community Edition','Fiddler Classic','IHB','NetScanner','NetworkMiner','PuTTY (64-bit)\PSFTP','PuTTY (64-bit)\PuTTY','WinSCP','Wireshark','Zui']),
-                    ('Raw Parsers and Decoders', ['Bulk Extractor 1.5.5\BEViewer with Bulk Extractor 1.5.5 (64-bit)','CyberChef','Digital Detective\DataDump v2\DataDump v2.2','Digital Detective\DCode v5\DCode v5.5','DROID','HHD Hex Editor Neo\Hex Editor Neo','HEXEdit','HxD Hex Editor\HxD','JSONView','Passware\Encryption Analyzer 2024 v1\Passware Encryption Analyzer 2024 v1 (64-bit)','PhotoRec','QPhotoRec','TestDisk','Time Decode','Redline\Redline','XMLView','WinHex']),
-                    ('Registry', ['RegistryExplorer','RegRipper','Regshot x64 ANSI']),
-                    ('Terminals', ['Cygwin\Cygwin64 Terminal','MobaXterm\MobaXterm','Terminal','WSL','VcXsrv\XLaunch']),
-                    ('Utilities', ['Agent Ransack\Agent Ransack','Aurora','Digital Detective\DCode v5\DCode v5.5','EZViewer','FastCopy','Glossary Generator','Google Earth Pro','Hasher','Hash Generator','IrfanView\IrfanView 64 4.62','iTunes\iTunes','Monolith Notes',"Nuix\\Nuix Evidence Mover\\Nuix Evidence Mover",'Rufus','Sysinternals','Tableau\Tableau Firmware Update\Tableau Firmware Update','TeraCopy','USB Write Blocker','VeraCrypt 1.26.7\VeraCrypt','Oracle VM VirtualBox\Oracle VM VirtualBox','VideoLAN\VLC media player','CDSG\WriteBlocking Validation Utility\WriteBlocking Validation Utility','WinMerge\WinMerge']),
-                    ('Windows Analysis', ['AutoRunner','Event Log Explorer','EXE','Hibernation Recon','JumpListExplorer','Live Response Collection - Cedarpelta','LogFileParser64','MFTBrowser','MFTExplorer','NirLauncher','NTFS Log Tracker','OneDriveExplorer-GUI','Redline\Redline','RegistryExplorer','RegRipper','SE','ShadowExplorer','ShellBagsExplorer','SRUM-DUMP2','ThumbCache Viewer','TimelineExplorer','USB Detective','Volatility Workbench','Windows Timeline'])
+                    ('Documents and Editors', ['LibreOffice\LibreOffice','Notepad++','Sublime Text']),
+                    ('Raw Parsers and Decoders', ['HHD Hex Editor Neo\Hex Editor Neo','HxD Hex Editor\HxD']),
+                    ('Terminals', ['Terminal','WSL']),
+                    ('Utilities', ['7-Zip\7-Zip File Manager','PowerToys (Preview)\PowerToys (Preview)','TeraCopy','VideoLAN\VLC media player','Everything','Glossary Generator','Google Earth Pro','Hasher','Hash Generator','IrfanView\IrfanView 64 4.62','iTunes\iTunes','Monolith Notes',"Nuix\\Nuix Evidence Mover\\Nuix Evidence Mover",'Rufus','Sysinternals','Tableau\Tableau Firmware Update\Tableau Firmware Update','TeraCopy','USB Write Blocker','VeraCrypt 1.26.7\VeraCrypt','Oracle VM VirtualBox\Oracle VM VirtualBox','VideoLAN\VLC media player','CDSG\WriteBlocking Validation Utility\WriteBlocking Validation Utility','WinMerge\WinMerge']),
                    ] %}
 
 include:

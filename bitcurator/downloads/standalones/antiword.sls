@@ -9,11 +9,11 @@
 
 {% set version = '1.3.4' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '13aa386e19589bf8b572c4b736f5329d780ce08e7c1994d29e0d9f9c557c020a' %}
+{% set hash = 'fec4f190e09b58845927c185472af16d6a2e76f26c203110cb562b9be54d29e0' %}
 
 antiword-download-only:
   file.managed:
     - name: '{{ downloads }}\antiword\antiword_{{ version }}.zip'
-    - source: 'https://cran.r-project.org/bin/windows/contrib/4.5/antiword_{{ version }}.zip'
+    - source: 'https://cran.r-project.org/bin/windows/contrib/4.4/antiword_{{ version }}.zip'
     - source_hash: sha256={{ hash }}
     - makedirs: True

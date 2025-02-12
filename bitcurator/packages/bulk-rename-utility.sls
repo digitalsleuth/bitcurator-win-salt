@@ -4,7 +4,7 @@
 # Category: Archival
 # Author: TGRMN Software
 # License: EULA (https://www.bulkrenameutility.co.uk/License.php)
-# Version: 4.0.0.3
+# Version: 4.0.0.5
 # Notes:
 
 include:

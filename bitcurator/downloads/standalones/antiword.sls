@@ -9,7 +9,7 @@
 
 {% set version = '1.3.4' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'fec4f190e09b58845927c185472af16d6a2e76f26c203110cb562b9be54d29e0' %}
+{% set hash = '913674149e82b56227eaa3b8227bbc1a7067487334280efc802172585427ba27' %}
 
 antiword-download-only:
   file.managed:

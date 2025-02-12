@@ -1,0 +1,22 @@
+# This workflow should download the latest TreeSize Pro EXE, and compare the previous hash 
+# with the current hash. 
+
+name: check-treesize-pro-hash
+
+on:
+  schedule:
+      - cron: "0 0 * * *"
+  
+  workflow_dispatch:
+ 
+jobs:
+  treesize_pro_hash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Check TreeSize Pro Hash
+        run: |
+          wget https://downloads.jam-software.de/treesize/TreeSize-Setup.exe
+          PREVIOUS_HASH=$(cat /home/runner/work/bitcurator-win-salt/bitcurator-win-salt/bitcurator/downloads/packages/treesize-pro.sls | grep "set hash" | awk -F\' '{print tolower($2)}')
+          CURRENT_HASH=$(sha256sum TreeSize-Setup.exe | awk '{print $1}')
+          if [[ "$PREVIOUS_HASH" != "$CURRENT_HASH" ]]; then echo "HASH UPDATED - $CURRENT_HASH" && exit 1; else echo "No hash changes" && exit 0; fi

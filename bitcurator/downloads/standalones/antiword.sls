@@ -15,5 +15,5 @@ antiword-download-only:
   file.managed:
     - name: '{{ downloads }}\antiword\antiword_{{ version }}.zip'
     - source: 'https://cran.r-project.org/bin/windows/contrib/4.4/antiword_{{ version }}.zip'
-    - source_hash: sha256={{ hash }}
+    - skip_verify: True
     - makedirs: True

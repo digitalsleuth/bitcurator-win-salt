@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Jan Goyvaerts
 # License: Free Trial
-# Version: 5.3.6
+# Version: 5.3.7
 # Notes: 
 
-{% set version = '5.3.6' %}
+{% set version = '5.3.7' %}
 
 include:
   - bitcurator.repos

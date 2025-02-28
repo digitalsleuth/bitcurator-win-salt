@@ -38,7 +38,7 @@
                     ('Documents and Editors', ['LibreOffice\LibreOffice','Notepad++','Sublime Text']),
                     ('Raw Parsers and Decoders', ['HHD Hex Editor Neo\Hex Editor Neo','HxD Hex Editor\HxD']),
                     ('Terminals', ['Terminal','WSL']),
-                    ('Utilities', ['7-Zip\7-Zip File Manager','PowerToys (Preview)\PowerToys (Preview)','TeraCopy','VideoLAN\VLC media player','Everything','Glossary Generator','Google Earth Pro','Hasher','Hash Generator','IrfanView\IrfanView 64 4.62','iTunes\iTunes','Monolith Notes',"Nuix\\Nuix Evidence Mover\\Nuix Evidence Mover",'Rufus','Sysinternals','Tableau\Tableau Firmware Update\Tableau Firmware Update','TeraCopy','USB Write Blocker','VeraCrypt 1.26.7\VeraCrypt','Oracle VM VirtualBox\Oracle VM VirtualBox','VideoLAN\VLC media player','CDSG\WriteBlocking Validation Utility\WriteBlocking Validation Utility','WinMerge\WinMerge']),
+                    ('Utilities', ['7-Zip\\7-Zip File Manager','PowerToys (Preview)\PowerToys (Preview)','Everything','Glossary Generator','Google Earth Pro','Hasher','Hash Generator','IrfanView\IrfanView 64 4.62','iTunes\iTunes','Monolith Notes',"Nuix\\Nuix Evidence Mover\\Nuix Evidence Mover",'Rufus','Sysinternals','Tableau\Tableau Firmware Update\Tableau Firmware Update','TeraCopy','USB Write Blocker','VeraCrypt 1.26.7\VeraCrypt','Oracle VM VirtualBox\Oracle VM VirtualBox','VideoLAN\VLC media player','CDSG\WriteBlocking Validation Utility\WriteBlocking Validation Utility','WinMerge\WinMerge']),
                    ] %}
 
 include:

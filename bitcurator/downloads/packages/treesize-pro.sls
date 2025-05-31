@@ -4,12 +4,12 @@
 # Category: Archival
 # Author: Jam Software
 # License: Trial Version of Pro (https://www.jam-software.com/company/license_agreement.shtml#freeware-and-trial-versions-570287)
-# Version: 9.4.2
+# Version: 9.5
 # Notes: 
 
-{% set version = '9.4.2' %}
+{% set version = '9.5' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '10a281254f4c193e95d3ec539ec6724a6de6de488b2726f44d059d75ac0ee77c' %}
+{% set hash = '8857c6a6dffe66ac6990f637a827f449bbf307ef795de2853fe19d3786c512b0' %}
 
 treesize-pro-download-only:
   file.managed:

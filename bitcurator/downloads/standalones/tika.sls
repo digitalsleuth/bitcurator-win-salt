@@ -4,16 +4,16 @@
 # Category: Archival
 # Author: Apache
 # License: Apache License v2.0 (https://tika.apache.org/download.html)
-# Version: 3.0.0
+# Version: 3.2.1
 # Notes: 
 
-{% set version = '3.0.0' %}
+{% set version = '3.2.1' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'f2c156533fac004d3d30d322555bb1f2581a104558a913bfc74d8c48dcf4541c' %}
+{% set hash = '268512b774a7a30e26ac1d6e3e5f7982cf6203a9822d4563be37b1922365d108' %}
 
 tika-app-download-only:
   file.managed:
     - name: '{{ downloads }}\tika\tika-app-{{ version }}.jar'
-    - source: https://dlcdn.apache.org/tika/{{ version }}/tika-app-{{ version }}.jar
+    - source: https://archive.apache.org/dist/tika/{{ version }}/tika-app-{{ version }}.jar
     - source_hash: sha256={{ hash }}
     - makedirs: True

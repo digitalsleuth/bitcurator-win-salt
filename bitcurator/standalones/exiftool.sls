@@ -4,12 +4,12 @@
 # Category: Archival
 # Author: Phil Harvey
 # License: https://exiftool.org/#license
-# Version: 12.90
+# Version: 13.32
 # Notes:
 
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set version = '12.90' %}
-{% set hash = 'd217e0ae8bdd8734be654ab9d50c863ca6ede72a20ad9e4c9fe244da58f1e269' %}
+{% set version = '13.32' %}
+{% set hash = '1c1863883d543db4b95a0e4fa52bbfd0be9e996ae6b411aad2af5f1787912a2e' %}
 
 exiftool-download:
   file.managed:

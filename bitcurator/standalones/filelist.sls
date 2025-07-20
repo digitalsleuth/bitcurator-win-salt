@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Jam Software
 # License: Freeware (https://www.jam-software.com/company/license_agreement.shtml#freeware-and-trial-versions-570287)
-# Version: 4.3.2
+# Version: 4.4.1
 # Notes: 
 
-{% set version = '4.3.2' %}
-{% set hash = '72d53318e03ba5aecdb3b5bdca617dee05498a650d1a82ba5a0cd0d5e03dc416' %}
+{% set version = '4.4.1' %}
+{% set hash = '8086cdbb3e8ff5dde07a74a1c0df504feb46e3ad1afb562e31151e9d3ea8a6aa' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 
 filelist-download:

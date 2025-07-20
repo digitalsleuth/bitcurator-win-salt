@@ -7,18 +7,37 @@
 # Version: 3.10.1150.0
 # Notes:
 
+{% set installed = salt['cmd.run']('powershell -c "(Get-ItemProperty HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Where-Object {$_.DisplayName -match \'^Python 3\' } | Select-Object -ExpandProperty DisplayVersion | Select -First 1)"') %}
+{% set version = '3.10.11150' %}
+{% set major = installed.split(".")[0] %}
+{% set minor = installed.split(".")[1] %}
+
 include:
   - bitcurator.repos
 
+{% if installed and major == '3' and (minor | int) >= 10 %}
+Python {{ major }}.{{ minor }} already installed:
+  test.nop
+{% else %}
+
 python3_x64:
   pkg.installed:
-    - version: '3.10.1150.0'
+    - version: '3.10.11150.0'
     - require:
       - sls: bitcurator.repos
 
 python3-wheel:
   pip.installed:
     - name: wheel
+    - upgrade: True
+    - bin_env: 'C:\Program Files\Python310\python.exe'
+    - require:
+      - pkg: python3_x64
+
+python3-setuptools:
+  pip.installed:
+    - name: setuptools
+    - upgrade: True
     - bin_env: 'C:\Program Files\Python310\python.exe'
     - require:
       - pkg: python3_x64
@@ -39,3 +58,5 @@ python3-symlink:
     - win_inheritance: True
     - require:
       - pkg: python3_x64
+
+{% endif %}

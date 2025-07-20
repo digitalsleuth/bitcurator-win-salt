@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: DigitalVolcano Software
 # License: 7 Day Free Trial - License after trial
-# Version: 5.24.0.0
+# Version: 5.25.0.0
 # Notes: 
 
-{% set version = '5.24.0.0' %}
+{% set version = '5.25.0.0' %}
 
 duplicate-cleaner:
   pkg.installed

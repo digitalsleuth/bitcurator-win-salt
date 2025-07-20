@@ -9,7 +9,7 @@
 
 {% set version = '1.28.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'e41494a232060eb9003a7cfb1e90f56773d44e9376c388da3c3013bec17d64bf' %}
+{% set hash = 'e212e9ddb5054809841af3bf5cf162fe520076a96665041d1a0843170aa27f32' %}
 
 jdupes-download:
   file.managed:

@@ -4,12 +4,12 @@
 # Category: Archival
 # Author: Jan Goyvaerts
 # License: Free Trial
-# Version: 5.3.7
+# Version: 5.3.8
 # Notes: 
 
-{% set version = '5.3.7' %}
+{% set version = '5.3.8' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '3f3a9c461a791aaa1536b1a4f3d9539a0885bd2d731073c4de783b1461c43ea1' %}
+{% set hash = '2735c106c0c1412499a873d7f535f062be2805ff8bb558f238d12018c569a96a' %}
 
 powergrep-download-only:
   file.managed:

@@ -155,7 +155,7 @@ system-restart:
   system.reboot:
     - timeout: 0
     - in_seconds: True
-    - only_on_pending_reboot: False
+    - only_on_pending_reboot: True
     - require:
       - dism: wsl-install
       - dism: vmp-install

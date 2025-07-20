@@ -4,12 +4,12 @@
 # Category: Archival
 # Author: DigitalVolcano Software
 # License: 7 Day Free Trial - License after trial
-# Version: 5.24.0.0
+# Version: 5.25.0.0
 # Notes: 
 
-{% set version = '5.24.0.0' %}
+{% set version = '5.25.0.0' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '4f5a6a95946a03fbd711ba19527e7c7002f719438939ad63333d1af12d8c28c9' %}
+{% set hash = '52cf63843eb40bdb5c5161bf5d10cbbb00ccf028726976039be61cdc475138e4' %}
 
 duplicate-cleaner-download-only:
   file.managed:

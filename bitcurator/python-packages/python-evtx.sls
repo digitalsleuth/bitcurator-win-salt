@@ -25,7 +25,7 @@ python-evtx-import-fix:
   file.replace:
     - name: 'C:\Program Files\Python310\Scripts\evtx_eid_record_numbers.py'
     - pattern: 'from filter_records'
-    - repl: 'from evtx_scripts.evtx_filter_records''
+    - repl: 'from evtx_scripts.evtx_filter_records'
     - count: 1
     - require:
       - pip: python-evtx

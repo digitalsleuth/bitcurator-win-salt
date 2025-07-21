@@ -1,8 +1,8 @@
 include:
   - bitcurator.config.user
   - bitcurator.repos
-  - bitcurator.python-packages
   - bitcurator.packages
+  - bitcurator.python-packages
   - bitcurator.installers
   - bitcurator.standalones
   - bitcurator.cleanup
@@ -15,8 +15,8 @@ addon-version-file:
     - require:
       - sls: bitcurator.config.user
       - sls: bitcurator.repos
-      - sls: bitcurator.python-packages
       - sls: bitcurator.packages
+      - sls: bitcurator.python-packages
       - sls: bitcurator.installers
       - sls: bitcurator.standalones
       - sls: bitcurator.cleanup

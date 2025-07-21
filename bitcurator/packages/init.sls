@@ -1,4 +1,6 @@
 include:
+  - bitcurator.packages.python3
+  - bitcurator.packages.python3-requirements
   - bitcurator.packages.7zip
   - bitcurator.packages.advanced-renamer
   - bitcurator.packages.bagger
@@ -41,6 +43,8 @@ bitcurator-packages:
   test.nop:
     - name: bitcurator-packages
     - require:
+      - sls: bitcurator.packages.python3
+      - sls: bitcurator.packages.python3-requirements
       - sls: bitcurator.packages.7zip
       - sls: bitcurator.packages.advanced-renamer
       - sls: bitcurator.packages.bagger

@@ -9,7 +9,7 @@
 
 {% set version = '0.0.0' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '3a946507df41852f58e18928ae57b40d471da8071ace7b14b90088279239041d' %}
+{% set hash = '65b11b8ac51b6113d569bc619fa7b400738a35295ce5bd287b8c476f8f9f02f0' %}
 
 fluxengine-download-only:
   file.managed:

@@ -26,22 +26,6 @@ python3_x64:
     - require:
       - sls: bitcurator.repos
 
-python3-wheel:
-  pip.installed:
-    - name: wheel
-    - upgrade: True
-    - bin_env: 'C:\Program Files\Python310\python.exe'
-    - require:
-      - pkg: python3_x64
-
-python3-setuptools:
-  pip.installed:
-    - name: setuptools
-    - upgrade: True
-    - bin_env: 'C:\Program Files\Python310\python.exe'
-    - require:
-      - pkg: python3_x64
-
 python3-env-vars:
   win_path.exists:
     - names:

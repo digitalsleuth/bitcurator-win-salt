@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: TGRMN Software
 # License: EULA (https://www.bulkrenameutility.co.uk/License.php)
-# Version: 4.0.1.0
+# Version: 4.1.0.0
 # Notes:
 
-{% set version = '4.0.1.0' %}
-{% set hash = 'dc0a5315412816af7016e51e4f5db582c8cf94816b05ad67b56c418b3f740279' %}
+{% set version = '4.1.0.0' %}
+{% set hash = '043d511228707ccb864b62eac1df59a8d6cde5c0876494c2cc8d0dc73e86f8ac' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
 
 bulk-rename-utility-download-only:

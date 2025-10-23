@@ -14,6 +14,6 @@
 bulk-rename-utility-download-only:
   file.managed:
     - name: '{{ downloads }}\bulk-rename-utility\BRU_setup_{{ version }}.exe'
-    - source: https://www.bulkrenameutility.co.uk/Downloads/BRU_setup.exe
+    - source: https://www.s3.tgrmn.com/bru4/BRU_setup_{{ version }}.exe
     - source_hash: sha256={{ hash }}
     - makedirs: True

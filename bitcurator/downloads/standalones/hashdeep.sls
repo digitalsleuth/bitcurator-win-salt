@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '4.4' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'd5e85933e74e5ba6a73f67346bc2e765075d26949c831a428166c92772f67dbc' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('hashdeep') %}
 
 hashdeep-download-only:
   file.managed:

@@ -1,0 +1,84 @@
+{# bitcurator/_macros/hashes.jinja #}
+{% set hashes = {
+  '7zip': '946e32bf1eb545146ad47287d0837b01de86329c20f7081fc171d543a8578ec9',
+  'advanced-renamer': '24402561feb48b821e5377310b1c66fb77c724ed59b2aa07e76703452377f0a2',
+  'analyzemft': {'commit': 'b1d0e6a0aa58d42000bfdb8e6588513bd62eaeab'},
+  'antiword': '4cd63317a2ded1e43ef25ffa98fecace166ea3ab390833b7d1bef19c04fb888c',
+  'bagger': '8a1991e39764e007a336a5585e7c2c79a8edf406a63ef81d587b3c70b421af23',
+  'beyond-compare': {'hash': 'd74892601a50514b5636e27d4be4d3ac38597f2f6c7c7b6b5b169a48ffa1f341', 'subver': '30422'},
+  'bulk-extractor': 'a410898e3452940c4aaa45bda6f32fe9447a61864266ff625c1916ee85764a39',
+  'bulk-rename-utility': '043d511228707ccb864b62eac1df59a8d6cde5c0876494c2cc8d0dc73e86f8ac',
+  'clamav': '3d28bfddffef323583a20ac1c257801e6405ea68fba661b81c5cbec4560eaffa',
+  'dart': '78f09829575c60ba86fc22f47a5d810559a3624e01baefa82a8220451c846ae0',
+  'deark': 'ad4846a0eb4a8247e9893f42a8ab2b89750a0fea060d60626684746bf511f6a4',
+  'dotnetfx35': '3887bb41eda48915268a9431041eb9f6dde06e52e411b49074b6ac60411b9ebe',
+  'droid': '68ec8572485ea2c4d571829bd3c4f4f207b215eec9c5bb9e88189a75336e19e7',
+  'dupeguru': '28293dada3c88336b2b53aca00adf59f85cabf1362f8386a8ffc6be5e1742836',
+  'duplicate-cleaner': '7f99b58dad23a30ecacabc4d88f12ec8ff2024ce7dcbfbe2f8518fcc774373f8',
+  'dvd-transcoder': 'c46bf22078cd91998417c45d06d743f7f3b0666105efa9f285e4cec2882a8f68',
+  'epadd': 'f72cb3bfbe6cd2f897171496ffbb7f84fefd9d3dc5b891ac5ff76cf9fed44b6a',
+  'exact-audio-copy': '205530cfbfdff82343858f38b0e709e586051fb8900ecd513d7992a3c1ef031b',
+  'exiftool': '1c1863883d543db4b95a0e4fa52bbfd0be9e996ae6b411aad2af5f1787912a2e',
+  'ffmpeg': 'fa074a46b7bb862e37aa27ccd0522d22a1fe90aec3a950c8e0c0c8622e0a03d1',
+  'filelist': '36332da09cd1a16b89f2449b72c9b5dc792aefd078be4b726e8dbf9d927a03b3',
+  'filelistcreator': 'cfe34a5345c49f1680775f4c585536e804b9a1991a3f5d983ac8f902d3682b17',
+  'filezilla-client': '1feb6c12f584e98f9fddf95bf128f549310c738376fab82a5893eafed765ad83',
+  'firefox': '4e6f266c706ab183f3c9c1c9e619e8641eab4e9a93cbd09f34452197d98a0c9e',
+  'fits': '32e436effe7251c5b067ec3f02321d5baf4944b3f0d1010fb8ec42039d9e3b73',
+  'fluxengine': 'bf65b7c1c060f5564a21e36b61b64102dbf07615543981a836c5bc65d5116aa0',
+  'free-hex-editor-neo': '3553865aa6dacc4aed0a96c9b320fc76e6fad9cb702e8220cff8679859c7e031',
+  'ftk-imager': '443843a3923a55d479d6ebb339dfbec12b5c1aabed196bf0541669abbe9b1c51',
+  'gimp': {'hash': 'bdcf059c7d4e1b0ab59f8dc5f199ebb60ae0445460bf67ff8e4e438a89cee3d8', 'minor_version': '-1'},
+  'git': 'f3fe05e65cd7e9a9126784d4ad57fdf979d30d5987fe849af4348dbe3e284df6',
+  'hashdeep': 'd5e85933e74e5ba6a73f67346bc2e765075d26949c831a428166c92772f67dbc',
+  'hashmyfiles': '892b7ce8d40e50bcfa2619110828eb76b2733145f5f3dd392d6e1fc97563261b',
+  'hfs-explorer': 'f4f55575d3e91fcce05dd994ebc6babcec317a4b27ee986e8a9a37f936ea2d44',
+  'hxd': '5065041c7b03c24b9533a5b32b33db58f2b4924cd84bed41834ff2db51c1cb7c',
+  'isobuster': '91b248718f5a81ee0a4f8153904da96130f38236db2e759a5d18c9906c431bec',
+  'jdupes': '2e57f2c11b45b87a0bc04ab1f346d3366a4525e79a1e8f0e0060eca5292d2ab0',
+  'jhove': '7bbe2a2d1feca71d851feeafe7567a6ce235180441ee0dae898946421a29dfe7',
+  'jre8': {'hash': '6e6e541bc5b96ef69ebaf247d8cf9bfb0eb8b6fee289a9f163db74b08983ceec', 'file_ver': '8u431'},
+  'karens-directory-printer': 'd4ee3c6b1e12e72854022bb360ece5a7574b9cd3afc4024fe62b369db9920e7f',
+  'kryoflux': 'ae92e569f74846d7be6f83e90ccbfdcb4ad7bc4b942a6a8ca9f905cfcb5c09a5',
+  'libreoffice': '76def06f2a8ecd5803dfbc63995e3963ae46b85e8c1c917541dedab81bd78169',
+  'mediainfo': '7de8c5d7b7654acceb54aa4484014c6fa0d470cdc5a2130e6dfb7b2e2aa15f8f',
+  'mediainfo-cli': 'd945767f683c05ee5100f4883eda746767cf5f59acd998f37ae2acea7cc5760f',
+  'mkvtoolnix': '1b685cbeb4b05e7cc342c92914486bd71a7ab0bfeb577106db94abfb9771da5a',
+  'ms-powertoys': '857de9dc5938d9602f82dfd6183db5e6823b875a412aec59b4be93617e27e9cd',
+  'ms-vcpp-2015-build-tools': 'f13b432b923ded9e9318f450cd0ec3c1d12512b3052d8655e7c1d41d11af3d4a',
+  'mupdf': '8cdd89ab8e638e7fd9e2ae3e75dd980aafe507bea63ad7a2eeaff1be403fff8c',
+  'notepad-plus-plus': 'ce3267f5c4e7e42f847e00f4b20234da6150647203033cdde34a69593efc3152',
+  'nsrllookup': '042023f7b19c6e08045f4ccee4c32283e46853474f0d9e2815f6232dc4b51b66',
+  'openjdk-adoptium': '8ef78a37811529d73d37e29a9fa24bf2d46d0d5d97c4f6e403ea9adebc55eaf3',
+  'openrefine': '32b70c90ccf8c19ba08f8fd0484d4f1c6db948f1011aa23e724205dded16526d',
+  'portable-python3': '009d6bf7e3b2ddca3d784fa09f90fe54336d5b60f0e0f305c37f400bf83cfd3b',
+  'portals': 'd8544349bbb228cd6db18b86bd294fdc667b67607f60b81e780422939e244ee4',
+  'powergrep': 'e4e4899aaed278e2a6a590065dac8ea63a02937fa482182354cd8a1f2a9912df',
+  'python-evtx': {'commit': '1a1357accd3a75524794a6d6dcdec03c09e1660d'},
+  'python3': '5ee42c4eee1e6b4464bb23722f90b45303f79442df63083f05322f1785f5fdde',
+  'rawcooked': '8698beb2ab09da36fe745f3d46a901829d83bf8466abae5c49a189184be06c1f',
+  'rclone': '812bf76cc02c04cf6327f3683f3d5a88e47d36c39db84c1a745777496be7d993',
+  'saltstack': '9d46f907cb744ec5c02bb0ee6ec79e9e7d8460b4d29cbe898c34610f747a3f43',
+  'siegfried': '89188357e78f4405f0c7d2b71d24668d9f9dd83ecc5df9901dd7fdc12d77b809',
+  'sublime-text': '59bbd4e519d7205944af458dc026d98f131d57a05760402a72ea462f631e47ea',
+  'tika': '268512b774a7a30e26ac1d6e3e5f7982cf6203a9822d4563be37b1922365d108',
+  'treesize-pro': '8005e320671b67a2f72ac2b0b3b70853e55fa4a764c762a3a026ef4f4cde5319',
+  'vlc': '9742689a50e96ddc04d80ceff046b28da2beefd617be18166f8c5e715ec60c59',
+  'voidtools-everything': 'dae32a49b6052f0ec70895dd4e35b2b26222f7f4c19c36d9d309033e2fb622bc',
+  'vrenamer': '8b3ce5eac092901327fbf24311daa161236f3cbd6ec998ff8d992c45657d2028',
+  'windirstat': '95020ad73627c39b798df70080e7c375612987910327a27a95e325077ca18ac0',
+  'winmerge': '055e960261fc31723856082d2bf1aec2bcc2c71f1ae2d759efec3d766affeaec',
+} %}
+
+{% macro get_hash(name, part=None) -%}
+  {%- set entry = hashes.get(name) -%}
+  {%- if entry is none -%}{{- salt['test.exception']('hashes.jinja: no entry for "' ~ name ~ '"') -}}{%- endif -%}
+  {%- if entry is mapping -%}
+    {%- set part = part if part is not none else 'hash' -%}
+    {%- if part not in entry -%}{{- salt['test.exception']('hashes.jinja: ' ~ name ~ ' has no "' ~ part ~ '" (has: ' ~ entry.keys() | list | join(', ') ~ ')') -}}{%- endif -%}
+    {%- set entry = entry[part] -%}
+  {%- elif part is not none -%}
+    {{- salt['test.exception']('hashes.jinja: ' ~ name ~ ' has a single hash, not "' ~ part ~ '"') -}}
+  {%- endif -%}
+  {{- entry -}}
+{%- endmacro %}

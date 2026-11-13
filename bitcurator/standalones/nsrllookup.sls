@@ -9,7 +9,11 @@
 
 {% set version = '1.4.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '042023f7b19c6e08045f4ccee4c32283e46853474f0d9e2815f6232dc4b51b66' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('nsrllookup') %}
+
+include:
+  - bitcurator.config.shims
 
 nsrllookup-download:
   file.managed:
@@ -35,8 +39,9 @@ nsrllookup-rename:
     - require:
       - archive: nsrllookup-extract
 
-nsrllookup-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\nsrllookup\'
+nsrllookup-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\nsrllookup\nsrllookup.exe -OutPath {{ inpath }}\shims\nsrllookup.exe'
     - require:
       - file: nsrllookup-rename
+      - sls: bitcurator.config.shims

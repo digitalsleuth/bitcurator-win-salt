@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Kim Jensen (https://www.advancedrenamer.com/about)
 # License: https://advancedrenamer.com/license
-# Version: 4.06
+# Version: 4.28
 # Notes: 
 
-{% set version = '4.06' %}
+{% set version = '4.28' %}
 
 include:
   - bitcurator.repos

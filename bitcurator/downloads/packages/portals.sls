@@ -7,10 +7,11 @@
 # Version: 3.2.1.0
 # Notes:
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '3.2.1.0' %}
 {% set dashes = version | replace(".","-") %}
-{% set hash = 'd8544349bbb228cd6db18b86bd294fdc667b67607f60b81e780422939e244ee4' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('portals') %}
 
 portals-download-only:
   file.managed:

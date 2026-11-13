@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '1.4.1' %}
-{% set hash = '3d28bfddffef323583a20ac1c257801e6405ea68fba661b81c5cbec4560eaffa' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('clamav') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 clamav-download-only:
   file.managed:

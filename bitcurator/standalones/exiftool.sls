@@ -1,21 +1,32 @@
 # Name: ExifTool
 # Website: https://exiftool.org
 # Description: Tool for analysing EXIF data from files
-# Category: Archival
+# Category: Documents / Editors
 # Author: Phil Harvey
 # License: https://exiftool.org/#license
-# Version: 13.32
+# Version: 13.63
 # Notes:
 
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set version = '13.32' %}
-{% set hash = '1c1863883d543db4b95a0e4fa52bbfd0be9e996ae6b411aad2af5f1787912a2e' %}
+{% set version_query = salt['http.query']('https://exiftool.org/ver.txt', backend='requests', verify_ssl=True) %}
+{% set version = version_query.get('body').strip() %}
+{% set hash_query = salt['http.query']('https://exiftool.org/checksums.txt', backend='requests', verify_ssl=True) %}
+{% set hash_content = hash_query.get('body').splitlines() %}
+{% set ns = namespace(exiftool_hash='') %}
+{% for line in hash_content %}
+{% if 'SHA2-256(exiftool-' ~ version ~ '_64.zip)' in line %}
+{% set ns.exiftool_hash = line.split()[-1].strip() %}
+{% endif %}
+{% endfor %}
+
+include:
+  - bitcurator.config.shims
 
 exiftool-download:
   file.managed:
     - name: 'C:\salt\tempdownload\exiftool-{{ version }}_64.zip'
-    - source: https://exiftool.org/exiftool-{{ version }}_64.zip
-    - source_hash: sha256={{ hash }}
+    - source: https://sourceforge.net/projects/exiftool/files/exiftool-{{ version }}_64.zip/download
+    - source_hash: sha256={{ ns.exiftool_hash }}
     - makedirs: True
 
 exiftool-extract:
@@ -43,8 +54,8 @@ exiftool-rename:
       - archive: exiftool-extract
       - file: exiftool-folder-rename
 
-exiftool-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\exiftool\'
+exiftool-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\exiftool\exiftool.exe -OutPath {{ inpath }}\shims\exiftool.exe'
     - require:
-      - file: exiftool-rename
+      - sls: bitcurator.config.shims

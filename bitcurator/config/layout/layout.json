@@ -16,7 +16,7 @@
         "ExtraTiles": []
       },
 	  "analyzeMFT": {
-        "CbName": "python_packages_analyzemft",
+        "CbName": "python3_tools_analyzemft",
         "CbContent": "analyzeMFT",
         "DAID": "",
         "AUMID": false,
@@ -49,7 +49,7 @@
         "ExtraTiles": []
       },
 	  "bagit-python": {
-        "CbName": "python_packages_bagit_python",
+        "CbName": "python3_tools_bagit_python",
         "CbContent": "bagit-python",
         "DAID": "",
         "AUMID": false,
@@ -71,7 +71,7 @@
         "ExtraTiles": []
       },
 	  "BitCurator Python Tools": {
-        "CbName": "python_packages_bitcurator_python_tools",
+        "CbName": "python3_tools_bitcurator_python_tools",
         "CbContent": "BitCurator Python Tools",
         "DAID": "",
         "AUMID": false,
@@ -82,7 +82,7 @@
         "ExtraTiles": []
       },
 	  "brunnhilde": {
-        "CbName": "python_packages_brunnhilde",
+        "CbName": "python3_tools_brunnhilde",
         "CbContent": "brunnhilde",
         "DAID": "",
         "AUMID": false,
@@ -148,7 +148,7 @@
         "ExtraTiles": []
       },
 	  "Demystify": {
-        "CbName": "python_packages_demystify",
+        "CbName": "python3_tools_demystify",
         "CbContent": "Demystify",
         "DAID": "",
         "AUMID": false,
@@ -170,7 +170,7 @@
         "ExtraTiles": []
       },
 	  "dfxml-python": {
-        "CbName": "python_packages_dfxml_python",
+        "CbName": "python3_tools_dfxml_python",
         "CbContent": "dfxml-python",
         "DAID": "",
         "AUMID": false,
@@ -214,7 +214,7 @@
         "ExtraTiles": []
       },
 	  "DVD Transcoder": {
-        "CbName": "python_packages_dvd_transcoder",
+        "CbName": "python3_tools_dvd_transcoder",
         "CbContent": "DVD Transcoder",
         "DAID": "",
         "AUMID": false,
@@ -269,7 +269,7 @@
         "ExtraTiles": []
       },
       "FIDO": {
-        "CbName": "python_packages_fido",
+        "CbName": "python3_tools_fido",
         "CbContent": "FIDO",
         "DAID": "",
         "AUMID": false,
@@ -324,9 +324,9 @@
         "ExtraTiles": []
       },
 	  "FluxEngine": {
-        "CbName": "standalones_fluxengine",
+        "CbName": "packages_fluxengine",
         "CbContent": "FluxEngine",
-        "DAID": "{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Cowlark Technologies\\FluxEngine\\fluxengine-gui.exe",
+        "DAID": "{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\fluxengine\\fluxengine-gui.exe",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
@@ -445,7 +445,7 @@
         "ExtraTiles": []
       },
 	  "mailbagit": {
-        "CbName": "python_packages_mailbagit",
+        "CbName": "python3_tools_mailbagit",
         "CbContent": "mailbagit",
         "DAID": "",
         "AUMID": false,
@@ -511,7 +511,7 @@
         "ExtraTiles": []
       },
 	  "OpenAI Whisper": {
-        "CbName": "python_packages_openai_whisper",
+        "CbName": "python3_tools_openai_whisper",
         "CbContent": "OpenAI Whisper",
         "DAID": "",
         "AUMID": false,
@@ -544,7 +544,7 @@
         "ExtraTiles": []
       },
 	  "PyMuPDF": {
-        "CbName": "python_packages_pymupdf",
+        "CbName": "python3_tools_pymupdf",
         "CbContent": "PyMuPDF",
         "DAID": "",
         "AUMID": false,
@@ -555,7 +555,7 @@
         "ExtraTiles": []
       },
 	  "python-evtx": {
-        "CbName": "python_packages_python_evtx",
+        "CbName": "python3_tools_python_evtx",
         "CbContent": "python-evtx",
         "DAID": "",
         "AUMID": false,
@@ -783,17 +783,6 @@
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
-        "Checked": true,
-        "Enabled": true,
-        "ExtraTiles": []
-      },
-      "OpenHashTab": {
-        "CbName": "packages_openhashtab",
-        "CbContent": "OpenHashTab",
-        "DAID": "",
-        "AUMID": false,
-        "DALP": false,
-        "StartMenu": false,
         "Checked": true,
         "Enabled": true,
         "ExtraTiles": []

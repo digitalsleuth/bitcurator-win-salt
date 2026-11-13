@@ -9,10 +9,12 @@
 
 {% set version = '1.6.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '32e436effe7251c5b067ec3f02321d5baf4944b3f0d1010fb8ec42039d9e3b73' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('fits') %}
 
 include:
   - bitcurator.packages.openjdk-adoptium
+  - bitcurator.config.shims
 
 fits-download:
   file.managed:
@@ -30,8 +32,9 @@ fits-extract:
       - file: fits-download
       - sls: bitcurator.packages.openjdk-adoptium
 
-fits-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\fits\'
+fits-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\fits\fits.bat -OutPath {{ inpath }}\shims\fits.exe'
     - require:
       - archive: fits-extract
+      - sls: bitcurator.config.shims

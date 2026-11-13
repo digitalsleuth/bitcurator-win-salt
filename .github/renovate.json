@@ -1,0 +1,88 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "enabledManagers": ["custom.regex"],
+  "timezone": "America/Toronto",
+  "schedule": ["after 6pm"],
+  "packageRules": [
+    {
+      "matchDatasources": ["github-releases"],
+      "extractVersion": "^v?(?<version>.+)$"
+    },
+    {
+      "description": "git-for-windows tags look like v2.56.1.windows.1",
+      "matchDepNames": ["git-for-windows/git"],
+      "extractVersion": "^v(?<version>\\d+\\.\\d+\\.\\d+)\\.windows\\.\\d+$"
+    },
+    {
+      "description": "tags look like hfsexplorer-2026.4.9",
+      "matchDepNames": ["unsound/hfsexplorer"],
+      "extractVersion": "^hfsexplorer-(?<version>.+)$"
+    },
+    {
+      "description": "tags look like release/v2.9.3",
+      "matchDepNames": ["windirstat/windirstat"],
+      "extractVersion": "^release/v(?<version>.+)$"
+    },
+    {
+      "description": "tags look like jdk-21.0.9+10; the +10 build number is subversion in hashes.jinja",
+      "matchDepNames": ["adoptium/temurin21-binaries"],
+      "extractVersion": "^jdk-(?<version>\\d+\\.\\d+\\.\\d+)\\+\\d+$"
+    },
+    {
+      "description": "this repo also publishes date-stamped nightly builds",
+      "matchDepNames": ["GyanD/codexffmpeg"],
+      "allowedVersions": "/^\\d+\\.\\d+(\\.\\d+)?$/"
+    },
+    {
+      "description": "date-style versions (20240930 to 20250625) exceed Renovate's default maxMajorIncrement of 500",
+      "matchDepNames": ["openai-whisper"],
+      "maxMajorIncrement": 0
+    },
+    {
+      "description": "fluxengine has no versioned releases (version 0.0.0, tag dev)",
+      "matchFileNames": ["bitcurator/**/fluxengine.sls"],
+      "enabled": false
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "GitHub tools: repo comes from the source URL",
+      "managerFilePatterns": ["/^bitcurator/(downloads/|offline/)?(installers|packages|python3-tools|standalones)/[^/]+\\.sls$/"],
+      "matchStringsStrategy": "combination",
+      "matchStrings": [
+        "\\{% set version = ['\"](?<currentValue>[^'\"]+)['\"] %\\}",
+        "https://github\\.com/(?<depName>[\\w.-]+/[\\w.-]+)/(?:releases/download|archive/refs/tags)/"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "description": "Annotated states (PyPI, plain copies without a GitHub URL)",
+      "managerFilePatterns": ["/^bitcurator/(downloads/|offline/)?(installers|packages|python3-tools|standalones)/[^/]+\\.sls$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\r?\\n\\{% set version = ['\"](?<currentValue>[^'\"]+)['\"] %\\}"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "'# Version:' header line (GitHub tools, URL uses {{ version }})",
+      "managerFilePatterns": ["/^bitcurator/(downloads/|offline/)?(installers|packages|python3-tools|standalones)/[^/]+\\.sls$/"],
+      "matchStringsStrategy": "combination",
+      "matchStrings": [
+        "# Version: (?<currentValue>\\S+)[ \\t]*\\r?\\n",
+        "https://github\\.com/(?<depName>[\\w.-]+/[\\w.-]+)/(?:releases/download|archive/refs/tags)/[^\\r\\n]*\\{\\{[^}\\r\\n]*\\bversion\\b"
+      ],
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "description": "'# Version:' header line (annotated states)",
+      "managerFilePatterns": ["/^bitcurator/(downloads/|offline/)?(installers|packages|python3-tools|standalones)/[^/]+\\.sls$/"],
+      "matchStrings": [
+        "# Version: (?<currentValue>\\S+)[ \\t]*\\r?\\n[\\s\\S]*?# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\r?\\n\\{% set version = "
+      ]
+    }
+  ]
+}

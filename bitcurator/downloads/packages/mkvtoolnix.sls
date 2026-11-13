@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '88.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '1b685cbeb4b05e7cc342c92914486bd71a7ab0bfeb577106db94abfb9771da5a' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('mkvtoolnix') %}
 
 mkvtoolnix-download-only:
   file.managed:

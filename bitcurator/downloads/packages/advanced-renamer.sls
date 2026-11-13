@@ -4,12 +4,13 @@
 # Category: Archival
 # Author: Kim Jensen (https://www.advancedrenamer.com/about)
 # License: https://advancedrenamer.com/license
-# Version: 4.06
+# Version: 4.28
 # Notes: 
 
-{% set version = '4.06' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'ff267ad788b69c26cc3a60385f222f318efb5707c00cf44a8756aff6541801f3' %}
+{% set version = '4.28' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('advanced-renamer') %}
 
 advanced-renamer-download-only:
   file.managed:

@@ -8,12 +8,13 @@
 # Notes: Packaged separately for silent unattended installation
 
 {% set version = '1.32.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'ce548598ddd107a349007c5ab0f9e4c1c40ad858cd3095dc592fc9197a3cbbc4' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('jhove') %}
 
 jhove-download-only:
   file.managed:
-    - name: '{{ downloads }}\jhove\jove-{{ version }}.zip'
+    - name: '{{ downloads }}\jhove\jhove-{{ version }}.zip'
     - source: salt://bitcurator/files/jhove-{{ version }}.zip
-    - skip_verify: True
+    - source_hash: sha256={{ hash }}
     - makedirs: True

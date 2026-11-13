@@ -7,13 +7,15 @@
 # Version: 2021.10.9
 # Notes: 
 
+# renovate: datasource=github-releases depName=unsound/hfsexplorer
 {% set version = '2021.10.9' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'f4f55575d3e91fcce05dd994ebc6babcec317a4b27ee986e8a9a37f936ea2d44' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('hfs-explorer') %}
 
 hfs-explorer-download-only:
   file.managed:
-    - name: '{{ downloads }}\hfs-exporer\hfs-explorer-{{ version }}-setup.exe'
+    - name: '{{ downloads }}\hfs-explorer\hfs-explorer-{{ version }}-setup.exe'
     - source: https://github.com/unsound/hfsexplorer/releases/download/hfsexplorer-{{ version }}/hfsexplorer-{{ version }}-setup.exe
     - source_hash: sha256={{ hash }}
     - makedirs: True

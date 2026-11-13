@@ -1,0 +1,168 @@
+include:
+  - bitcurator.offline.installers.hxd
+  - bitcurator.offline.installers.windows-terminal
+  - bitcurator.offline.installers.windows-winget
+  - bitcurator.offline.packages.7zip
+  - bitcurator.offline.packages.advanced-renamer
+  - bitcurator.offline.packages.bagger
+  - bitcurator.offline.packages.beyond-compare
+  - bitcurator.offline.packages.bulk-extractor
+  - bitcurator.offline.packages.bulk-rename-utility
+  - bitcurator.offline.packages.chrome
+  - bitcurator.offline.packages.clamav
+  - bitcurator.offline.packages.dart
+  - bitcurator.offline.packages.dotnetfx35
+  - bitcurator.offline.packages.dupeguru
+  - bitcurator.offline.packages.duplicate-cleaner
+  - bitcurator.offline.packages.epadd
+  - bitcurator.offline.packages.exact-audio-copy
+  - bitcurator.offline.packages.filezilla-client
+  - bitcurator.offline.packages.firefox
+  - bitcurator.offline.packages.fluxengine
+  - bitcurator.offline.packages.free-hex-editor-neo
+  - bitcurator.offline.packages.ftk-imager
+  - bitcurator.offline.packages.gimp
+  - bitcurator.offline.packages.git
+  - bitcurator.offline.packages.hfs-explorer
+  - bitcurator.offline.packages.isobuster
+  - bitcurator.offline.packages.jre8
+  - bitcurator.offline.packages.karens-directory-printer
+  - bitcurator.offline.packages.libreoffice
+  - bitcurator.offline.packages.mediainfo
+  - bitcurator.offline.packages.mkvtoolnix
+  - bitcurator.offline.packages.ms-powertoys
+  - bitcurator.offline.packages.ms-vcpp-2015-build-tools
+  - bitcurator.offline.packages.notepad-plus-plus
+  - bitcurator.offline.packages.openjdk-adoptium
+  - bitcurator.offline.packages.openrefine
+  - bitcurator.offline.packages.portals
+  - bitcurator.offline.packages.powergrep
+  - bitcurator.offline.packages.python3
+  - bitcurator.offline.packages.saltstack
+  - bitcurator.offline.packages.sublime-text
+  - bitcurator.offline.packages.teracopy
+  - bitcurator.offline.packages.treesize-pro
+  - bitcurator.offline.packages.vlc
+  - bitcurator.offline.packages.voidtools-everything
+  - bitcurator.offline.packages.vrenamer
+  - bitcurator.offline.packages.windirstat
+  - bitcurator.offline.packages.winmerge
+  - bitcurator.offline.python3-tools.analyzemft
+  - bitcurator.offline.python3-tools.bagit-python
+  - bitcurator.offline.python3-tools.bitcurator-python-tools
+  - bitcurator.offline.python3-tools.brunnhilde
+  - bitcurator.offline.python3-tools.demystify
+  - bitcurator.offline.python3-tools.dfxml-python
+  - bitcurator.offline.python3-tools.dvd-transcoder
+  - bitcurator.offline.python3-tools.fido
+  - bitcurator.offline.python3-tools.mailbagit
+  - bitcurator.offline.python3-tools.openai-whisper
+  - bitcurator.offline.python3-tools.pymupdf
+  - bitcurator.offline.python3-tools.python-evtx
+  - bitcurator.offline.standalones.antiword
+  - bitcurator.offline.standalones.deark
+  - bitcurator.offline.standalones.demystify-lite
+  - bitcurator.offline.standalones.droid
+  - bitcurator.offline.standalones.exiftool
+  - bitcurator.offline.standalones.ffmpeg
+  - bitcurator.offline.standalones.filelist
+  - bitcurator.offline.standalones.filelistcreator
+  - bitcurator.offline.standalones.fits
+  - bitcurator.offline.standalones.hashdeep
+  - bitcurator.offline.standalones.hashmyfiles
+  - bitcurator.offline.standalones.jdupes
+  - bitcurator.offline.standalones.jhove
+  - bitcurator.offline.standalones.kryoflux
+  - bitcurator.offline.standalones.mediainfo-cli
+  - bitcurator.offline.standalones.mupdf
+  - bitcurator.offline.standalones.nsrllookup
+  - bitcurator.offline.standalones.rawcooked
+  - bitcurator.offline.standalones.rclone
+  - bitcurator.offline.standalones.siegfried
+  - bitcurator.offline.standalones.tika
+
+bitcurator-offline:
+  test.nop:
+    - name: bitcurator-offline
+    - require:
+      - sls: bitcurator.offline.installers.hxd
+      - sls: bitcurator.offline.installers.windows-terminal
+      - sls: bitcurator.offline.installers.windows-winget
+      - sls: bitcurator.offline.packages.7zip
+      - sls: bitcurator.offline.packages.advanced-renamer
+      - sls: bitcurator.offline.packages.bagger
+      - sls: bitcurator.offline.packages.beyond-compare
+      - sls: bitcurator.offline.packages.bulk-extractor
+      - sls: bitcurator.offline.packages.bulk-rename-utility
+      - sls: bitcurator.offline.packages.chrome
+      - sls: bitcurator.offline.packages.clamav
+      - sls: bitcurator.offline.packages.dart
+      - sls: bitcurator.offline.packages.dotnetfx35
+      - sls: bitcurator.offline.packages.dupeguru
+      - sls: bitcurator.offline.packages.duplicate-cleaner
+      - sls: bitcurator.offline.packages.epadd
+      - sls: bitcurator.offline.packages.exact-audio-copy
+      - sls: bitcurator.offline.packages.filezilla-client
+      - sls: bitcurator.offline.packages.firefox
+      - sls: bitcurator.offline.packages.free-hex-editor-neo
+      - sls: bitcurator.offline.packages.fluxengine
+      - sls: bitcurator.offline.packages.ftk-imager
+      - sls: bitcurator.offline.packages.gimp
+      - sls: bitcurator.offline.packages.git
+      - sls: bitcurator.offline.packages.hfs-explorer
+      - sls: bitcurator.offline.packages.isobuster
+      - sls: bitcurator.offline.packages.jre8
+      - sls: bitcurator.offline.packages.karens-directory-printer
+      - sls: bitcurator.offline.packages.libreoffice
+      - sls: bitcurator.offline.packages.mediainfo
+      - sls: bitcurator.offline.packages.mkvtoolnix
+      - sls: bitcurator.offline.packages.ms-powertoys
+      - sls: bitcurator.offline.packages.ms-vcpp-2015-build-tools
+      - sls: bitcurator.offline.packages.notepad-plus-plus
+      - sls: bitcurator.offline.packages.openjdk-adoptium
+      - sls: bitcurator.offline.packages.openrefine
+      - sls: bitcurator.offline.packages.portals
+      - sls: bitcurator.offline.packages.powergrep
+      - sls: bitcurator.offline.packages.python3
+      - sls: bitcurator.offline.packages.saltstack
+      - sls: bitcurator.offline.packages.sublime-text
+      - sls: bitcurator.offline.packages.teracopy
+      - sls: bitcurator.offline.packages.treesize-pro
+      - sls: bitcurator.offline.packages.vlc
+      - sls: bitcurator.offline.packages.voidtools-everything
+      - sls: bitcurator.offline.packages.vrenamer
+      - sls: bitcurator.offline.packages.windirstat
+      - sls: bitcurator.offline.packages.winmerge
+      - sls: bitcurator.offline.python3-tools.analyzemft
+      - sls: bitcurator.offline.python3-tools.bagit-python
+      - sls: bitcurator.offline.python3-tools.bitcurator-python-tools
+      - sls: bitcurator.offline.python3-tools.brunnhilde
+      - sls: bitcurator.offline.python3-tools.demystify
+      - sls: bitcurator.offline.python3-tools.dfxml-python
+      - sls: bitcurator.offline.python3-tools.dvd-transcoder
+      - sls: bitcurator.offline.python3-tools.fido
+      - sls: bitcurator.offline.python3-tools.mailbagit
+      - sls: bitcurator.offline.python3-tools.openai-whisper
+      - sls: bitcurator.offline.python3-tools.pymupdf
+      - sls: bitcurator.offline.python3-tools.python-evtx
+      - sls: bitcurator.offline.standalones.antiword
+      - sls: bitcurator.offline.standalones.deark
+      - sls: bitcurator.offline.standalones.demystify-lite
+      - sls: bitcurator.offline.standalones.droid
+      - sls: bitcurator.offline.standalones.exiftool
+      - sls: bitcurator.offline.standalones.ffmpeg
+      - sls: bitcurator.offline.standalones.filelist
+      - sls: bitcurator.offline.standalones.filelistcreator
+      - sls: bitcurator.offline.standalones.fits
+      - sls: bitcurator.offline.standalones.hashdeep
+      - sls: bitcurator.offline.standalones.hashmyfiles
+      - sls: bitcurator.offline.standalones.jdupes
+      - sls: bitcurator.offline.standalones.jhove
+      - sls: bitcurator.offline.standalones.kryoflux
+      - sls: bitcurator.offline.standalones.mediainfo-cli
+      - sls: bitcurator.offline.standalones.mupdf
+      - sls: bitcurator.offline.standalones.nsrllookup
+      - sls: bitcurator.offline.standalones.rawcooked
+      - sls: bitcurator.offline.standalones.rclone
+      - sls: bitcurator.offline.standalones.siegfried
+      - sls: bitcurator.offline.standalones.tika

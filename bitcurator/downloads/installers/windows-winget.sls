@@ -8,7 +8,7 @@
 # Notes: 
 
 {% set version = '1.7.10861' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 windows-winget-download-only:
   file.managed:

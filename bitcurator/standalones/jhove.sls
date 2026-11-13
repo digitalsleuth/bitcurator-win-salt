@@ -10,15 +10,18 @@
 {% set version = '1.32.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = 'ce548598ddd107a349007c5ab0f9e4c1c40ad858cd3095dc592fc9197a3cbbc4' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('jhove') %}
 
 include:
   - bitcurator.packages.openjdk-adoptium
+  - bitcurator.config.shims
 
 jhove-extract:
   archive.extracted:
     - name: '{{ inpath }}\'
     - source: salt://bitcurator/files/jhove-{{ version }}.zip
+    - source_hash: sha256={{ hash }}
     - enforce_toplevel: True
 
 jhove-config:
@@ -42,8 +45,9 @@ jhove-gui-icon:
     - require:
       - file: jhove-config
 
-jhove-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\jhove'
+jhove-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\jhove\jhove.bat -OutPath {{ inpath }}\shims\jhove.exe'
     - require:
       - file: jhove-config
+      - sls: bitcurator.config.shims

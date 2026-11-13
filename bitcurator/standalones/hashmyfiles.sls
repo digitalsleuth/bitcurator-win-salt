@@ -4,13 +4,14 @@
 # Category: Archival
 # Author: Nir Softer
 # License: Freeware (https://www.nirsoft.net/utils/hash_my_files.html)
-# Version: 2.5.0
+# Version: 2.52
 # Notes: 
 
-{% set version = '2.5.0' %}
+{% set version = '2.52' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = '38ead72bb0df274156e14f7e3a258021c5dff0a345cb63f6447da581d585c8ee' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('hashmyfiles') %}
 
 hashmyfiles-download:
   file.managed:

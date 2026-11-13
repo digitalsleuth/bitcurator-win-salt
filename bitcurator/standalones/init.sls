@@ -8,7 +8,6 @@ include:
   - bitcurator.standalones.filelistcreator
   - bitcurator.standalones.filelist
   - bitcurator.standalones.fits
-  - bitcurator.standalones.fluxengine
   - bitcurator.standalones.hashdeep
   - bitcurator.standalones.hashmyfiles
   - bitcurator.standalones.jdupes
@@ -35,7 +34,6 @@ bitcurator-standalones:
       - sls: bitcurator.standalones.filelistcreator
       - sls: bitcurator.standalones.filelist
       - sls: bitcurator.standalones.fits
-      - sls: bitcurator.standalones.fluxengine
       - sls: bitcurator.standalones.hashdeep
       - sls: bitcurator.standalones.hashmyfiles
       - sls: bitcurator.standalones.jdupes

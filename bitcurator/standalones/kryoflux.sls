@@ -9,7 +9,8 @@
 
 {% set version = '3.50' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'ae92e569f74846d7be6f83e90ccbfdcb4ad7bc4b942a6a8ca9f905cfcb5c09a5' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('kryoflux') %}
 
 kryoflux-drivers-download:
   file.managed:

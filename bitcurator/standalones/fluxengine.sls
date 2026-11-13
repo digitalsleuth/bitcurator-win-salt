@@ -9,7 +9,8 @@
 
 {% set version = '0.0.0' %}
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
-{% set hash = '65b11b8ac51b6113d569bc619fa7b400738a35295ce5bd287b8c476f8f9f02f0' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('fluxengine') %}
 
 fluxengine-download:
   file.managed:

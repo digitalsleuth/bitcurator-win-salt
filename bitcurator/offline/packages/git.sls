@@ -1,0 +1,27 @@
+# Name: Git for Windows
+# Website: https://github.com/git-for-windows/git
+# Description: Version Control System for Windows
+# Category: Requirements
+# Author: Git (git-scm.com)
+# License: GNU Public License and Lesser GNU Public License (https://github.com/git-for-windows/git/blob/main/COPYING, https://github.com/git-for-windows/git/blob/main/LGPL-2.1)
+# Version: 2.38.1
+# Notes: 
+
+# renovate: datasource=github-releases depName=git-for-windows/git
+{% set version = '2.38.1' %}
+{% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
+{% set pkg = 'git-' ~ version ~ '.exe' %}
+{% set exists = salt['file.file_exists'](downloads + '\\git\\' + pkg) %}
+
+{% if exists %}
+
+git-install-offline:
+  cmd.run:
+    - name: '"{{ downloads }}\git\{{ pkg }}" /VERYSILENT /NORESTART /SP- /NOCANCEL /SUPPRESSMSGBOXES'
+    - shell: cmd
+    - cwd: '{{ downloads }}\git\'
+
+{% else %}
+{{ pkg }} does not exist - not installing:
+  test.nop
+{% endif %}

@@ -8,7 +8,8 @@
 # Notes: Will prompt for firewall access on first launch
 
 {% set version = '11.0.2' %}
-{% set hash = 'f72cb3bfbe6cd2f897171496ffbb7f84fefd9d3dc5b891ac5ff76cf9fed44b6a' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('epadd') %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 

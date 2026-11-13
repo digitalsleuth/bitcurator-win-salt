@@ -9,7 +9,11 @@
 
 {% set version = '1.68.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '812bf76cc02c04cf6327f3683f3d5a88e47d36c39db84c1a745777496be7d993' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('rclone') %}
+
+include:
+  - bitcurator.config.shims
 
 rclone-download:
   file.managed:
@@ -35,8 +39,9 @@ rclone-rename:
     - require:
       - archive: rclone-extract
 
-rclone-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\rclone'
+rclone-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\rclone\rclone.exe -OutPath {{ inpath }}\shims\rclone.exe'
     - require:
       - file: rclone-rename
+      - sls: bitcurator.config.shims

@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '2.5.0.0' %}
-{% set hash = '5065041c7b03c24b9533a5b32b33db58f2b4924cd84bed41834ff2db51c1cb7c' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('hxd') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 hxd-download-only:
   file.managed:

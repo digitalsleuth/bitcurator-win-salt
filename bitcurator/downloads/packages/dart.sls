@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '2.0.22' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '78f09829575c60ba86fc22f47a5d810559a3624e01baefa82a8220451c846ae0' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('dart') %}
 
 dart-download-only:
   file.managed:

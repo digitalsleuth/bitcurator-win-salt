@@ -8,8 +8,9 @@
 # Notes: sf.exe, roy.exe
 
 {% set version = '1.11.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '89188357e78f4405f0c7d2b71d24668d9f9dd83ecc5df9901dd7fdc12d77b809' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('siegfried') %}
 
 siegfried-download-only:
   file.managed:

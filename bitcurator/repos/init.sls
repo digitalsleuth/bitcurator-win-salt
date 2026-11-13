@@ -1,3 +1,8 @@
+{% set saltpath = salt['pillar.get']('saltpath', 'C:\Program Files\Salt Project\Salt\salt-call.exe') %}
+{% set offline = salt['pillar.get']('offline', None) %}
+
+{% if not offline %}
+
 {% set current_commit = salt['cmd.run']('powershell -c "(Invoke-RestMethod -Uri https://api.github.com/repos/digitalsleuth/salt-winrepo-ng/commits)[0].sha"') -%}
 {% set head = "C:\\ProgramData\\Salt Project\\Salt\\srv\\salt\\win\\repo-ng\\salt-winrepo-ng\\_\\.git\\HEAD" %}
 {% if salt['file.file_exists'](head) %}
@@ -5,6 +10,8 @@
 {% else %}
 {% set local_commit = '' %}
 {% endif %}
+{% set conf_exists = salt['file.file_exists']('C:\ProgramData\Salt Project\salt\conf\minion') %}
+{% if conf_exists %}
 
 repo-add-1:
   file.replace:
@@ -42,7 +49,7 @@ Local repo up-to-date with online repo:
 
 repo-update:
   cmd.run:
-    - name: '"C:\Program Files\Salt Project\Salt\salt-call.exe" --local winrepo.update_git_repos'
+    - name: '"{{ saltpath }}" --local winrepo.update_git_repos'
     - require:
       - file: repo-add-1
       - file: repo-add-2
@@ -50,8 +57,41 @@ repo-update:
 
 repo-refresh-db:
   cmd.run:
-    - name: '"C:\Program Files\Salt Project\Salt\salt-call.exe" --local pkg.refresh_db'
+    - name: '"{{ saltpath }}" --local pkg.refresh_db'
     - require:
       - cmd: repo-update
 
+{% endif %}
+
+{% else %}
+
+salt-conf-create:
+  file.managed:
+    - name: 'C:\ProgramData\Salt Project\salt\conf\minion'
+    - contents: |
+        master: localhost
+        id: WIN-FOR
+        winrepo_remotes_ng:
+          - main https://github.com/digitalsleuth/salt-winrepo-ng.git
+        winrepo_remotes:
+
+repo-update-new-conf:
+  cmd.run:
+    - name: '"{{ saltpath }}" --local winrepo.update_git_repos'
+    - shell: cmd
+    - require:
+      - file: salt-conf-create
+
+repo-refresh-db-new-conf:
+  cmd.run:
+    - name: '"{{ saltpath }}" --local pkg.refresh_db'
+    - shell: cmd
+    - require:
+      - cmd: repo-update-new-conf
+
+{% endif %}
+
+{% else %}
+Repo not required in offline mode:
+  test.nop
 {% endif %}

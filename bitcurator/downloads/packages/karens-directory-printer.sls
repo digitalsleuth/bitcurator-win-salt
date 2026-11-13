@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '5.4.4' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'd4ee3c6b1e12e72854022bb360ece5a7574b9cd3afc4024fe62b369db9920e7f' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('karens-directory-printer') %}
 
 karens-directory-printer-download-only:
   file.managed:

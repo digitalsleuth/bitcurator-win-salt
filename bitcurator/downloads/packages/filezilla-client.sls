@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '3.68.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '1feb6c12f584e98f9fddf95bf128f549310c738376fab82a5893eafed765ad83' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('filezilla-client') %}
 
 filezilla-client-download-only:
   file.managed:

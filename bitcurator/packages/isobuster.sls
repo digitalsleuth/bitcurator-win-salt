@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Smart Projects / Peter Van Hove
 # License: Free (https://www.isobuster.com/license-models.php)
-# Version: 5.5
+# Version: 5.8
 # Notes: 
 
-{% set version = '5.5' %}
+{% set version = '5.8' %}
 
 include:
   - bitcurator.repos

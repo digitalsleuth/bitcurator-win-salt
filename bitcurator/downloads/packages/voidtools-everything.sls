@@ -7,9 +7,10 @@
 # Version: 1.4.1.1026
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '1.4.1.1026' %}
-{% set hash = 'dae32a49b6052f0ec70895dd4e35b2b26222f7f4c19c36d9d309033e2fb622bc' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('voidtools-everything') %}
 
 voidtools-everything-download-only:
   file.managed:

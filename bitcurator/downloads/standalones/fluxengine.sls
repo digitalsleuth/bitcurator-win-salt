@@ -8,8 +8,9 @@
 # Notes: Installs for current user
 
 {% set version = '0.0.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '65b11b8ac51b6113d569bc619fa7b400738a35295ce5bd287b8c476f8f9f02f0' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('fluxengine') %}
 
 fluxengine-download-only:
   file.managed:

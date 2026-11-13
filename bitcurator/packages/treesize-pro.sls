@@ -4,8 +4,10 @@
 # Category: Archival
 # Author: Jam Software
 # License: Trial Version of Pro (https://www.jam-software.com/company/license_agreement.shtml#freeware-and-trial-versions-570287)
-# Version: 9.6.2
+# Version: 9.9.1
 # Notes: 
+
+{% set version = '9.9.1' %}
 
 include:
   - bitcurator.repos

@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '0.86.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '857de9dc5938d9602f82dfd6183db5e6823b875a412aec59b4be93617e27e9cd' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('ms-powertoys') %}
 
 ms-powertoys-download-only:
   file.managed:

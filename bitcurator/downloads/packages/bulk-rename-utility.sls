@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '4.1.0.0' %}
-{% set hash = '043d511228707ccb864b62eac1df59a8d6cde5c0876494c2cc8d0dc73e86f8ac' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('bulk-rename-utility') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 bulk-rename-utility-download-only:
   file.managed:

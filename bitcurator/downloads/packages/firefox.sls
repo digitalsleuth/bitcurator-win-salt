@@ -7,9 +7,10 @@
 # Version: 133.0.3
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '133.0.3' %}
-{% set hash = '4e6f266c706ab183f3c9c1c9e619e8641eab4e9a93cbd09f34452197d98a0c9e' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('firefox') %}
 
 firefox_x64-download-only:
   file.managed:

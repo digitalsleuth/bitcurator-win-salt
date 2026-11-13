@@ -9,10 +9,12 @@
 
 {% set version = '1.6.8' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'ad4846a0eb4a8247e9893f42a8ab2b89750a0fea060d60626684746bf511f6a4' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('deark') %}
 
 include:
   - bitcurator.packages.7zip
+  - bitcurator.config.shims
 
 deark-download:
   file.managed:
@@ -42,6 +44,9 @@ deark-folder-rename:
     - require:
       - cmd: deark-extract
 
-deark-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\deark\x64\'
+deark-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\deark\x64\deark.exe -OutPath {{ inpath }}\shims\deark.exe'
+    - require:
+      - file: deark-folder-rename
+      - sls: bitcurator.config.shims

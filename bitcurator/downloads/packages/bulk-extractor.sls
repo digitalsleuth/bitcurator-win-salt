@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '1.5.5' %}
-{% set hash = 'a410898e3452940c4aaa45bda6f32fe9447a61864266ff625c1916ee85764a39' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('bulk-extractor') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 bulk-extractor-download-only:
   file.managed:

@@ -8,7 +8,7 @@
 # Notes: 
 
 {% set version = '0.0.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 include:
   - bitcurator.packages.git

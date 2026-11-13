@@ -7,9 +7,11 @@
 # Version: 2.1.1
 # Notes: 
 
+# renovate: datasource=github-releases depName=windirstat/windirstat
 {% set version = '2.1.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '95020ad73627c39b798df70080e7c375612987910327a27a95e325077ca18ac0' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('windirstat') %}
 
 windirstat-download-only:
   file.managed:

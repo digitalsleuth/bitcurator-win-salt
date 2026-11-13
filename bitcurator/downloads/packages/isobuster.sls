@@ -4,12 +4,13 @@
 # Category: Archival
 # Author: Smart Projects / Peter Van Hove
 # License: Free (https://www.isobuster.com/license-models.php)
-# Version: 5.5
+# Version: 5.8
 # Notes: 
 
-{% set version = '5.5' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '6017d9decd40c62e5e6b3ae64d25b1431589db57388bbae4f90243817a23917b' %}
+{% set version = '5.8' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('isobuster') %}
 
 isobuster-download-only:
   file.managed:

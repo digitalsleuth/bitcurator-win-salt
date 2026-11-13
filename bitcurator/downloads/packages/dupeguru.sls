@@ -7,9 +7,11 @@
 # Version: 4.3.1
 # Notes: 
 
+# renovate: datasource=github-releases depName=arsenetar/dupeguru
 {% set version = '4.3.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '28293dada3c88336b2b53aca00adf59f85cabf1362f8386a8ffc6be5e1742836' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('dupeguru') %}
 
 dupeguru-download-only:
   file.managed:

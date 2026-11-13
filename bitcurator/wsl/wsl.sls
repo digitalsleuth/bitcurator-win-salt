@@ -10,7 +10,7 @@
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
 {% set SID = salt['user.info'](user).uid %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\bitcurator\VERSION") %}
+{% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\\bitcurator\VERSION") %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set defender_status = salt['cmd.run']('powershell -c "(Get-Service windefend).Status"') %}
 

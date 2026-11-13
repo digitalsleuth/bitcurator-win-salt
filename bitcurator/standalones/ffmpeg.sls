@@ -9,7 +9,11 @@
 
 {% set version = '7.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'fa074a46b7bb862e37aa27ccd0522d22a1fe90aec3a950c8e0c0c8622e0a03d1' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('ffmpeg') %}
+
+include:
+  - bitcurator.config.shims
 
 ffmpeg-download:
   file.managed:
@@ -34,8 +38,11 @@ ffmpeg-rename:
     - require:
       - archive: ffmpeg-extract
 
-ffmpeg-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\ffmpeg\bin\'
+{% for exe in ['ffmpeg', 'ffplay', 'ffprobe'] %}
+{{ exe }}-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\ffmpeg\bin\{{ exe }}.exe -OutPath {{ inpath }}\shims\{{ exe }}.exe'
     - require:
-      - archive: ffmpeg-extract
+      - file: ffmpeg-rename
+      - sls: bitcurator.config.shims
+{% endfor %}

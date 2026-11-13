@@ -10,7 +10,11 @@
 {% set version = '1.25.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = '8cdd89ab8e638e7fd9e2ae3e75dd980aafe507bea63ad7a2eeaff1be403fff8c' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('mupdf') %}
+
+include:
+  - bitcurator.config.shims
 
 mupdf-download:
   file.managed:
@@ -46,8 +50,11 @@ mupdf-shortcut:
     - require:
       - file: mupdf-rename
 
-mupdf-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\mupdf'
+{% for exe in ['mupdf', 'mupdf-gl', 'mutool'] %}
+{{ exe }}-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\mupdf\{{ exe }}.exe -OutPath {{ inpath }}\shims\{{ exe }}.exe'
     - require:
       - file: mupdf-rename
+      - sls: bitcurator.config.shims
+{% endfor %}

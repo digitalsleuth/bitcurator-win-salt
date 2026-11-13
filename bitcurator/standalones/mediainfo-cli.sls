@@ -9,7 +9,11 @@
 
 {% set version = '24.12' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'd945767f683c05ee5100f4883eda746767cf5f59acd998f37ae2acea7cc5760f' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('mediainfo-cli') %}
+
+include:
+  - bitcurator.config.shims
 
 mediainfo-cli-download:
   file.managed:
@@ -27,8 +31,9 @@ mediainfo-cli-extract:
     - require:
       - file: mediainfo-cli-download
 
-mediainfo-cli-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\mediainfo'
+mediainfo-cli-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\mediainfo\MediaInfo.exe -OutPath {{ inpath }}\shims\mediainfo.exe'
     - require:
       - archive: mediainfo-cli-extract
+      - sls: bitcurator.config.shims

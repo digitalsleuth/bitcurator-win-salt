@@ -7,7 +7,7 @@
 # Version: 108.0.5359.72
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 chrome-download-only:
   file.managed:

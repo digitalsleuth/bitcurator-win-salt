@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '24.8.4.2' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '76def06f2a8ecd5803dfbc63995e3963ae46b85e8c1c917541dedab81bd78169' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('libreoffice') %}
 
 libreoffice-download-only:
   file.managed:

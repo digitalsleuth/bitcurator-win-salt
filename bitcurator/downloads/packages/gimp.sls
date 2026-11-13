@@ -9,9 +9,10 @@
 
 {% set version = '2.10.38' %}
 {% set major_version = '2.10' %}
-{% set minor_version = '-1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'bdcf059c7d4e1b0ab59f8dc5f199ebb60ae0445460bf67ff8e4e438a89cee3d8' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set minor_version = get_hash('gimp', 'minor_version') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% set hash = get_hash('gimp') %}
 
 gimp-download-only:
   file.managed:

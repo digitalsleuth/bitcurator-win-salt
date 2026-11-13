@@ -8,8 +8,9 @@
 # Notes: Requires Java - https://javadl.oracle.com/webapps/download/AutoDL?BundleId=251408_0d8f12bc927a4e2c9f8568ca567db4ee
 
 {% set version = '2.8.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '8a1991e39764e007a336a5585e7c2c79a8edf406a63ef81d587b3c70b421af23' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('bagger') %}
 
 bagger-download-only:
   file.managed:

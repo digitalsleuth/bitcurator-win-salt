@@ -10,7 +10,8 @@
 {% set version = '24.8.29' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = 'cfe34a5345c49f1680775f4c585536e804b9a1991a3f5d983ac8f902d3682b17' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('filelistcreator') %}
 
 filelistcreator-download:
   file.managed:

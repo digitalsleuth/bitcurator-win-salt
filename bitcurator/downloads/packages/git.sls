@@ -8,12 +8,13 @@
 # Notes: 
 
 {% set version = '2.38.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'f3fe05e65cd7e9a9126784d4ad57fdf979d30d5987fe849af4348dbe3e284df6' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('git') %}
 
 git-download-only:
   file.managed:
-    - name: '{{ downloads }}\git\Git-{{ version }}-64-bit.exe'
+    - name: '{{ downloads }}\git\git-{{ version }}.exe'
     - source: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/Git-{{ version }}-64-bit.exe
     - source_hash: sha256={{ hash }}
     - makedirs: True

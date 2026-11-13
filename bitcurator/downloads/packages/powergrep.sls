@@ -4,12 +4,13 @@
 # Category: Archival
 # Author: Jan Goyvaerts
 # License: Free Trial
-# Version: 5.3.8
+# Version: 5.4.2
 # Notes: 
 
-{% set version = '5.3.8' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '2735c106c0c1412499a873d7f535f062be2805ff8bb558f238d12018c569a96a' %}
+{% set version = '5.4.2' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('powergrep') %}
 
 powergrep-download-only:
   file.managed:

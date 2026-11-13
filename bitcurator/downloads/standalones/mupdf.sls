@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '1.25.2' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '8cdd89ab8e638e7fd9e2ae3e75dd980aafe507bea63ad7a2eeaff1be403fff8c' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('mupdf') %}
 
 mupdf-download-only:
   file.managed:

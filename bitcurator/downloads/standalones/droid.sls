@@ -7,9 +7,10 @@
 # Version: 6.8.0
 # Notes: Command Line and GUI, this will utilize the GUI by default, updates signature database on install
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '6.8.0' %}
-{% set hash = '68ec8572485ea2c4d571829bd3c4f4f207b215eec9c5bb9e88189a75336e19e7' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('droid') %}
 
 droid-download-only:
   file.managed:

@@ -13,6 +13,7 @@
 
 include:
   - bitcurator.packages.git
+  - bitcurator.config.shims
 
 demystify-lite-clone:
   git.latest:
@@ -34,11 +35,12 @@ demystify-lite-wrapper:
     - require:
       - git: demystify-lite-clone
 
-demystify-lite-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\demystify-lite\'
+demystify-lite-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\demystify-lite\demystify-lite.cmd -OutPath {{ inpath }}\shims\demystify-lite.exe'
     - require:
       - file: demystify-lite-wrapper
+      - sls: bitcurator.config.shims
 
 demystify-lite-shortcut:
   file.shortcut:
@@ -49,4 +51,4 @@ demystify-lite-shortcut:
     - icon_location: '{{ inpath }}\demystify-lite\demystify.ico'
     - makedirs: True
     - require:
-      - win_path: demystify-lite-env-vars
+      - cmd: demystify-lite-shim

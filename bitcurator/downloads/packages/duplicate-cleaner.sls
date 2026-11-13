@@ -4,12 +4,13 @@
 # Category: Archival
 # Author: DigitalVolcano Software
 # License: 7 Day Free Trial - License after trial
-# Version: 5.25.0.0
+# Version: 5.28.0.0
 # Notes: 
 
-{% set version = '5.25.0.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '52cf63843eb40bdb5c5161bf5d10cbbb00ccf028726976039be61cdc475138e4' %}
+{% set version = '5.28.0.0' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('duplicate-cleaner') %}
 
 duplicate-cleaner-download-only:
   file.managed:

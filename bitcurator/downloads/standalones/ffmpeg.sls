@@ -8,8 +8,9 @@
 # Notes: ffmpeg, ffprobe, ffplay
 
 {% set version = '7.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'fa074a46b7bb862e37aa27ccd0522d22a1fe90aec3a950c8e0c0c8622e0a03d1' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('ffmpeg') %}
 
 ffmpeg-download-only:
   file.managed:

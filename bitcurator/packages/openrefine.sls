@@ -7,6 +7,7 @@
 # Version: 3.8.7
 # Notes: 
 
+# renovate: datasource=github-releases depName=OpenRefine/OpenRefine
 {% set version = '3.8.7' %}
 
 include:

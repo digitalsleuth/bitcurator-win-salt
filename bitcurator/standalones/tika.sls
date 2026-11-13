@@ -9,7 +9,11 @@
 
 {% set version = '3.2.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '268512b774a7a30e26ac1d6e3e5f7982cf6203a9822d4563be37b1922365d108' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('tika') %}
+
+include:
+  - bitcurator.config.shims
 
 tika-app-download:
   file.managed:
@@ -28,8 +32,9 @@ tika-app-wrapper:
     - require:
       - file: tika-app-download
 
-tika-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\tika\'
+tika-app-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\tika\tika-app.cmd -OutPath {{ inpath }}\shims\tika-app.exe'
     - require:
       - file: tika-app-wrapper
+      - sls: bitcurator.config.shims

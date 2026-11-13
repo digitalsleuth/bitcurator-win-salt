@@ -9,7 +9,11 @@
 
 {% set version = '4.4' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'd5e85933e74e5ba6a73f67346bc2e765075d26949c831a428166c92772f67dbc' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('hashdeep') %}
+
+include:
+  - bitcurator.config.shims
 
 hashdeep-download:
   file.managed:
@@ -34,8 +38,11 @@ hashdeep-rename:
     - require:
       - archive: hashdeep-extract
 
-hashdeep-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\hashdeep\'
+{% for exe in ['hashdeep', 'md5deep', 'sha1deep', 'sha256deep', 'tigerdeep', 'whirlpooldeep'] %}
+{{ exe }}-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\hashdeep\{{ exe }}64.exe -OutPath {{ inpath }}\shims\{{ exe }}.exe'
     - require:
       - file: hashdeep-rename
+      - sls: bitcurator.config.shims
+{% endfor %}

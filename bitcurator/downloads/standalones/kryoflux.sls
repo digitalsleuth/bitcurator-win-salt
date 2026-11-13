@@ -8,8 +8,9 @@
 # Notes: Drivers only
 
 {% set version = '3.50' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'ae92e569f74846d7be6f83e90ccbfdcb4ad7bc4b942a6a8ca9f905cfcb5c09a5' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('kryoflux') %}
 
 kryoflux-drivers-download-only:
   file.managed:

@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '24.11' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '8698beb2ab09da36fe745f3d46a901829d83bf8466abae5c49a189184be06c1f' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('rawcooked') %}
 
 rawcooked-download-only:
   file.managed:

@@ -7,9 +7,11 @@
 # Version: 3.8.7
 # Notes: 
 
+# renovate: datasource=github-releases depName=OpenRefine/OpenRefine
 {% set version = '3.8.7' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '32b70c90ccf8c19ba08f8fd0484d4f1c6db948f1011aa23e724205dded16526d' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('openrefine') %}
 
 openrefine-download-only:
   file.managed:

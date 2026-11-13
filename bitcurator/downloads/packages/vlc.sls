@@ -7,9 +7,10 @@
 # Version: 3.0.21
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '3.0.21' %}
-{% set hash = '9742689a50e96ddc04d80ceff046b28da2beefd617be18166f8c5e715ec60c59' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('vlc') %}
 
 vlc-download-only:
   file.managed:

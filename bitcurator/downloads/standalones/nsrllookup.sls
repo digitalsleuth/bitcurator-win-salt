@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '1.4.2' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '042023f7b19c6e08045f4ccee4c32283e46853474f0d9e2815f6232dc4b51b66' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('nsrllookup') %}
 
 nsrllookup-download-only:
   file.managed:

@@ -4,12 +4,16 @@
 # Category: Archival
 # Author: Jody Bruchon
 # License: MIT License (https://codeberg.org/jbruchon/jdupes/src/branch/master/LICENSE.txt)
-# Version: 1.28.0
+# Version: 1.31.3
 # Notes: 
 
-{% set version = '1.28.0' %}
+{% set version = '1.31.3' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = 'e212e9ddb5054809841af3bf5cf162fe520076a96665041d1a0843170aa27f32' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('jdupes') %}
+
+include:
+  - bitcurator.config.shims
 
 jdupes-download:
   file.managed:
@@ -34,8 +38,9 @@ jdupes-rename:
     - require:
       - archive: jdupes-extract
 
-jdupes-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\jdupes'
+jdupes-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\jdupes\jdupes.exe -OutPath {{ inpath }}\shims\jdupes.exe'
     - require:
       - file: jdupes-rename
+      - sls: bitcurator.config.shims

@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '3.2.1' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '268512b774a7a30e26ac1d6e3e5f7982cf6203a9822d4563be37b1922365d108' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('tika') %}
 
 tika-app-download-only:
   file.managed:

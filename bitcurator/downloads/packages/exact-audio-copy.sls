@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '1.8' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '205530cfbfdff82343858f38b0e709e586051fb8900ecd513d7992a3c1ef031b' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('exact-audio-copy') %}
 
 exact-audio-copy-download-only:
   file.managed:

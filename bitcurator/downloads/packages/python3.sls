@@ -3,13 +3,14 @@
 # Description: Python Programming Language Framework
 # Category: Requirements
 # Author: Python Software Foundation
-# License: Python Software Foundation License Version 2.0 (https://docs.python.org/3.10/license.html)
-# Version: 3.10.11150.0
+# License: Python Software Foundation License Version 2.0 (https://docs.python.org/3.11/license.html)
+# Version: 3.11.9
 # Notes:
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set version = '3.10.11' %}
-{% set hash = 'd8dede5005564b408ba50317108b765ed9c3c510342a598f9fd42681cbe0648b' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% set version = '3.11.9' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('python3') %}
 
 python3_x64-download-only:
   file.managed:

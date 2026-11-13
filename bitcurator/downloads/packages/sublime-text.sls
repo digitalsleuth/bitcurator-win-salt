@@ -7,9 +7,10 @@
 # Version: 4189
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '4189' %}
-{% set hash = '59bbd4e519d7205944af458dc026d98f131d57a05760402a72ea462f631e47ea' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('sublime-text') %}
 
 sublime-text-download-only:
   file.managed:

@@ -8,9 +8,10 @@
 # Notes: 
 
 {% set version = '5.0.4' %}
-{% set subver = '30422' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'd74892601a50514b5636e27d4be4d3ac38597f2f6c7c7b6b5b169a48ffa1f341' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set subver = get_hash('beyond-compare', 'subver') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% set hash = get_hash('beyond-compare') %}
 
 beyond-compare-download-only:
   file.managed:

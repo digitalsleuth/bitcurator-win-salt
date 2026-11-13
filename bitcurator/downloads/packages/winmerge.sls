@@ -7,9 +7,10 @@
 # Version: 2.16.44
 # Notes:
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '2.16.44' %}
-{% set hash = '055e960261fc31723856082d2bf1aec2bcc2c71f1ae2d759efec3d766affeaec' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('winmerge') %}
 
 winmerge-download-only:
   file.managed:

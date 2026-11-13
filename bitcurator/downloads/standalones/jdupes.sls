@@ -4,12 +4,13 @@
 # Category: Archival
 # Author: Jody Bruchon
 # License: MIT License (https://codeberg.org/jbruchon/jdupes/src/branch/master/LICENSE.txt)
-# Version: 1.28.0
+# Version: 1.31.3
 # Notes: 
 
-{% set version = '1.28.0' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'e212e9ddb5054809841af3bf5cf162fe520076a96665041d1a0843170aa27f32' %}
+{% set version = '1.31.3' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('jdupes') %}
 
 jdupes-download-only:
   file.managed:

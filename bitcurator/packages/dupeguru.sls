@@ -7,6 +7,7 @@
 # Version: 4.3.1
 # Notes: 
 
+# renovate: datasource=github-releases depName=arsenetar/dupeguru
 {% set version = '4.3.1' %}
 
 include:

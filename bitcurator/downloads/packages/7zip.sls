@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '2406' %}
-{% set hash = '946e32bf1eb545146ad47287d0837b01de86329c20f7081fc171d543a8578ec9' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('7zip') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 7zip-download-only:
   file.managed:

@@ -10,6 +10,7 @@ include:
   - bitcurator.downloads.packages.epadd
   - bitcurator.downloads.packages.exact-audio-copy
   - bitcurator.downloads.packages.filezilla-client
+  - bitcurator.downloads.packages.fluxengine
   - bitcurator.downloads.packages.ftk-imager
   - bitcurator.downloads.packages.gimp
   - bitcurator.downloads.packages.hfs-explorer
@@ -18,13 +19,13 @@ include:
   - bitcurator.downloads.packages.libreoffice
   - bitcurator.downloads.packages.mediainfo
   - bitcurator.downloads.packages.mkvtoolnix
+  - bitcurator.downloads.packages.ms-vcpp-2015-build-tools
   - bitcurator.downloads.packages.openrefine
   - bitcurator.downloads.packages.powergrep
   - bitcurator.downloads.packages.vrenamer
   - bitcurator.downloads.packages.windirstat
   - bitcurator.downloads.packages.beyond-compare
   - bitcurator.downloads.packages.duplicate-cleaner
-  - bitcurator.downloads.packages.openhashtab
   - bitcurator.downloads.packages.sublime-text
   - bitcurator.downloads.packages.teracopy
   - bitcurator.downloads.packages.treesize-pro
@@ -45,7 +46,6 @@ include:
   - bitcurator.downloads.standalones.filelistcreator
   - bitcurator.downloads.standalones.filelist
   - bitcurator.downloads.standalones.fits
-  - bitcurator.downloads.standalones.fluxengine
   - bitcurator.downloads.standalones.hashdeep
   - bitcurator.downloads.standalones.hashmyfiles
   - bitcurator.downloads.standalones.jdupes
@@ -61,6 +61,26 @@ include:
   - bitcurator.downloads.installers.hxd
   - bitcurator.downloads.installers.windows-terminal
   - bitcurator.downloads.installers.windows-winget
+  - bitcurator.downloads.packages.dotnetfx35
+  - bitcurator.downloads.packages.git
+  - bitcurator.downloads.packages.ms-powertoys
+  - bitcurator.downloads.packages.openjdk-adoptium
+  - bitcurator.downloads.packages.python3
+  - bitcurator.downloads.packages.saltstack
+  - bitcurator.downloads.packages.voidtools-everything
+  - bitcurator.downloads.standalones.portable-python3
+  - bitcurator.downloads.python3-tools.analyzemft
+  - bitcurator.downloads.python3-tools.bagit-python
+  - bitcurator.downloads.python3-tools.bitcurator-python-tools
+  - bitcurator.downloads.python3-tools.brunnhilde
+  - bitcurator.downloads.python3-tools.demystify
+  - bitcurator.downloads.python3-tools.dfxml-python
+  - bitcurator.downloads.python3-tools.dvd-transcoder
+  - bitcurator.downloads.python3-tools.fido
+  - bitcurator.downloads.python3-tools.mailbagit
+  - bitcurator.downloads.python3-tools.openai-whisper
+  - bitcurator.downloads.python3-tools.pymupdf
+  - bitcurator.downloads.python3-tools.python-evtx
 
 bitcurator-downloads:
   test.nop:
@@ -77,6 +97,7 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.epadd
       - sls: bitcurator.downloads.packages.exact-audio-copy
       - sls: bitcurator.downloads.packages.filezilla-client
+      - sls: bitcurator.downloads.packages.fluxengine
       - sls: bitcurator.downloads.packages.ftk-imager
       - sls: bitcurator.downloads.packages.gimp
       - sls: bitcurator.downloads.packages.hfs-explorer
@@ -85,13 +106,13 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.libreoffice
       - sls: bitcurator.downloads.packages.mediainfo
       - sls: bitcurator.downloads.packages.mkvtoolnix
+      - sls: bitcurator.downloads.packages.ms-vcpp-2015-build-tools
       - sls: bitcurator.downloads.packages.openrefine
       - sls: bitcurator.downloads.packages.powergrep
       - sls: bitcurator.downloads.packages.vrenamer
       - sls: bitcurator.downloads.packages.windirstat
       - sls: bitcurator.downloads.packages.beyond-compare
       - sls: bitcurator.downloads.packages.duplicate-cleaner
-      - sls: bitcurator.downloads.packages.openhashtab
       - sls: bitcurator.downloads.packages.sublime-text
       - sls: bitcurator.downloads.packages.teracopy
       - sls: bitcurator.downloads.packages.treesize-pro
@@ -112,7 +133,6 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.standalones.filelistcreator
       - sls: bitcurator.downloads.standalones.filelist
       - sls: bitcurator.downloads.standalones.fits
-      - sls: bitcurator.downloads.standalones.fluxengine
       - sls: bitcurator.downloads.standalones.hashdeep
       - sls: bitcurator.downloads.standalones.hashmyfiles
       - sls: bitcurator.downloads.standalones.jdupes
@@ -128,3 +148,23 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.installers.hxd
       - sls: bitcurator.downloads.installers.windows-terminal
       - sls: bitcurator.downloads.installers.windows-winget
+      - sls: bitcurator.downloads.packages.dotnetfx35
+      - sls: bitcurator.downloads.packages.git
+      - sls: bitcurator.downloads.packages.ms-powertoys
+      - sls: bitcurator.downloads.packages.openjdk-adoptium
+      - sls: bitcurator.downloads.packages.python3
+      - sls: bitcurator.downloads.packages.saltstack
+      - sls: bitcurator.downloads.packages.voidtools-everything
+      - sls: bitcurator.downloads.standalones.portable-python3
+      - sls: bitcurator.downloads.python3-tools.analyzemft
+      - sls: bitcurator.downloads.python3-tools.bagit-python
+      - sls: bitcurator.downloads.python3-tools.bitcurator-python-tools
+      - sls: bitcurator.downloads.python3-tools.brunnhilde
+      - sls: bitcurator.downloads.python3-tools.demystify
+      - sls: bitcurator.downloads.python3-tools.dfxml-python
+      - sls: bitcurator.downloads.python3-tools.dvd-transcoder
+      - sls: bitcurator.downloads.python3-tools.fido
+      - sls: bitcurator.downloads.python3-tools.mailbagit
+      - sls: bitcurator.downloads.python3-tools.openai-whisper
+      - sls: bitcurator.downloads.python3-tools.pymupdf
+      - sls: bitcurator.downloads.python3-tools.python-evtx

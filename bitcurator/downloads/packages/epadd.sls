@@ -8,8 +8,9 @@
 # Notes: Will prompt for firewall access on first launch
 
 {% set version = '11.0.2' %}
-{% set hash = 'f72cb3bfbe6cd2f897171496ffbb7f84fefd9d3dc5b891ac5ff76cf9fed44b6a' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('epadd') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 epadd-download-only:
   file.managed:

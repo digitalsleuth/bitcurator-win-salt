@@ -7,6 +7,7 @@
 # Version: 21.0.5
 # Notes: 
 
+# renovate: datasource=github-releases depName=adoptium/temurin21-binaries
 {% set version = '21.0.5' %}
 
 include:

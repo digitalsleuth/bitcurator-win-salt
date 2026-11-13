@@ -9,10 +9,12 @@
 
 {% set version = '24.11' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '8698beb2ab09da36fe745f3d46a901829d83bf8466abae5c49a189184be06c1f' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('rawcooked') %}
 
 include:
   - bitcurator.standalones.ffmpeg
+  - bitcurator.config.shims
 
 rawcooked-download:
   file.managed:
@@ -30,8 +32,9 @@ rawcooked-extract:
     - require:
       - file: rawcooked-download
 
-rawcooked-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\rawcooked'
+rawcooked-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\rawcooked\RAWcooked.exe -OutPath {{ inpath }}\shims\rawcooked.exe'
     - require:
       - archive: rawcooked-extract
+      - sls: bitcurator.config.shims

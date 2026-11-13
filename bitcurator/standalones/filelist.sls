@@ -4,12 +4,16 @@
 # Category: Archival
 # Author: Jam Software
 # License: Freeware (https://www.jam-software.com/company/license_agreement.shtml#freeware-and-trial-versions-570287)
-# Version: 4.4.1
+# Version: 5.0.0
 # Notes: 
 
-{% set version = '4.4.1' %}
-{% set hash = '8086cdbb3e8ff5dde07a74a1c0df504feb46e3ad1afb562e31151e9d3ea8a6aa' %}
+{% set version = '5.0.0' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('filelist') %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
+
+include:
+  - bitcurator.config.shims
 
 filelist-download:
   file.managed:
@@ -26,8 +30,9 @@ filelist-extract:
     - require:
       - file: filelist-download
 
-filelist-env-vars:
-  win_path.exists:
-    - name: '{{ inpath }}\filelist\'
+filelist-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\filelist\FileList.exe -OutPath {{ inpath }}\shims\filelist.exe'
     - require:
       - archive: filelist-extract
+      - sls: bitcurator.config.shims

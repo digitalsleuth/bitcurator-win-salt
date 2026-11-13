@@ -7,7 +7,7 @@
 # Version: 3.17
 # Notes:
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% set version = '317' %}
 
 teracopy-download:

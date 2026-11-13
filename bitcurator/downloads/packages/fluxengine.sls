@@ -1,0 +1,20 @@
+# Name: fluxengine
+# Website: https://github.com/davidgiven/fluxengine
+# Description: PSOC5 floppy disk imaging interface
+# Category: Archival
+# Author: David Given
+# License: MIT License (https://github.com/davidgiven/fluxengine/blob/master/COPYING.md)
+# Version: 26.10.35640
+# Notes: Installs for current user
+
+{% set version = '26.10.35640' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('fluxengine') %}
+
+fluxengine-download-only:
+  file.managed:
+    - name: '{{ downloads }}\fluxengine\fluxengine-{{ version }}.msi'
+    - source: https://github.com/davidgiven/fluxengine/releases/download/dev/fluxengine-X64.msi
+    - source_hash: sha256={{ hash }}
+    - makedirs: True

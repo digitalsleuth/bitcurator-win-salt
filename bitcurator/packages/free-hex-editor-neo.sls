@@ -4,7 +4,7 @@
 # Category: Raw Parsers / Decoders
 # Author: HHD Software
 # License: EULA (https://www.hhdsoftware.com/company/terms-of-use)
-# Version: 7.50.04.8813
+# Version: 8.26.00.9614
 # Notes: 
 
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}

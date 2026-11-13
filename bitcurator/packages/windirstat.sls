@@ -7,6 +7,7 @@
 # Version: 2.1.1
 # Notes: 
 
+# renovate: datasource=github-releases depName=windirstat/windirstat
 {% set version = '2.1.1' %}
 
 include:

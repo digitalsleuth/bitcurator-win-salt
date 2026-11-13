@@ -9,7 +9,11 @@
 
 {% set version = '1.11.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set hash = '89188357e78f4405f0c7d2b71d24668d9f9dd83ecc5df9901dd7fdc12d77b809' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('siegfried') %}
+
+include:
+  - bitcurator.config.shims
 
 siegfried-download:
   file.managed:
@@ -34,9 +38,12 @@ siegfried-update:
     - require:
       - archive: siegfried-extract
 
-siegfried-path:
-  win_path.exists:
-    - name: '{{ inpath }}\siegfried'
+{% for exe in ['sf', 'roy'] %}
+{{ exe }}-shim:
+  cmd.run:
+    - name: 'powershell -nop -ep Bypass -File {{ inpath }}\New-Shim.ps1 -SourceExe {{ inpath }}\siegfried\{{ exe }}.exe -OutPath {{ inpath }}\shims\{{ exe }}.exe'
     - require:
-      - file: siegfried-download
+      - archive: siegfried-extract
+      - sls: bitcurator.config.shims
+{% endfor %}
 

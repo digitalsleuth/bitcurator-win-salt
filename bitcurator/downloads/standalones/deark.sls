@@ -8,8 +8,9 @@
 # Notes:
 
 {% set version = '1.6.8' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'ad4846a0eb4a8247e9893f42a8ab2b89750a0fea060d60626684746bf511f6a4' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('deark') %}
 
 deark-download-only:
   file.managed:

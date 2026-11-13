@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '24.12' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = 'd945767f683c05ee5100f4883eda746767cf5f59acd998f37ae2acea7cc5760f' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('mediainfo-cli') %}
 
 mediainfo-cli-download-only:
   file.managed:

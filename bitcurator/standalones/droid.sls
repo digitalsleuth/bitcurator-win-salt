@@ -10,7 +10,8 @@
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set version = '6.8.0' %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = '68ec8572485ea2c4d571829bd3c4f4f207b215eec9c5bb9e88189a75336e19e7' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('droid') %}
 
 droid-download:
   file.managed:

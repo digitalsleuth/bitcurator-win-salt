@@ -8,8 +8,9 @@
 # Notes: 
 
 {% set version = '1.68.2' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '812bf76cc02c04cf6327f3683f3d5a88e47d36c39db84c1a745777496be7d993' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('rclone') %}
 
 rclone-download-only:
   file.managed:

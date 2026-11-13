@@ -10,7 +10,8 @@
 {% set version = '2.8.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set hash = '8a1991e39764e007a336a5585e7c2c79a8edf406a63ef81d587b3c70b421af23' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('bagger') %}
 
 include:
   - bitcurator.packages.jre8

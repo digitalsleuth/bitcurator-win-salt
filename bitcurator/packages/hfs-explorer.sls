@@ -7,6 +7,7 @@
 # Version: 2021.10.9
 # Notes: 
 
+# renovate: datasource=github-releases depName=unsound/hfsexplorer
 {% set version = '2021.10.9' %}
 
 include:

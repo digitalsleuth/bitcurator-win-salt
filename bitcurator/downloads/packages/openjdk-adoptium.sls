@@ -7,14 +7,17 @@
 # Version: 21.0.5
 # Notes: 
 
+# renovate: datasource=github-releases depName=adoptium/temurin21-binaries
 {% set version = '21.0.5' %}
+{% set major = '21' %}
 {% set subversion = '11' %}
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set hash = '8ef78a37811529d73d37e29a9fa24bf2d46d0d5d97c4f6e403ea9adebc55eaf3' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('openjdk-adoptium') %}
 
 openjdk-adoptium-download-only:
   file.managed:
-    - name: '{{ downloads }}\openjdk-adoptium\OpenJDK21U-jdk_x64_windows_hotspot_{{ version }}_{{ subversion}}.msi'
-    - source: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-{{ version }}%2B{{ subversion }}/OpenJDK21U-jdk_x64_windows_hotspot_{{ version }}_{{ subversion }}.msi
+    - name: '{{ downloads }}\openjdk-adoptium\openjdk-adoptium-{{ version }}.msi'
+    - source: https://github.com/adoptium/temurin{{ major }}-binaries/releases/download/jdk-{{ version }}%2B{{ subversion }}/OpenJDK{{ major }}U-jdk_x64_windows_hotspot_{{ version }}_{{ subversion }}.msi
     - source_hash: sha256={{ hash }}
     - makedirs: True

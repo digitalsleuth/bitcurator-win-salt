@@ -10,6 +10,9 @@
 # renovate: datasource=pypi depName=bagit
 {% set version = '1.8.1' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
+{% set pkg = 'bagit-'~ version ~'-py3-none-any.whl' %}
+{% set exists = salt['file.file_exists'](downloads + '\\bagit-python\\packages\\' + pkg) %}
+
 {% set exists = salt['file.directory_exists'](downloads + '\\bagit-python\\packages') %}
 
 {% if exists %}

@@ -4,10 +4,10 @@
 # Category: Utilities
 # Author: Microsoft
 # License: MIT (https://github.com/microsoft/PowerToys/blob/main/LICENSE)
-# Version: 0.86.0
+# Version: 0.102.3101.0
 # Notes:
 
-{% set version = '0.86.0' %}
+{% set version = '0.102.3101.0' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('ms-powertoys') %}

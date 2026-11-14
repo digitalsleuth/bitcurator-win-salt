@@ -4,19 +4,17 @@
 # Category: Archival
 # Author: Benjamin Cance (rowingdude)
 # License: MIT License (https://github.com/rowingdude/analyzeMFT/blob/master/LICENSE.txt)
-# Version: 3.0.6.6
+# Version: 3.1.1
 # Notes:
 
-{% set version = '3.0.6.6' %}
-{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
-{% set commit = get_hash('analyzemft', 'commit') %}
+{% set version = '3.1.1' %}
 
 include:
   - bitcurator.packages.python3
 
 analyzemft-install:
   pip.installed:
-    - name: git+https://github.com/rowingdude/analyzemft.git@{{ commit }}
+    - name: analyzemft
     - bin_env: 'C:\Program Files\Python311\python.exe'
     - upgrade: True
     - require:

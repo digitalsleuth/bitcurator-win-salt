@@ -14,6 +14,7 @@
 
 include:
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
 pymupdf-folder-download-only:
   file.directory:
@@ -29,3 +30,4 @@ pymupdf-download-only:
     - require:
       - sls: bitcurator.standalones.portable-python3
       - file: pymupdf-folder-download-only
+      - sls: bitcurator.downloads.packages.python3

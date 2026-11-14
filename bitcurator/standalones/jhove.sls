@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Open Preservation Foundation
 # License: GNU Lesser Public License v2.1 (https://github.com/openpreserve/jhove/blob/integration/LICENSE)
-# Version: 1.32.0
+# Version: 1.34.0
 # Notes: Packaged separately for silent unattended installation
 
-{% set version = '1.32.0' %}
+{% set version = '1.34.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}

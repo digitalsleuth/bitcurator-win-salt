@@ -12,22 +12,40 @@
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 include:
-  - bitcurator.packages.git
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
-dfxml-python-clone-download-only:
-  git.latest:
-    - name: https://github.com/dfxml-working-group/dfxml_python.git
-    - target: '{{ downloads }}\dfxml-python'
-    - force_clone: True
-    - force_reset: True
+dfxml-python-download-only:
+  file.managed:
+    - name: '{{ downloads }}\dfxml-python-main.zip'
+    - source: https://github.com/dfxml-working-group/dfxml_python/archive/refs/heads/main.zip
+    - skip_verify: True
+    - makedirs: True
+
+dfxml-python-extract-download-only:
+  archive.extracted:
+    - name: '{{ downloads }}\'
+    - source: '{{ downloads }}\dfxml-python-main.zip'
+    - enforce_toplevel: False
     - require:
-      - sls: bitcurator.packages.git
+      - file: dfxml-python-download-only
+
+dfxml-python-folder-rename-download-only:
+  file.rename:
+    - name: '{{ downloads }}\dfxml-python'
+    - source: '{{ downloads }}\dfxml_python-main'
+    - force: True
+    - makedirs: True
+    - require:
+      - archive: dfxml-python-extract-download-only
 
 dfxml-python-python-download-only:
   cmd.run:
     - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel'
     - cwd: '{{ downloads }}\dfxml-python'
     - require:
-      - git: dfxml-python-clone-download-only
+      - file: dfxml-python-download-only
+      - archive: dfxml-python-extract-download-only
+      - file: dfxml-python-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
+      - sls: bitcurator.downloads.packages.python3

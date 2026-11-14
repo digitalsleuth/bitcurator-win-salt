@@ -1,36 +1,58 @@
 # Name: python-evtx
 # Website: https://github.com/williballenthin/python-evtx
-# Description: Pure Python parser for Windows Event Log (.evtx) files
+# Description: Pure Python parser for Windows Event Logs
 # Category: Archival
 # Author: Willi Ballenthin
-# License: Apache License 2.0 (https://github.com/williballenthin/python-evtx/blob/master/LICENSE.TXT)
+# License: Apache License v2.0 (https://github.com/williballenthin/python-evtx/blob/master/LICENSE.TXT)
 # Version: 0.8.1
-# Notes: evtx_dump.py, evtx_dump_chunk_slack.py, evtx_dump_json.py, evtx_info.py
+# Notes: evtx_dump.py, evtx_dump_json.py, evtx_dump_chunk_slack.py, evtx_eid_record_numbers.py, evtx_extract_record.py, evtx_filter_records.py, evtx_info.py, evtx_record_structure.py, evtx_structure.py, evtx_templates.py
 
 {% set version = '0.8.1' %}
-{% set inpath = salt['pillar.get']('inpath', 'C:\\standalone') %}
+{% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set commit = get_hash('python-evtx', 'commit') %}
+{% set hash = get_hash('python-evtx') %}
 
 include:
-  - bitcurator.packages.git
+  - bitcurator.downloads.packages.python3
   - bitcurator.standalones.portable-python3
 
-python-evtx-clone-download-only:
-  git.latest:
-    - name: https://github.com/williballenthin/python-evtx.git
-    - target: '{{ downloads }}\python-evtx'
-    - rev: '{{ commit }}'
-    - force_clone: True
-    - force_reset: True
+python-evtx-download-only:
+  file.managed:
+    - name: '{{ downloads }}\python-evtx-{{ version }}.zip'
+    - source: https://github.com/williballenthin/python-evtx/archive/{{ commit }}.zip
+    - source_hash: sha256={{ hash }}
+    - makedirs: True
+
+python-evtx-extract-download-only:
+  archive.extracted:
+    - name: '{{ downloads }}\'
+    - source: '{{ downloads }}\python-evtx-{{ version }}.zip'
+    - enforce_toplevel: False
     - require:
-      - sls: bitcurator.packages.git
+      - file: python-evtx-download-only
+
+python-evtx-folder-rename-download-only:
+  file.rename:
+    - name: '{{ downloads }}\python-evtx'
+    - source: '{{ downloads }}\python-evtx-{{ commit }}\'
+    - makedirs: True
+    - force: True
+    - require:
+      - archive: python-evtx-extract-download-only
 
 python-evtx-python-download-only:
   cmd.run:
     - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel'
     - cwd: '{{ downloads }}\python-evtx'
     - require:
-      - git: python-evtx-clone-download-only
+      - sls: bitcurator.downloads.packages.python3
       - sls: bitcurator.standalones.portable-python3
+      - file: python-evtx-folder-rename-download-only
+
+python-evtx-remove-download-only:
+  file.absent:
+    - name: '{{ downloads }}\python-evtx-{{ version }}.zip'
+    - require:
+      - cmd: python-evtx-python-download-only

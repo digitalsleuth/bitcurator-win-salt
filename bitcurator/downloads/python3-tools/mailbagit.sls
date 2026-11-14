@@ -14,6 +14,7 @@
 
 include:
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
 mailbagit-folder-download-only:
   file.directory:
@@ -29,3 +30,4 @@ mailbagit-download-only:
     - require:
       - sls: bitcurator.standalones.portable-python3
       - file: mailbagit-folder-download-only
+      - sls: bitcurator.downloads.packages.python3

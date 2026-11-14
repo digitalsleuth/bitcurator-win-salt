@@ -41,8 +41,26 @@
                     ('Utilities', ['7-Zip\\7-Zip File Manager','PowerToys (Preview)\PowerToys (Preview)','Everything','Glossary Generator','Google Earth Pro','Hasher','Hash Generator','IrfanView\IrfanView 64 4.62','iTunes\iTunes','Monolith Notes',"Nuix\\Nuix Evidence Mover\\Nuix Evidence Mover",'Rufus','Sysinternals','Tableau\Tableau Firmware Update\Tableau Firmware Update','TeraCopy','USB Write Blocker','VeraCrypt 1.26.7\VeraCrypt','Oracle VM VirtualBox\Oracle VM VirtualBox','VideoLAN\VLC media player','CDSG\WriteBlocking Validation Utility\WriteBlocking Validation Utility','WinMerge\WinMerge']),
                    ] %}
 
+{% set download = salt['pillar.get']('downloads', None) %}
+{% set offline = salt['pillar.get']('offline', None) %}
+{% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
+
+{% if download %}
+  {% set mode = 'download' %}
+{% elif offline %}
+  {% set mode = 'offline' %}
+{% else %}
+  {% set mode = 'install' %}
+{% endif %}
+
 include:
+  {% if mode == 'offline' %}
+  - bitcurator.offline.packages.portals
+  {% elif mode == 'download' %}
+  - bitcurator.downloads.packages.portals
+  {% else %}
   - bitcurator.packages.portals
+  {% endif %}
   - bitcurator.config.user
 
 bitcurator-theme-wallpaper-source:
@@ -105,7 +123,13 @@ portals-end-process:
     - name: 'taskkill /F /IM "Portals.exe"'
     - bg: True
     - require:
+      {% if mode == 'offline' %}
+      - sls: bitcurator.offline.packages.portals
+      {% elif mode == 'download' %}
+      - sls: bitcurator.downloads.packages.portals
+      {% else %}
       - sls: bitcurator.packages.portals
+      {% endif %}
 
 {% for config in portals_configs %}
 portals-{{ config }}-copy:
@@ -116,7 +140,13 @@ portals-{{ config }}-copy:
     - replace: True
     - require:
       - user: user-{{ user }}
+      {% if mode == 'offline' %}
+      - sls: bitcurator.offline.packages.portals
+      {% elif mode == 'download' %}
+      - sls: bitcurator.downloads.packages.portals
+      {% else %}
       - sls: bitcurator.packages.portals
+      {% endif %}
 
 portals-{{ config }}-placeholder-replace:
   file.replace:
@@ -208,10 +238,13 @@ bitcurator-theme-stager:
     - replace: True
     - contents: |
         @echo off
-        setlocal EnableDelayedExpansion
+        setlocal
         title Disable Locked Start Layout - Enable Theme
-        %1 %2 mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :runas","","runas",1)(window.close)&goto :eof
-        :runas
+        net session >nul 2>&1
+        if %errorlevel% neq 0 (
+            powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+            exit /b
+        )
         echo Forcing update of GPO's
         gpupdate /force
         timeout /t 3 /nobreak 1>nul
@@ -233,10 +266,6 @@ bitcurator-theme-stager:
         echo Restarting Explorer...
         timeout /t 1 /nobreak 1>nul
         taskkill /F /IM explorer.exe & start explorer
-        {% if user != salt['environ.get']('USERNAME') %}
-        echo Debloating Windows for {{ user }}
-        powershell -nop -ep Bypass -File "{{ PS_PATH }}\\Win10Debloat\\Win10.ps1" -include "{{ PS_PATH }}\\Win10Debloat\\Win10.psm1" -preset "{{ PS_PATH }}\\Win10Debloat\\debloat.preset"
-        {% endif %}
         echo Finished - cleaning up
         timeout /t 3 /nobreak 1>nul
         RUNDLL32.EXE USER32.DLL,UpdatePerUserSystemParameters 1, True
@@ -255,8 +284,8 @@ bitcurator-theme-stager-on-reboot-hkcu:
 
 bitcurator-theme-suggest-reboot:
   cmd.run:
-    - name: 'msg %username% "The theme will be fully applied once you log off then log back in."'
-    - shell: cmd
+    - name: Start-Process powershell -WindowStyle Hidden -ArgumentList "-command `"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('The theme will be fully applied once you log off and then log back in.', 'BitCurator Theme')`""
+    - shell: powershell
     - require:
       - file: bitcurator-theme-stager
       - reg: bitcurator-theme-stager-on-reboot-hkcu
@@ -287,8 +316,8 @@ Unload NTUSER.DAT for {{ user }}:
 
 bitcurator-theme-suggest-reboot:
   cmd.run:
-    - name: 'msg %username% "The theme will be fully applied for {{ user }} the next time they log on."'
-    - shell: cmd
+    - name: Start-Process powershell -WindowStyle Hidden -ArgumentList "-command `"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('The theme will be fully applied for {{ user }} when they log in.', 'Win-FOR Theme')`""
+    - shell: powershell
     - require:
       - file: bitcurator-theme-stager
       - cmd: Load NTUSER.DAT for {{ user }}

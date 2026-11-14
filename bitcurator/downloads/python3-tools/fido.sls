@@ -12,6 +12,7 @@
 
 include:
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
 fido-folder-download-only:
   file.directory:
@@ -27,3 +28,4 @@ fido-download-only:
     - require:
       - sls: bitcurator.standalones.portable-python3
       - file: fido-folder-download-only
+      - sls: bitcurator.downloads.packages.python3

@@ -13,6 +13,7 @@
 
 include:
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
 analyzemft-directory-download-only:
   file.directory:
@@ -28,3 +29,4 @@ analyzemft-download-only:
     - require:
       - file: analyzemft-directory-download-only
       - sls: bitcurator.standalones.portable-python3
+      - sls: bitcurator.downloads.packages.python3

@@ -14,6 +14,7 @@
 
 include:
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
 brunnhilde-folder-download-only:
   file.directory:
@@ -29,3 +30,4 @@ brunnhilde-download-only:
     - require:
       - sls: bitcurator.standalones.portable-python3
       - file: brunnhilde-folder-download-only
+      - sls: bitcurator.downloads.packages.python3

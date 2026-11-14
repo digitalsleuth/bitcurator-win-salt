@@ -12,22 +12,40 @@
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 include:
-  - bitcurator.packages.git
   - bitcurator.standalones.portable-python3
+  - bitcurator.downloads.packages.python3
 
-bitcurator-python-tools-clone-download-only:
-  git.latest:
-    - name: https://github.com/bitcurator/bitcurator-python-tools.git
-    - target: '{{ downloads }}\bitcurator-python-tools'
-    - force_clone: True
-    - force_reset: True
+bitcurator-python-tools-download-only:
+  file.managed:
+    - name: '{{ downloads }}\bitcurator-python-tools-{{ version }}.zip'
+    - source: https://github.com/BitCurator/bitcurator-python-tools/archive/refs/heads/main.zip
+    - skip_verify: True
+    - makedirs: True
+
+bitcurator-python-tools-extract-download-only:
+  archive.extracted:
+    - name: '{{ downloads }}\'
+    - source: '{{ downloads }}\bitcurator-python-tools-{{ version }}.zip'
+    - enforce_toplevel: False
     - require:
-      - sls: bitcurator.packages.git
+      - file: bitcurator-python-tools-download-only
+
+bitcurator-python-tools-folder-rename-download-only:
+  file.rename:
+    - name: '{{ downloads }}\bitcurator-python-tools'
+    - source: '{{ downloads }}\bitcurator-python-tools-main'
+    - force: True
+    - makedirs: True
+    - require:
+      - archive: bitcurator-python-tools-extract-download-only
 
 bitcurator-python-tools-python-download-only:
   cmd.run:
     - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel'
     - cwd: '{{ downloads }}\bitcurator-python-tools'
     - require:
-      - git: bitcurator-python-tools-clone-download-only
+      - file: bitcurator-python-tools-download-only
+      - archive: bitcurator-python-tools-extract-download-only
+      - file: bitcurator-python-tools-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
+      - sls: bitcurator.downloads.packages.python3

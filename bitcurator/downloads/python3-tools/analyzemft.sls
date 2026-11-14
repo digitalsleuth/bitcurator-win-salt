@@ -10,8 +10,6 @@
 {% set version = '3.1.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\bitcurator-downloads') %}
-{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
-{% set hash = get_hash('analyzemft') %}
 
 include:
   - bitcurator.standalones.portable-python3

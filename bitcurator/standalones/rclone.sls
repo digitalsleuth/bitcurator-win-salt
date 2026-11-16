@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Maintainers (https://github.com/rclone/rclone/blob/master/MAINTAINERS.md)
 # License: MIT License (https://github.com/rclone/rclone/blob/master/COPYING)
-# Version: 1.68.2
+# Version: 1.76.0
 # Notes: 
 
-{% set version = '1.68.2' %}
+{% set version = '1.76.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('rclone') %}

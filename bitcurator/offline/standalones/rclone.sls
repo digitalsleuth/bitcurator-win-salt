@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Maintainers (https://github.com/rclone/rclone/blob/master/MAINTAINERS.md)
 # License: MIT License (https://github.com/rclone/rclone/blob/master/COPYING)
-# Version: 1.68.2
+# Version: 1.76.0
 # Notes: 
 
 # renovate: datasource=github-releases depName=rclone/rclone
-{% set version = '1.68.2' %}
+{% set version = '1.76.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'rclone-v' ~ version ~ '-windows-amd64.zip' %}

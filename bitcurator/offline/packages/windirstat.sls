@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Multiple (https://github.com/windirstat/windirstat/blob/master/CONTRIBUTORS.md)
 # License: GNU General Public License v2 (https://github.com/windirstat/windirstat/blob/master/LICENSE.md)
-# Version: 2.1.1
+# Version: 2.9.3
 # Notes: 
 
 # renovate: datasource=github-releases depName=windirstat/windirstat
-{% set version = '2.1.1' %}
+{% set version = '2.9.3' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'WinDirStat-x64-' ~ version ~ '.msi' %}
 {% set exists = salt['file.file_exists'](downloads + '\\windirstat\\' + pkg) %}

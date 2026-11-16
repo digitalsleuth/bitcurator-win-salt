@@ -4,10 +4,10 @@
 # Category: Requirements
 # Author: Git (git-scm.com)
 # License: GNU Public License and Lesser GNU Public License (https://github.com/git-for-windows/git/blob/main/COPYING, https://github.com/git-for-windows/git/blob/main/LGPL-2.1)
-# Version: 2.56.0
+# Version: 2.56.1
 # Notes: 
 
-{% set version = '2.56.0' %}
+{% set version = '2.56.1' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('git') %}

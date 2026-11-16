@@ -4,10 +4,10 @@
 # Category: Utilities
 # Author: Microsoft
 # License: MIT License (https://github.com/microsoft/winget-cli/blob/master/LICENSE)
-# Version: 1.7.10861
+# Version: 1.29.380
 # Notes: 
 
-{% set version = '1.7.10861' %}
+{% set version = '1.29.380' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 windows-winget-download-only:

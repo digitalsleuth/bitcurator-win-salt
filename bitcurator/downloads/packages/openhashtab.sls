@@ -4,11 +4,11 @@
 # Category: Utilities
 # Author: namazso
 # License: GNU General Public License 3.0 (https://github.com/namazso/OpenHashTab/blob/master/COPYING)
-# Version: 3.0.4
+# Version: 3.1.1
 # Notes: 
 
 {% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
-{% set version = '3.0.4' %}
+{% set version = '3.1.1' %}
 {% set hash = '9966e3ed6693dfc42904a2aaa1b294a2cd1edd059ef795729a76956cc21cd239' %}
 
 openhashtab-download-only:

@@ -4,11 +4,11 @@
 # Category: Utilities
 # Author: Microsoft
 # License: MIT License (https://github.com/microsoft/winget-cli/blob/master/LICENSE)
-# Version: 1.7.10861
+# Version: 1.29.380
 # Notes:
 
 # renovate: datasource=github-releases depName=microsoft/winget-cli
-{% set version = '1.7.10861' %}
+{% set version = '1.29.380' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set LOCALAPPDATA = salt['environ.get']('LOCALAPPDATA') %}
 {% set pkg = 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe-' ~ version ~ '.msixbundle' %}

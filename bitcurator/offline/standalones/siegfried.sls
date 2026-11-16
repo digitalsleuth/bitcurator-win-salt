@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Richard Lehane
 # License: Apache License (https://github.com/richardlehane/siegfried/blob/main/LICENSE.txt)
-# Version: 1.11.1
+# Version: 1.11.9
 # Notes: sf.exe, roy.exe
 
 # renovate: datasource=github-releases depName=richardlehane/siegfried
-{% set version = '1.11.1' %}
+{% set version = '1.11.9' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'siegfried_' ~ (version | replace(".","-")) ~ '_win64.zip' %}

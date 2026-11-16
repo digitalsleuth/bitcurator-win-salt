@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Library of Congress
 # License: 
-# Version: 1.8.1
+# Version: 1.9.0
 # Notes: 
 
 # renovate: datasource=pypi depName=bagit
-{% set version = '1.8.1' %}
+{% set version = '1.9.0' %}
 
 include:
   - bitcurator.packages.python3

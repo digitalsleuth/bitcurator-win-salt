@@ -1,89 +1,82 @@
+{% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set PROGRAM_FILES = salt['environ.get']('PROGRAMFILES') %}
-{% set START_MENU = PROGRAMDATA + '\Microsoft\Windows\Start Menu\Programs' %}
+{% set START_MENU = PROGRAMDATA + '\Microsoft\Windows\Start Menu' %}
+{% set START_PROGRAMS = START_MENU + '\Programs' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set wslver = '1.2.5.0' %}
-{% set pkg = 'ext4.vhdx' %}
-{% set exists = salt['file.file_exists'](downloads + '\\wsl\\' + pkg) %}
+{% if wsl_choice == 'bitcurator24' %}
+  {% set distro = 'BitCurator-24' %}
+{% elif wsl_choice == 'bitcurator26' %}
+  {% set distro = 'BitCurator-26' %}
+{% endif %}
+
 
 include:
-  - bitcurator.offline.wsl.wsl2-update
-  - bitcurator.config.user
+  - bitcurator.config.shims
 
-wsl-config-version-offline:
+{% for choice in ['bitcurator24', 'bitcurator26'] %}
+
+wsl-move-{{ choice }}-offline:
+  file.rename:
+    - name: '{{ inpath }}\wsl\{{ choice }}'
+    - source: '{{ downloads }}\wsl\{{ choice }}\'
+    - force: True
+    - makedirs: True
+    - onlyif:
+      - fun: file.directory_exists
+        path: '{{ downloads }}\wsl\{{ choice }}'
+
+wsl-import-{{ choice }}-offline:
   cmd.run:
-    - name: 'wsl --set-default-version 2'
+    - name: 'wsl --import-in-place {{ distro }} {{ inpath }}\wsl\{{ choice }}\ext4.vhdx'
     - shell: cmd
-    - require:
-      - sls: bitcurator.offline.wsl.wsl2-update
+    - onlyif:
+      - fun: file.file_exists
+        path: '{{ inpath }}\wsl\{{ choice }}\ext4.vhdx'
 
-{% if exists %}
-
-wsl-make-install-directory-offline:
-  file.directory:
-    - name: '{{ inpath }}\wsl\'
-    - win_inheritance: True
-    - makedirs: True
-
-wsl-copy-vhdx-offline:
-  file.copy:
-    - name: '{{ inpath }}\wsl\ext4.vhdx'
-    - source: '{{ downloads }}\wsl\{{ pkg }}'
-    - makedirs: True
-    - require:
-      - file: wsl-make-install-directory-offline
+wsl-shim-{{ choice }}:
+  cmd.run:
+    - name: |
+        powershell -nop -ep Bypass -c "$wslPath = (Get-Item '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_*_x64__8wekyb3d8bbwe\wsl.exe' -ErrorAction SilentlyContinue).FullName; if ($wslPath) { & '{{ inpath }}\New-Shim.ps1' -SourceExe $wslPath -OutPath '{{ inpath }}\shims\wsl.exe' }"
+    - shell: cmd
+    - onlyif:
+      - powershell -nop -ep Bypass -c "if (Test-Path '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_*_x64__8wekyb3d8bbwe') { exit 0 } else { exit 1 }"
     - unless:
       - fun: file.file_exists
-        path: '{{ inpath }}\wsl\ext4.vhdx'
-
-wsl-import-offline:
-  cmd.run:
-    - name: 'wsl --import-in-place BitCurator-WSL {{ inpath }}\wsl\ext4.vhdx'
-    - shell: cmd
+        path: '{{ inpath }}\shims\wsl.exe'
     - require:
-      - cmd: wsl-config-version-offline
-      - file: wsl-copy-vhdx-offline
-    - unless:
-      - fun: cmd.run
-        cmd: 'wsl -l -q | findstr BitCurator-WSL'
-        shell: cmd
-        python_shell: True
+      - sls: bitcurator.config.shims
+      - file: wsl-move-{{ choice }}-offline
+      - cmd: wsl-import-{{ choice }}-offline
 
-wsl-shortcut-offline:
+wsl-shortcut-{{ choice }}:
   file.shortcut:
-    - name: '{{ PROGRAMDATA }}\Microsoft\Windows\Start Menu\Programs\Windows Subsystem for Linux.lnk'
-    - target: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\wsl.exe'
+    - name: '{{ START_PROGRAMS }}\{{ distro }}.lnk'
+    - target: '{{ inpath }}\shims\wsl.exe'
     - force: True
-    - working_dir: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
-    - icon_location: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\wsl.exe'
-    - arguments: '~'
+    - working_dir: '{{ inpath }}\shims'
+    - icon_location: '{{ inpath }}\wsl\{{ choice }}\shortcut.ico'
+    - arguments: '-d {{ distro }} ~'
     - makedirs: True
+    - require:
+      - cmd: wsl-shim-{{ choice }}
     - onlyif:
       - fun: file.directory_exists
-        path: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
-    - require:
-      - cmd: wsl-config-version-offline
-      - file: wsl-make-install-directory-offline
-      - cmd: wsl-import-offline
+        path: '{{ inpath }}\wsl\{{ choice }}'
 
-wsl-portals-shortcut-offline:
+wsl-portals-shortcut-{{ choice }}:
   file.copy:
-    - name: '{{ inpath }}\Portals\Terminals\'
-    - source: '{{ START_MENU }}\Windows Subsystem for Linux.lnk'
-    - preserve: True
-    - subdir: True
+    - name: '{{ inpath }}\Portals\Terminals\{{ distro }}.lnk'
+    - source: '{{ START_PROGRAMS }}\{{ distro }}.lnk'
+    - force: True
     - makedirs: True
-    - onlyif:
-      - fun: file.directory_exists
-        path: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
     - require:
-      - file: wsl-shortcut-offline
-      - cmd: wsl-config-version-offline
-      - file: wsl-make-install-directory-offline
-      - cmd: wsl-import-offline
+      - file: wsl-shortcut-{{ choice }}
+    - onlyif:
+      - fun: file.file_exists
+        path: '{{ START_PROGRAMS }}\{{ distro }}.lnk'
+      - fun: file.directory_exists
+        path: '{{ inpath }}\Portals'
 
-{% else %}
-{{ pkg }} does not exist - not importing:
-  test.nop
-{% endif %}
+{% endfor %}

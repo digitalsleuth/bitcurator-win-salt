@@ -7,56 +7,83 @@
 # Version: 0.0
 # Notes: 
 
+{% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
+{% if wsl_choice == 'bitcurator24' %}
+  {% set wsl_text = 'BitCurator-24' %}
+{% elif wsl_choice == 'bitcurator26' %}
+  {% set wsl_text = 'BitCurator-26' %}
+{% endif %} 
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
-{% set SID = salt['user.info'](user).uid %}
+{% set home = "C:\\Users\\" + user %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\\bitcurator\VERSION") %}
+{% set version = salt['cp.get_file_str']("C:\\ProgramData\\Salt Project\\Salt\\srv\\salt\\bitcurator\\VERSION") %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set defender_status = salt['cmd.run']('powershell -c "(Get-Service windefend).Status"') %}
+{% set defender_status = salt['cmd.powershell']('((Get-Service) -match "WinDefend").Name') %}
+{% set installed_features = salt['dism.installed_features']() %}
+{%- set wsl_status = salt['cmd.run_all']('wsl --status', env={'WSL_UTF8': '1'}, ignore_retcode=True) %}
+{% set wsl_installed = (wsl_status['retcode'] == 0) %}
+{% set vmp_enabled = 'VirtualMachinePlatform' in installed_features %}
+
+{% if not wsl_installed or not vmp_enabled %}
 
 include:
   - bitcurator.config.user
 
+WSL is not installed on this system:
+  test.nop
+
+{% if defender_status.lower() == "windefend" %}
 wsl-defender-exclusion:
   cmd.run:
-{% if defender_status == "Running" %}
     - names:
-      - 'echo "Defender is {{ defender_status }}"'
+      - 'echo "Defender is present on this system."'
       - 'Add-MpPreference -ExclusionPath "{{ inpath }}"'
       - 'Add-MpPreference -ExclusionPath "C:\salt\tempdownload"'
       - 'Add-MpPreference -ExclusionPath "{{ PROGRAMDATA }}\Salt Project\Salt\var"'
-{% else %}
-    - name:
-      - 'echo "Defender is {{ defender_status }}"'
-{% endif %}
     - shell: powershell
 
-wsl-cleanup:
-  cmd.run:
-    - name: 'dism.exe /online /cleanup-image /revertpendingactions'
-    - shell: cmd
+{% else %}
+
+"Defender is not present on this system - no exclusions are required to install WSL for BitCurator.":
+  test.nop
+
+{% endif %}
 
 wsl-install:
-  dism.feature_installed:
-    - name: Microsoft-Windows-Subsystem-Linux
-    - restart: False
-    - enable_parent: True
-    - unless:
-      - fun: cmd.run
-        cmd: 'dism /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux | findstr "Enabled"'
-        shell: cmd
-        python_shell: True
+  cmd.run:
+    - name: 'wsl --install --no-distribution'
+    - shell: cmd
+    - success_retcodes: 3010
 
-vmp-install:
-  dism.feature_installed:
-    - name: VirtualMachinePlatform
-    - restart: False
-    - enable_parent: True
-    - unless:
-      - fun: cmd.run
-        cmd: 'dism /online /get-featureinfo /featurename:VirtualMachinePlatform | findstr "Enabled"'
-        shell: cmd
-        python_shell: True
+wsl-default-version:
+  cmd.run:
+    - name: 'wsl --set-default-version 2'
+    - shell: cmd
+    - require:
+      - cmd: wsl-install
+
+wsl-shutdown-after-install:
+  cmd.run:
+    - name: 'wsl --shutdown'
+    - shell: cmd
+    - require:
+      - cmd: wsl-install
+      - cmd: wsl-default-version
+
+wsl-update-wslconfig:
+  ini.options_present:
+    - name: '{{ home }}\.wslconfig'
+    - separator: '='
+    - no_spaces: True
+    - sections:
+        wsl2:
+          networkingMode: mirrored
+          dnsTunneling: 'true'
+          firewall: 'true'
+    - require:
+      - cmd: wsl-default-version
+      - cmd: wsl-install
+      - cmd: wsl-shutdown-after-install
 
 powershell-execution-policy:
   reg.present:
@@ -121,7 +148,7 @@ wsl-powershell-stager-customize:
       - file: wsl-powershell-stager
       - user: user-{{ user }}
 
-wsl-config-stager-customize-path:
+wsl-powershell-stager-customize-path:
   file.replace:
     - name: 'C:\salt\tempdownload\wsl-after-reboot.ps1'
     - pattern: _this_path_
@@ -132,35 +159,104 @@ wsl-config-stager-customize-path:
       - file: wsl-powershell-stager-customize
       - user: user-{{ user }}
 
+wsl-powershell-stager-customize-pillar:
+  file.replace:
+    - name: 'C:\salt\tempdownload\wsl-after-reboot.ps1'
+    - pattern: _this_choice_
+    - repl: {{ wsl_choice | regex_escape }}
+    - count: 1
+    - require:
+      - file: wsl-powershell-stager
+      - file: wsl-powershell-stager-customize
+      - file: wsl-powershell-stager-customize-path
+      - user: user-{{ user }}
+
+wsl-powershell-stager-customize-title:
+  file.replace:
+    - name: 'C:\salt\tempdownload\wsl-after-reboot.ps1'
+    - pattern: _this_distro_
+    - repl: {{ wsl_text }}
+    - count: 1
+    - require:
+      - file: wsl-powershell-stager
+      - file: wsl-powershell-stager-customize
+      - file: wsl-powershell-stager-customize-path
+      - file: wsl-powershell-stager-customize-pillar
+      - user: user-{{ user }}
+
 wsl-config-run-on-reboot:
   reg.present:
     - name: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-    - vname: "BitCurator WSL Config"
+    - vname: "WIN-FOR WSL Config"
     - vtype: REG_SZ
     - vdata: 'C:\Windows\system32\cmd.exe /q /c C:\salt\tempdownload\wsl-config.cmd'
     - require:
-      - dism: wsl-install
-      - dism: vmp-install
+      - cmd: wsl-install
       - file: wsl-config-stager
       - file: wsl-powershell-stager
       - file: wsl-powershell-stager-customize
-      - file: wsl-config-stager-customize-path
+      - file: wsl-powershell-stager-customize-path
+      - file: wsl-powershell-stager-customize-title
 
 wsl-log-append:
   file.append:
     - name: 'C:\bitcurator-saltstack-{{ version|trim }}-wsl.log'
     - text: 'GOING FOR REBOOT NOW'
+    - require:
+      - reg: wsl-config-run-on-reboot
 
 system-restart:
   system.reboot:
     - timeout: 0
     - in_seconds: True
-    - only_on_pending_reboot: True
+    - only_on_pending_reboot: False
     - require:
-      - dism: wsl-install
-      - dism: vmp-install
+      - cmd: wsl-install
       - file: wsl-config-stager
       - file: wsl-powershell-stager
       - file: wsl-powershell-stager-customize
-      - file: wsl-config-stager-customize-path
+      - file: wsl-powershell-stager-customize-path
+      - file: wsl-powershell-stager-customize-pillar
+      - file: wsl-powershell-stager-customize-title
       - reg: wsl-config-run-on-reboot
+
+{% else %}
+
+WSL is installed on this system:
+  test.nop
+
+include:
+  - bitcurator.wsl.wsl-config
+
+wsl-default-version-wsl-installed:
+  cmd.run:
+    - name: 'wsl --set-default-version 2'
+    - shell: cmd
+
+wsl-shutdown-wsl-installed:
+  cmd.run:
+    - name: 'wsl --shutdown'
+    - shell: cmd
+    - require:
+      - cmd: wsl-default-version-wsl-installed
+
+wsl-update-wslconfig-wsl-installed:
+  ini.options_present:
+    - name: '{{ home }}\.wslconfig'
+    - separator: '='
+    - no_spaces: True
+    - sections:
+        wsl2:
+          networkingMode: mirrored
+          dnsTunneling: 'true'
+          firewall: 'true'
+    - require:
+      - cmd: wsl-default-version-wsl-installed
+      - cmd: wsl-shutdown-wsl-installed
+
+Installed {{ wsl_text }}:
+  test.nop:
+    - require:
+      - sls: bitcurator.wsl.wsl-config
+
+{% endif %}

@@ -7,58 +7,78 @@
 # Version: 0.0
 # Notes: 
 
+{% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
+{% set saltpath = salt['pillar.get']('saltpath', 'C:\Program Files\Salt Project\Salt\salt-call.exe') %}
+{% if wsl_choice == 'bitcurator24' %}
+  {% set wsl_text = 'BitCurator-24' %}
+{% elif wsl_choice == 'bitcurator26' %}
+  {% set wsl_text = 'BitCurator-26' %}
+{% endif %}
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
-{% set SID = salt['user.info'](user).uid %}
+{% set home = "C:\\Users\\" + user %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set saltpath = salt['pillar.get']('saltpath', 'C:\Program Files\Salt Project\Salt\salt-call.exe') %}
-{% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\\bitcurator\VERSION") %}
+{% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\bitcurator\VERSION") %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set defender_status = salt['cmd.run']('powershell -c "(Get-Service windefend).Status"') %}
+{% set defender_status = salt['cmd.powershell']('((Get-Service) -match "WinDefend").Name') %}
+{% set installed_features = salt['dism.installed_features']() %}
+{% set wsl_status = salt['cmd.run_all']('wsl --status') %}
+{% set wsl_installed = (wsl_status['retcode'] == 0) %}
+{% set vmp_enabled = 'VirtualMachinePlatform' in installed_features %}
+
+{% if wsl_installed and vmp_enabled %}
+include:
+  - bitcurator.offline.wsl.wsl-config
+
+wsl-default-version-wsl-installed-offline:
+  cmd.run:
+    - name: 'wsl --set-default-version 2'
+    - shell: cmd
+
+Importing {{ wsl_text }}:
+  test.nop:
+    - require:
+      - sls: bitcurator.offline.wsl.wsl-config
+
+{% else %}
 
 include:
   - bitcurator.config.user
 
-wsl-defender-exclusion-offline:
+{% if defender_status.lower() == "windefend" %}
+wsl-defender-exclusion:
   cmd.run:
-{% if defender_status == "Running" %}
     - names:
-      - 'echo "Defender is {{ defender_status }}"'
+      - 'echo "Defender is present on this system."'
       - 'Add-MpPreference -ExclusionPath "{{ inpath }}"'
       - 'Add-MpPreference -ExclusionPath "{{ downloads }}"'
       - 'Add-MpPreference -ExclusionPath "{{ PROGRAMDATA }}\Salt Project\Salt\var"'
-{% else %}
-    - name:
-      - 'echo "Defender is {{ defender_status }}"'
-{% endif %}
     - shell: powershell
 
-wsl-cleanup-offline:
+{% else %}
+
+"Defender is not present on this system - no exclusions are required to install WSL for {{ wsl_text }} offline.":
+  test.nop
+
+{% endif %}
+
+wsl-install:
   cmd.run:
-    - name: 'dism.exe /online /cleanup-image /revertpendingactions'
+    - name: 'wsl --install --no-distribution'
+    - shell: cmd
+    - success_retcodes: 3010
+
+wsl-default-version-offline:
+  cmd.run:
+    - name: 'wsl --set-default-version 2'
     - shell: cmd
 
-wsl-install-offline:
-  dism.feature_installed:
-    - name: Microsoft-Windows-Subsystem-Linux
-    - restart: False
-    - enable_parent: True
-    - unless:
-      - fun: cmd.run
-        cmd: 'dism /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux | findstr "Enabled"'
-        shell: cmd
-        python_shell: True
-
-vmp-install-offline:
-  dism.feature_installed:
-    - name: VirtualMachinePlatform
-    - restart: False
-    - enable_parent: True
-    - unless:
-      - fun: cmd.run
-        cmd: 'dism /online /get-featureinfo /featurename:VirtualMachinePlatform | findstr "Enabled"'
-        shell: cmd
-        python_shell: True
+wsl-shutdown-after-install-offline:
+  cmd.run:
+    - name: 'wsl --shutdown'
+    - shell: cmd
+    - require:
+      - cmd: wsl-default-version-offline
 
 powershell-execution-policy-offline:
   reg.present:
@@ -123,83 +143,115 @@ wsl-powershell-stager-customize-offline:
       - file: wsl-powershell-stager-offline
       - user: user-{{ user }}
 
-wsl-config-stager-customize-cmd-offline:
+wsl-powershell-stager-customize-path-offline:
   file.replace:
-    - name: '{{ inpath }}\wsl\wsl-config.cmd'
+    - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
     - pattern: _this_path_
     - repl: {{ inpath | regex_escape }}
     - count: 1
     - require:
-      - file: wsl-config-stager-offline
+      - file: wsl-powershell-stager-offline
+      - file: wsl-powershell-stager-customize-offline
+      - user: user-{{ user }}
 
-wsl-config-stager-customize-offline-offline:
+wsl-powershell-stager-customize-pillar-offline:
+  file.replace:
+    - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
+    - pattern: _this_choice_
+    - repl: {{ wsl_choice | regex_escape }}
+    - count: 1
+    - require:
+      - file: wsl-powershell-stager-offline
+      - file: wsl-powershell-stager-customize-offline
+      - file: wsl-powershell-stager-customize-path-offline
+      - user: user-{{ user }}
+
+wsl-powershell-stager-customize-title-offline:
+  file.replace:
+    - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
+    - pattern: _this_distro_
+    - repl: {{ wsl_text }}
+    - count: 1
+    - require:
+      - file: wsl-powershell-stager-offline
+      - file: wsl-powershell-stager-customize-offline
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-pillar-offline
+      - user: user-{{ user }}
+
+wsl-powershell-stager-customize-offline-pillar-offline:
   file.replace:
     - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
     - pattern: _this_offline_
-    - repl: {{ downloads | regex_escape }}
+    - repl: '{{ inpath | replace("\\", "\\\\") }}'
     - count: 1
     - require:
       - file: wsl-powershell-stager-offline
       - file: wsl-powershell-stager-customize-offline
-      - user: user-{{ user }}
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-pillar-offline
+      - file: wsl-powershell-stager-customize-title-offline
 
-wsl-config-stager-customize-salt-exe-offline:
+wsl-powershell-stager-customize-salt-exe-offline:
   file.replace:
     - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
     - pattern: _salt_exe_
-    - repl: {{ saltpath | regex_escape }}
+    - repl: '{{ saltpath | replace("\\", "\\\\") }}'
     - count: 1
     - require:
       - file: wsl-powershell-stager-offline
       - file: wsl-powershell-stager-customize-offline
-      - user: user-{{ user }}
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-pillar-offline
+      - file: wsl-powershell-stager-customize-title-offline
 
-wsl-config-stager-customize-path-offline:
+wsl-cmd-stager-offline:
   file.replace:
-    - name: '{{ inpath }}\wsl\wsl-after-reboot.ps1'
+    - name: '{{ inpath }}\wsl\wsl-config.cmd'
     - pattern: _this_path_
-    - repl: {{ inpath | regex_escape }}
+    - repl: '{{ inpath | replace("\\", "\\\\") }}\\wsl'
     - count: 1
     - require:
       - file: wsl-powershell-stager-offline
       - file: wsl-powershell-stager-customize-offline
-      - user: user-{{ user }}
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-pillar-offline
+      - file: wsl-powershell-stager-customize-offline-pillar-offline
+      - file: wsl-powershell-stager-customize-salt-exe-offline
 
 wsl-config-run-on-reboot-offline:
   reg.present:
     - name: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-    - vname: "BitCurator WSL Offline Config"
+    - vname: "WIN-FOR WSL Config"
     - vtype: REG_SZ
     - vdata: 'C:\Windows\system32\cmd.exe /q /c {{ inpath }}\wsl\wsl-config.cmd'
     - require:
-      - dism: wsl-install-offline
-      - dism: vmp-install-offline
       - file: wsl-config-stager-offline
+      - file: wsl-cmd-stager-offline
       - file: wsl-powershell-stager-offline
       - file: wsl-powershell-stager-customize-offline
-      - file: wsl-config-stager-customize-path-offline
-      - file: wsl-config-stager-customize-cmd-offline
-      - file: wsl-config-stager-customize-offline-offline
-      - file: wsl-config-stager-customize-salt-exe-offline
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-title-offline
 
 wsl-log-append-offline:
   file.append:
-    - name: 'C:\bitcurator-saltstack-{{ version|trim }}-wsl.log'
+    - name: 'C:\bitcurator-saltstack-{{ version|trim }}-offline-wsl.log'
     - text: 'GOING FOR REBOOT NOW'
+    - require:
+      - reg: wsl-config-run-on-reboot-offline
 
 system-restart-offline:
   system.reboot:
     - timeout: 0
     - in_seconds: True
-    - only_on_pending_reboot: True
+    - only_on_pending_reboot: False
     - require:
-      - dism: wsl-install-offline
-      - dism: vmp-install-offline
       - file: wsl-config-stager-offline
       - file: wsl-powershell-stager-offline
       - file: wsl-powershell-stager-customize-offline
-      - file: wsl-config-stager-customize-path-offline
-      - file: wsl-config-stager-customize-cmd-offline
-      - file: wsl-config-stager-customize-offline-offline
-      - file: wsl-config-stager-customize-salt-exe-offline
+      - file: wsl-powershell-stager-customize-path-offline
+      - file: wsl-powershell-stager-customize-pillar-offline
+      - file: wsl-powershell-stager-customize-title-offline
       - reg: wsl-config-run-on-reboot-offline
+
+{% endif %}

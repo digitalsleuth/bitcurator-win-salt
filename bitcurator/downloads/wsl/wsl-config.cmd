@@ -1,6 +1,9 @@
 @echo off
-setlocal EnableDelayedExpansion
-title BitCurator WSL Config
-%1 %2 mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :runas","","runas",1)(window.close)&goto :eof
-:runas
-powershell -f C:\salt\tempdownload\wsl-after-reboot.ps1
+setlocal
+title BitCurator WSL Download
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+    exit /b
+)
+powershell -f "_this_path_\wsl-after-reboot.ps1"

@@ -9,9 +9,6 @@
 
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
-include:
-  - bitcurator.downloads.packages.saltstack
-
 bitcurator-copy-current-states:
   file.copy:
     - name: '{{ downloads }}\offline\bitcurator'

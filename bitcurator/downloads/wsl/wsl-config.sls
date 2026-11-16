@@ -1,149 +1,122 @@
+{% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set PROGRAM_FILES = salt['environ.get']('PROGRAMFILES') %}
-{% set START_MENU = PROGRAMDATA + '\Microsoft\Windows\Start Menu\Programs' %}
-{% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
+{% set START_MENU = PROGRAMDATA ~ '\\Microsoft\\Windows\\Start Menu' %}
+{% set START_PROGRAMS = START_MENU ~ '\\Programs' %}
+{% set inpath = salt['pillar.get']('inpath', 'C:\\standalone') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
-{% set hash = '3201e8a2e407728111b17a633da9b9a2ce1f7a02bb23a39881b6cb9028674b4e' %}
-{% set gui_hash = 'b6dccc93561456c87a6de4cf635bc6c28db50171b09b13e93ede5541e235cddf' %}
-{% set castver = '0.15.6' %}
-{% set wslver = '1.2.5.0' %}
-{% set gui = false %}
-
-include:
-  - bitcurator.wsl.wsl2-update
-  - bitcurator.config.user
-
-wsl-config-version-download-only:
-  cmd.run:
-    - name: 'wsl --set-default-version 2'
-    - shell: cmd
-    - require:
-      - sls: bitcurator.wsl.wsl2-update
-
-{% if salt['file.file_exists']('C:\\salt\\tempdownload\\BitCurator-WSL-24.04.tar') and salt['file.check_hash']('C:\\salt\\tempdownload\\BitCurator-WSL-24.04.tar', hash)%}
-
-wsl-template-already-downloaded-download-only:
-  test.nop
-
-{% else %}
-
-wsl-get-template-download-only:
-  file.managed:
-    - name: 'C:\salt\tempdownload\BitCurator-WSL-24.04.tar'
-    - source: https://sourceforge.net/projects/winfor/files/wsl/BitCurator-WSL-24.04.tar/download
-    - source_hash: sha256={{ hash }}
-    - makedirs: True
-    - unless:
-      - fun: file.file_exists
-        path: '{{ inpath }}\wsl\ext4.vhdx'
-
+{% set castver = '1.0.23' %}
+{% set user_pass = "bcadmin:bcadmin" %}
+{% from 'bitcurator/_macros/wsl_functions.jinja' import wsl_install, wsl_apt_update, wsl_bootstrap_user, wsl_diskpart_compact %}
+{% if wsl_choice == 'bitcurator24' %}
+  {% set distro = 'BitCurator-24' %}
+  {% set ubuntu = 'Ubuntu-24.04' %}
+{% elif wsl_choice == 'bitcurator26' %}
+  {% set distro = 'BitCurator-26' %}
+  {% set ubuntu = 'Ubuntu-26.04' %}
 {% endif %}
+{% set folder = wsl_choice %}
+{% set wsl_cmd = 'wsl -d ' ~ distro %}
+{% set shortcut_name = folder|upper ~ '.lnk' %}
 
-wsl-update-command-download-only:
+{{ wsl_install(
+    'wsl-make-install-directory-download-only',
+    'wsl-install-distro-download-only',
+    inpath ~ '\\wsl\\' ~ folder,
+    'wsl --install '~ ubuntu ~' --name ' ~ distro ~ ' --location ' ~ inpath ~ '\\wsl\\' ~ folder ~ ' -n',
+    inpath ~ '\\wsl\\' ~ folder ~ '\\ext4.vhdx'
+) }}
+
+{{ wsl_apt_update('wsl-apt-update-upgrade-download-only', wsl_cmd, 'wsl-install-distro-download-only') }}
+
+{{ wsl_bootstrap_user(
+    'wsl-bootstrap-user-bcadmin-download-only',
+    wsl_cmd, 'wsl-install-distro-download-only', 'wsl-apt-update-upgrade-download-only', user_pass
+) }}
+
+wsl-download-cast-download-only:
   cmd.run:
-    - name: 'wsl --update'
+    - name: '{{ wsl_cmd }} wget -O /cast-v{{ castver }}.deb https://github.com/ekristen/cast/releases/download/v{{ castver }}/cast-v{{ castver }}-linux-amd64.deb'
     - shell: cmd
+    - unless: '{{ wsl_cmd }} command -v cast'
     - require:
-      - cmd: wsl-config-version-download-only
-    - unless:
-      - fun: file.file_exists
-        path: '{{ inpath }}\wsl\ext4.vhdx'
-
-
-wsl-make-install-directory-download-only:
-  file.directory:
-    - name: '{{ inpath }}\wsl\'
-    - win_inheritance: True
-    - makedirs: True
-    - unless:
-      - fun: file.file_exists
-        path: '{{ inpath }}\wsl\ext4.vhdx'
-
-wsl-import-template-download-only:
-  cmd.run:
-    - name: 'wsl --import BitCurator-WSL {{ inpath }}\wsl\ C:\salt\tempdownload\BitCurator-WSL-24.04.tar'
-    - shell: cmd
-    - require:
-      - file: wsl-make-install-directory-download-only
-    - unless:
-      - fun: file.file_exists
-        path: '{{ inpath }}\wsl\ext4.vhdx'
-
-wsl-get-cast-download-only:
-  cmd.run:
-    - name: 'wsl -d BitCurator-WSL echo bitcurator | wsl -d BitCurator-WSL sudo -S wget -O /tmp/cast-v{{ castver }}-linux-amd64.deb https://github.com/ekristen/cast/releases/download/v{{ castver }}/cast-v{{ castver }}-linux-amd64.deb'
-    - shell: cmd
-    - require:
-      - cmd: wsl-import-template-download-only
+      - cmd: wsl-install-distro-download-only
+      - cmd: wsl-bootstrap-user-bcadmin-download-only
 
 wsl-install-cast-download-only:
   cmd.run:
-    - name: 'wsl -d BitCurator-WSL echo bitcurator | wsl -d BitCurator-WSL sudo -S apt-get install -y /tmp/cast-v{{ castver }}-linux-amd64.deb'
+    - name: '{{ wsl_cmd }} dpkg -i /cast-v{{ castver }}.deb'
     - shell: cmd
+    - unless: '{{ wsl_cmd }} command -v cast'
     - require:
-      - cmd: wsl-get-cast-download-only
+      - cmd: wsl-download-cast-download-only
 
-wsl-install-bitcurator-download-only:
+wsl-remove-cast-binary-download-only:
   cmd.run:
-    - name: 'wsl -d BitCurator-WSL echo bitcurator | wsl -d BitCurator-WSL sudo -S cast install --mode addon --user bcadmin bitcurator/bitcurator-salt'
+    - name: '{{ wsl_cmd }} rm /cast-v{{ castver }}.deb'
     - shell: cmd
+    - onlyif: '{{ wsl_cmd }} test -f /cast-v{{ castver }}.deb'
     - require:
       - cmd: wsl-install-cast-download-only
 
-wsl-shortcut-download-only:
-  file.shortcut:
-    - name: '{{ PROGRAMDATA }}\Microsoft\Windows\Start Menu\Programs\Windows Subsystem for Linux.lnk'
-    - target: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\wsl.exe'
-    - force: True
-    - working_dir: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
-    - icon_location: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\wsl.exe'
-    - arguments: '~'
-    - makedirs: True
-    - onlyif:
-      - fun: file.directory_exists
-        path: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
+wsl-cast-install-bitcurator-download-only:
+  cmd.run:
+    - name: '{{ wsl_cmd }} bash -c "cast install --mode addon --user bcadmin bitcurator/bitcurator-salt || true"'
+    - shell: cmd
+    - creates: '\\\\wsl.localhost\\{{ distro }}\\home\\bcadmin\\bitcurator-saltstack.log'
     - require:
-      - cmd: wsl-config-version-download-only
-      - file: wsl-make-install-directory-download-only
-      - cmd: wsl-import-template-download-only
+      - cmd: wsl-remove-cast-binary-download-only
 
-wsl-portals-shortcut-download-only:
-  file.copy:
-    - name: '{{ inpath }}\Portals\Terminals\'
-    - source: '{{ START_MENU }}\Windows Subsystem for Linux.lnk'
-    - preserve: True
-    - subdir: True
-    - makedirs: True
-    - onlyif:
-      - fun: file.directory_exists
-        path: '{{ PROGRAM_FILES }}\WindowsApps\MicrosoftCorporationII.WindowsSubsystemForLinux_{{ wslver }}_x64__8wekyb3d8bbwe\'
+wsl-copy-cast-bitcurator-results-download-only:
+  cmd.run:
+    - name: '{{ wsl_cmd }} cp /var/cache/cast/installer/logs/saltstack.log /home/bcadmin/bitcurator-saltstack.log'
+    - shell: cmd
+    - creates: '\\\\wsl.localhost\\{{ distro }}\\home\\bcadmin\\bitcurator-saltstack.log'
     - require:
-      - file: wsl-shortcut-download-only
-      - cmd: wsl-config-version-download-only
-      - file: wsl-make-install-directory-download-only
-      - cmd: wsl-import-template-download-only
+      - cmd: wsl-cast-install-bitcurator-download-only
+    - onlyif:
+      - fun: file.file_exists
+        path: '\\\\wsl.localhost\\{{ distro }}\\var\\cache\\cast\\installer\\logs\\saltstack.log'
+
+wsl-setup-mounts-and-cleanup-download-only:
+  cmd.run:
+    - name: |
+        {{ wsl_cmd }} bash -c "mkdir -p /mnt/{aff,bde,e01,ewf,ewf_mount,iscsi,shadow_mount,usb,vss,windows_mount} && mkdir -p /mnt/windows_mount{1..5} /mnt/shadow_mount/vss{1..30} && rm -rf /var/cache/salt/* /srv/* /root/.cache/* /var/cache/cast/*"
+    - shell: cmd
+    - require:
+      - cmd: wsl-install-distro-download-only
+
+wsl-set-default-user-download-only:
+  cmd.run:
+    - name: 'wsl --manage {{ distro }} --set-default-user bcadmin'
+    - shell: cmd
+    - require:
+      - cmd: wsl-bootstrap-user-bcadmin-download-only
 
 wsl-shutdown-download-only:
   cmd.run:
     - name: 'wsl --shutdown'
     - shell: cmd
     - require:
-      - cmd: wsl-install-bitcurator-download-only
+      - cmd: wsl-set-default-user-download-only
+      - cmd: wsl-setup-mounts-and-cleanup-download-only
 
-wsl-stage-vhdx-download-only:
-  file.copy:
-    - name: '{{ downloads }}\wsl\ext4.vhdx'
-    - source: '{{ inpath }}\wsl\ext4.vhdx'
-    - force: True
-    - makedirs: True
-    - require:
-      - cmd: wsl-shutdown-download-only
+{{ wsl_diskpart_compact(
+    'wsl-create-diskpart-script-download-only', 'wsl-diskpart-compact-download-only',
+    inpath ~ '\\wsl\\' ~ folder ~ '\\ext4.vhdx', inpath ~ '\\wsl\\' ~ folder ~ '\\diskpart-compact.txt',
+    'wsl-shutdown-download-only'
+) }}
 
-wsl-delete-template-download-only:
-  file.absent:
-    - name: 'C:\salt'
+
+wsl-sync-download-only:
+  test.nop:
     - require:
-      - file: wsl-stage-vhdx-download-only
-      - cmd: wsl-config-version-download-only
-      - file: wsl-make-install-directory-download-only
-      - cmd: wsl-import-template-download-only
+      - cmd: wsl-diskpart-compact-download-only
+
+wsl-move-bitcurator-download-only:
+  file.rename:
+    - name: '{{ downloads }}\wsl\bitcurator'
+    - source: '{{ inpath }}\wsl\bitcurator\'
+    - onlyif:
+      - fun: file.directory_exists
+        path: '{{ inpath }}\wsl\bitcurator'

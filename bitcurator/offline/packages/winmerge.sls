@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Dean P. Grimm (Thingamahoocie Software)
 # License: GNU General Public License v2.0 (https://github.com/WinMerge/winmerge/blob/master/LICENSE.md)
-# Version: 2.16.44
+# Version: 2.16.60
 # Notes:
 
 # renovate: datasource=github-releases depName=WinMerge/winmerge
-{% set version = '2.16.44' %}
+{% set version = '2.16.60' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'WinMerge-' ~ version ~ '-x64-Setup.exe' %}
 {% set exists = salt['file.file_exists'](downloads + '\\winmerge\\' + pkg) %}

@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Adoptium
 # License: Eclipse Public License v2 (https://www.eclipse.org/legal/epl-2.0/)
-# Version: 21.0.5
+# Version: 21.0.13
 # Notes: 
 
 # renovate: datasource=github-releases depName=adoptium/temurin21-binaries
-{% set version = '21.0.5' %}
+{% set version = '21.0.13' %}
 {% set major = '21' %}
 {% set subversion = '11' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}

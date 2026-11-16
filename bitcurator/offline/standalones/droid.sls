@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: The National Archives
 # License: BSD License (https://raw.github.com/digital-preservation/droid/master/license.md)
-# Version: 6.8.0
+# Version: 6.9.14
 # Notes: Command Line and GUI, this will utilize the GUI by default, updates signature database on install
 
 # renovate: datasource=github-releases depName=digital-preservation/droid
-{% set version = '6.8.0' %}
+{% set version = '6.9.14' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}

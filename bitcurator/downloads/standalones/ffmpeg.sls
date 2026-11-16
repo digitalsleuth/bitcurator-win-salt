@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Fabrice Bellard et al (https://git.ffmpeg.org/gitweb/ffmpeg.git/blob_plain/HEAD:/MAINTAINERS)
 # License: GNU Lesser General Public License v2.1 (https://git.ffmpeg.org/gitweb/ffmpeg.git/blob_plain/HEAD:/LICENSE.md)
-# Version: 7.1.1
+# Version: 9.0.2
 # Notes: ffmpeg, ffprobe, ffplay
 
-{% set version = '7.1.1' %}
+{% set version = '9.0.2' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('ffmpeg') %}

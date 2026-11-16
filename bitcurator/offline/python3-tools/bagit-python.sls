@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Library of Congress
 # License: 
-# Version: 1.8.1
+# Version: 1.9.0
 # Notes: 
 
 # renovate: datasource=pypi depName=bagit
-{% set version = '1.8.1' %}
+{% set version = '1.9.0' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'bagit-'~ version ~'-py3-none-any.whl' %}
 {% set exists = salt['file.file_exists'](downloads + '\\bagit-python\\packages\\' + pkg) %}

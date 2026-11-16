@@ -4,10 +4,10 @@
 # Category: Archival
 # Author: Richard Lehane
 # License: Apache License (https://github.com/richardlehane/siegfried/blob/main/LICENSE.txt)
-# Version: 1.11.1
+# Version: 1.11.9
 # Notes: sf.exe, roy.exe
 
-{% set version = '1.11.1' %}
+{% set version = '1.11.9' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('siegfried') %}

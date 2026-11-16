@@ -7,6 +7,8 @@
 # Version: 2.56.0
 # Notes: 
 
+{% set version = '2.56.0' %}
+
 include:
   - bitcurator.repos
 

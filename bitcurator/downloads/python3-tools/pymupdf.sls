@@ -25,7 +25,7 @@ pymupdf-folder-download-only:
 
 pymupdf-download-only:
   cmd.run:
-    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages PyMuPDF'
+    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages PyMuPDF=={{ version }}'
     - cwd: '{{ downloads }}\pymupdf\'
     - require:
       - sls: bitcurator.standalones.portable-python3

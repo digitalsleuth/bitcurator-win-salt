@@ -126,9 +126,9 @@
         "ExtraTiles": []
       },
 	  "DART": {
-        "CbName": "packages_dart",
+        "CbName": "standalones_dart",
         "CbContent": "DART",
-        "DAID": "org.aptrust.DART",
+        "DAID": "",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,
@@ -780,6 +780,17 @@
         "CbName": "packages_ms_powertoys",
         "CbContent": "Microsoft PowerToys",
         "DAID": "Microsoft.PowerToysWin32",
+        "AUMID": false,
+        "DALP": false,
+        "StartMenu": true,
+        "Checked": true,
+        "Enabled": true,
+        "ExtraTiles": []
+      },
+      "OpenHashTab": {
+        "CbName": "packages_openhashtab",
+        "CbContent": "OpenHashTab",
+        "DAID": "",
         "AUMID": false,
         "DALP": false,
         "StartMenu": true,

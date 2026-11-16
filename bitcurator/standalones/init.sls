@@ -1,5 +1,6 @@
 include:
   - bitcurator.standalones.antiword
+  - bitcurator.standalones.dart
   - bitcurator.standalones.deark
   - bitcurator.standalones.demystify-lite
   - bitcurator.standalones.droid
@@ -26,6 +27,7 @@ bitcurator-standalones:
     - name: bitcurator-standalones
     - require:
       - sls: bitcurator.standalones.antiword
+      - sls: bitcurator.standalones.dart
       - sls: bitcurator.standalones.deark
       - sls: bitcurator.standalones.demystify-lite
       - sls: bitcurator.standalones.droid

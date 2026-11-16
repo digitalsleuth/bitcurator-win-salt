@@ -4,17 +4,17 @@
 # Category: Archival
 # Author: Academic Preservation Trust
 # License: BSD 2-Clause License (https://github.com/APTrust/dart/blob/master/LICENSE)
-# Version: 2.0.22
-# Notes: 
+# Version: 3.0.1
+# Notes: dart
 
-{% set version = '2.0.22' %}
+{% set version = '3.0.1' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('dart') %}
 
 dart-download-only:
   file.managed:
-    - name: '{{ downloads }}\dart\DART+Setup+{{ version }}.exe'
-    - source: https://s3.amazonaws.com/aptrust.public.download/DART/DART+Setup+{{ version }}.exe
+    - name: '{{ downloads }}\dart\dart-{{ version }}.exe'
+    - source: https://s3.amazonaws.com/aptrust.public.download/dart3/v{{ version }}/windows-amd64/dart.exe
     - source_hash: sha256={{ hash }}
     - makedirs: True

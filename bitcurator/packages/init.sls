@@ -6,7 +6,6 @@ include:
   - bitcurator.packages.bulk-extractor
   - bitcurator.packages.bulk-rename-utility
   - bitcurator.packages.clamav
-  - bitcurator.packages.dart
   - bitcurator.packages.dupeguru
   - bitcurator.packages.epadd
   - bitcurator.packages.exact-audio-copy
@@ -21,6 +20,8 @@ include:
   - bitcurator.packages.mediainfo
   - bitcurator.packages.mkvtoolnix
   - bitcurator.packages.ms-vcpp-2015-build-tools
+  - bitcurator.packages.openhashtab
+  - bitcurator.packages.openjdk-adoptium
   - bitcurator.packages.openrefine
   - bitcurator.packages.powergrep
   - bitcurator.packages.vrenamer
@@ -50,7 +51,6 @@ bitcurator-packages:
       - sls: bitcurator.packages.bulk-extractor
       - sls: bitcurator.packages.bulk-rename-utility
       - sls: bitcurator.packages.clamav
-      - sls: bitcurator.packages.dart
       - sls: bitcurator.packages.dupeguru
       - sls: bitcurator.packages.epadd
       - sls: bitcurator.packages.exact-audio-copy
@@ -65,6 +65,8 @@ bitcurator-packages:
       - sls: bitcurator.packages.mediainfo
       - sls: bitcurator.packages.ms-vcpp-2015-build-tools
       - sls: bitcurator.packages.mkvtoolnix
+      - sls: bitcurator.packages.openhashtab
+      - sls: bitcurator.packages.openjdk-adoptium
       - sls: bitcurator.packages.openrefine
       - sls: bitcurator.packages.powergrep
       - sls: bitcurator.packages.vrenamer

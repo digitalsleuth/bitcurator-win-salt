@@ -15,7 +15,7 @@
 
 openrefine-download-only:
   file.managed:
-    - name: '{{ downloads }}\openrefine\openrefine-win-with-java-installer-{{ version }}.exe'
+    - name: '{{ downloads }}\openrefine\openrefine-{{ version }}.exe'
     - source: https://github.com/OpenRefine/OpenRefine/releases/download/{{ version }}/openrefine-win-with-java-installer-{{ version }}.exe
     - source_hash: sha256={{ hash }}
     - makedirs: True

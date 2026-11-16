@@ -11,7 +11,7 @@
 {% set version = '9.0.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'ffmpeg-' ~ version ~ '-full_build.zip' %}
+{% set pkg = 'ffmpeg-' ~ version ~ '.zip' %}
 {% set exists = salt['file.file_exists'](downloads + '\\ffmpeg\\' + pkg) %}
 
 {% if exists %}

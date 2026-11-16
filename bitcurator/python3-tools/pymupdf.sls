@@ -15,7 +15,7 @@ include:
 
 pymupdf-install:
   pip.installed:
-    - name: PyMuPDF
+    - name: 'PyMuPDF=={{ version }}'
     - bin_env: 'C:\Program Files\Python311\python.exe'
     - require:
       - sls: bitcurator.packages.python3

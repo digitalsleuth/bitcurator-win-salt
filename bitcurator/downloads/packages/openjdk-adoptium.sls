@@ -10,7 +10,7 @@
 # renovate: datasource=github-releases depName=adoptium/temurin21-binaries
 {% set version = '21.0.13' %}
 {% set major = '21' %}
-{% set subversion = '11' %}
+{% set subversion = '9' %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 {% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
 {% set hash = get_hash('openjdk-adoptium') %}

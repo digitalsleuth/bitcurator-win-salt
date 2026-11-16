@@ -10,7 +10,7 @@
 # renovate: datasource=github-releases depName=WinMerge/winmerge
 {% set version = '2.16.60' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'WinMerge-' ~ version ~ '-x64-Setup.exe' %}
+{% set pkg = 'winmerge-' ~ version ~ '.exe' %}
 {% set exists = salt['file.file_exists'](downloads + '\\winmerge\\' + pkg) %}
 
 {% if exists %}

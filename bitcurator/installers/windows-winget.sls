@@ -8,13 +8,11 @@
 # Notes: 
 
 {% set version = '1.29.380' %}
+{% set user = salt['pillar.get']('winfor_user', 'forensics') %}
 {% set LOCALAPPDATA = salt['environ.get']('LOCALAPPDATA') %}
-{% if salt['file.file_exists'](LOCALAPPDATA + "\\Microsoft\\WindowsApps\\winget.exe") %}
+{% set winget_version = salt['cmd.powershell']('$(try { winget -v } catch { "0" }).split("v")[1]') %}
 
-winget-exists:
-  test.nop
-
-{% else %}
+{% if version > winget_version and winget_version != '0' %}
 
 windows-winget-download:
   file.managed:
@@ -25,10 +23,14 @@ windows-winget-download:
 
 windows-winget-install:
   cmd.run:
-    - name: "dism /Online /Add-ProvisionedAppxPackage /PackagePath:Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle /SkipLicense"
+    - name: "dism /Online /quiet /norestart /Add-ProvisionedAppxPackage /PackagePath:Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle /SkipLicense"
     - shell: cmd
+    - success_retcodes: 3010
     - cwd: 'C:\salt\tempdownload\'
     - require:
       - file: windows-winget-download
 
+{% else %}
+Windows Winget is already installed and at a higher version - {{ winget_version }}:
+  test.nop
 {% endif %}

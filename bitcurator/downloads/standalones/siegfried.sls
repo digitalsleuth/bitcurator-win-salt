@@ -14,7 +14,7 @@
 
 siegfried-download-only:
   file.managed:
-    - name: '{{ downloads }}\siegfried\siegfried_{{ version | replace(".","-") }}_win64.zip'
+    - name: '{{ downloads }}\siegfried\siegfried-{{ version }}.zip'
     - source: 'https://github.com/richardlehane/siegfried/releases/download/v{{ version }}/siegfried_{{ version | replace(".","-") }}_win64.zip'
     - source_hash: sha256={{ hash }}
     - makedirs: True

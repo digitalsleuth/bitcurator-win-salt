@@ -5,7 +5,6 @@ include:
   - bitcurator.downloads.packages.bulk-extractor
   - bitcurator.downloads.packages.bulk-rename-utility
   - bitcurator.downloads.packages.clamav
-  - bitcurator.downloads.packages.dart
   - bitcurator.downloads.packages.dupeguru
   - bitcurator.downloads.packages.epadd
   - bitcurator.downloads.packages.exact-audio-copy
@@ -20,6 +19,7 @@ include:
   - bitcurator.downloads.packages.mediainfo
   - bitcurator.downloads.packages.mkvtoolnix
   - bitcurator.downloads.packages.ms-vcpp-2015-build-tools
+  - bitcurator.downloads.packages.openhashtab
   - bitcurator.downloads.packages.openrefine
   - bitcurator.downloads.packages.powergrep
   - bitcurator.downloads.packages.vrenamer
@@ -38,6 +38,7 @@ include:
   - bitcurator.downloads.packages.firefox
   - bitcurator.downloads.packages.portals
   - bitcurator.downloads.standalones.antiword
+  - bitcurator.downloads.standalones.dart
   - bitcurator.downloads.standalones.deark
   - bitcurator.downloads.standalones.demystify-lite
   - bitcurator.downloads.standalones.droid
@@ -92,7 +93,6 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.bulk-extractor
       - sls: bitcurator.downloads.packages.bulk-rename-utility
       - sls: bitcurator.downloads.packages.clamav
-      - sls: bitcurator.downloads.packages.dart
       - sls: bitcurator.downloads.packages.dupeguru
       - sls: bitcurator.downloads.packages.epadd
       - sls: bitcurator.downloads.packages.exact-audio-copy
@@ -107,6 +107,7 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.mediainfo
       - sls: bitcurator.downloads.packages.mkvtoolnix
       - sls: bitcurator.downloads.packages.ms-vcpp-2015-build-tools
+      - sls: bitcurator.downloads.packages.openhashtab
       - sls: bitcurator.downloads.packages.openrefine
       - sls: bitcurator.downloads.packages.powergrep
       - sls: bitcurator.downloads.packages.vrenamer
@@ -125,6 +126,7 @@ bitcurator-downloads:
       - sls: bitcurator.downloads.packages.firefox
       - sls: bitcurator.downloads.packages.portals
       - sls: bitcurator.downloads.standalones.antiword
+      - sls: bitcurator.downloads.standalones.dart
       - sls: bitcurator.downloads.standalones.deark
       - sls: bitcurator.downloads.standalones.demystify-lite
       - sls: bitcurator.downloads.standalones.droid

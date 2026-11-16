@@ -10,7 +10,7 @@
 # renovate: datasource=github-releases depName=OpenRefine/OpenRefine
 {% set version = '3.10.1' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'openrefine-win-with-java-installer-' ~ version ~ '.exe' %}
+{% set pkg = 'openrefine-' ~ version ~ '.exe' %}
 {% set exists = salt['file.file_exists'](downloads + '\\openrefine\\' + pkg) %}
 
 {% if exists %}

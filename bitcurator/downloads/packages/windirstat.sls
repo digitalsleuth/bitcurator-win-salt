@@ -15,7 +15,7 @@
 
 windirstat-download-only:
   file.managed:
-    - name: '{{ downloads }}\windirstat\WinDirStat-x64-{{ version }}.msi'
+    - name: '{{ downloads }}\windirstat\windirstat-{{ version }}.msi'
     - source: https://github.com/windirstat/windirstat/releases/download/release/v{{ version }}/WinDirStat-x64.msi
     - source_hash: sha256={{ hash }}
     - makedirs: True

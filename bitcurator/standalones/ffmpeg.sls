@@ -17,7 +17,7 @@ include:
 
 ffmpeg-download:
   file.managed:
-    - name: 'C:\salt\tempdownload\ffmpeg-{{ version }}-full_build.zip'
+    - name: 'C:\salt\tempdownload\ffmpeg-{{ version }}.zip'
     - source: https://github.com/GyanD/codexffmpeg/releases/download/{{ version }}/ffmpeg-{{ version }}-full_build.zip
     - source_hash: sha256={{ hash }}
     - makedirs: True
@@ -25,7 +25,7 @@ ffmpeg-download:
 ffmpeg-extract:
   archive.extracted:
     - name: '{{ inpath }}\'
-    - source: 'C:\salt\tempdownload\ffmpeg-{{ version }}-full_build.zip'
+    - source: 'C:\salt\tempdownload\ffmpeg-{{ version }}.zip'
     - enforce_toplevel: False
     - require:
       - file: ffmpeg-download

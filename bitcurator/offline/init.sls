@@ -10,7 +10,6 @@ include:
   - bitcurator.offline.packages.bulk-rename-utility
   - bitcurator.offline.packages.chrome
   - bitcurator.offline.packages.clamav
-  - bitcurator.offline.packages.dart
   - bitcurator.offline.packages.dotnetfx35
   - bitcurator.offline.packages.dupeguru
   - bitcurator.offline.packages.duplicate-cleaner
@@ -33,6 +32,7 @@ include:
   - bitcurator.offline.packages.ms-powertoys
   - bitcurator.offline.packages.ms-vcpp-2015-build-tools
   - bitcurator.offline.packages.notepad-plus-plus
+  - bitcurator.offline.packages.openhashtab
   - bitcurator.offline.packages.openjdk-adoptium
   - bitcurator.offline.packages.openrefine
   - bitcurator.offline.packages.portals
@@ -60,6 +60,7 @@ include:
   - bitcurator.offline.python3-tools.pymupdf
   - bitcurator.offline.python3-tools.python-evtx
   - bitcurator.offline.standalones.antiword
+  - bitcurator.offline.standalones.dart
   - bitcurator.offline.standalones.deark
   - bitcurator.offline.standalones.demystify-lite
   - bitcurator.offline.standalones.droid
@@ -96,7 +97,6 @@ bitcurator-offline:
       - sls: bitcurator.offline.packages.bulk-rename-utility
       - sls: bitcurator.offline.packages.chrome
       - sls: bitcurator.offline.packages.clamav
-      - sls: bitcurator.offline.packages.dart
       - sls: bitcurator.offline.packages.dotnetfx35
       - sls: bitcurator.offline.packages.dupeguru
       - sls: bitcurator.offline.packages.duplicate-cleaner
@@ -119,6 +119,7 @@ bitcurator-offline:
       - sls: bitcurator.offline.packages.ms-powertoys
       - sls: bitcurator.offline.packages.ms-vcpp-2015-build-tools
       - sls: bitcurator.offline.packages.notepad-plus-plus
+      - sls: bitcurator.offline.packages.openhashtab
       - sls: bitcurator.offline.packages.openjdk-adoptium
       - sls: bitcurator.offline.packages.openrefine
       - sls: bitcurator.offline.packages.portals
@@ -146,6 +147,7 @@ bitcurator-offline:
       - sls: bitcurator.offline.python3-tools.pymupdf
       - sls: bitcurator.offline.python3-tools.python-evtx
       - sls: bitcurator.offline.standalones.antiword
+      - sls: bitcurator.offline.standalones.dart
       - sls: bitcurator.offline.standalones.deark
       - sls: bitcurator.offline.standalones.demystify-lite
       - sls: bitcurator.offline.standalones.droid

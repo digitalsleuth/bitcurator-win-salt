@@ -17,7 +17,7 @@ include:
 
 siegfried-download:
   file.managed:
-    - name: 'C:\salt\tempdownload\siegfried_{{ version | replace(".","-") }}_win64.zip'
+    - name: 'C:\salt\tempdownload\siegfried-{{ version }}.zip'
     - source: 'https://github.com/richardlehane/siegfried/releases/download/v{{ version }}/siegfried_{{ version | replace(".","-") }}_win64.zip'
     - source_hash: sha256={{ hash }}
     - makedirs: True
@@ -26,7 +26,7 @@ siegfried-extract:
   archive.extracted:
     - name: '{{ inpath }}\siegfried\'
     - enforce_toplevel: False
-    - source: 'C:\salt\tempdownload\siegfried_{{ version | replace(".","-") }}_win64.zip'
+    - source: 'C:\salt\tempdownload\siegfried-{{ version }}.zip'
     - overwrite: True
     - require:
       - file: siegfried-download

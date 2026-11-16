@@ -11,7 +11,7 @@
 {% set version = '1.11.9' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'siegfried_' ~ (version | replace(".","-")) ~ '_win64.zip' %}
+{% set pkg = 'siegfried-' ~ version ~'.zip' %}
 {% set exists = salt['file.file_exists'](downloads + '\\siegfried\\' + pkg) %}
 
 {% if exists %}

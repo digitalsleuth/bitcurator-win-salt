@@ -10,7 +10,7 @@
 # renovate: datasource=github-releases depName=adoptium/temurin21-binaries
 {% set version = '21.0.13' %}
 {% set major = '21' %}
-{% set subversion = '11' %}
+{% set subversion = '9' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'openjdk-adoptium-' ~ version ~ '.msi' %}
 {% set exists = salt['file.file_exists'](downloads + '\\openjdk-adoptium\\' + pkg) %}

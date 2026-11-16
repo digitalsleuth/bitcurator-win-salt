@@ -11,7 +11,7 @@
 {% set version = '1.76.0' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'rclone-v' ~ version ~ '-windows-amd64.zip' %}
+{% set pkg = 'rclone-' ~ version ~ '.zip' %}
 {% set exists = salt['file.file_exists'](downloads + '\\rclone\\' + pkg) %}
 
 {% if exists %}

@@ -15,15 +15,15 @@
 
 droid-download:
   file.managed:
-    - name: 'C:\salt\tempdownload\droid-binary-{{ version }}-bin-win64-with-jre.zip'
-    - source: https://github.com/digital-preservation/droid/releases/download/droid-{{ version }}/droid-binary-{{ version }}-bin-win64-with-jre.zip
+    - name: 'C:\salt\tempdownload\droid-{{ version }}.zip'
+    - source: https://github.com/digital-preservation/droid/releases/download/{{ version }}/droid-binary-{{ version }}-bin-win64-with-jre.zip
     - source_hash: sha256={{ hash }}
     - makedirs: True
 
 droid-extract:
   archive.extracted:
     - name: '{{ inpath }}\droid\'
-    - source: 'C:\salt\tempdownload\droid-binary-{{ version }}-bin-win64-with-jre.zip'
+    - source: 'C:\salt\tempdownload\droid-{{ version }}.zip'
     - overwrite: True
     - enforce_toplevel: False
     - require:

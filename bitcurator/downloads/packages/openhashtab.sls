@@ -7,13 +7,14 @@
 # Version: 3.1.1
 # Notes: 
 
-{% set downloads = salt['pillar.get']('downloads', 'C:\bc-downloads') %}
 {% set version = '3.1.1' %}
-{% set hash = '9966e3ed6693dfc42904a2aaa1b294a2cd1edd059ef795729a76956cc21cd239' %}
+{% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('openhashtab') %}
 
 openhashtab-download-only:
   file.managed:
-    - name: '{{ downloads }}\openhashtab\OpenHashTab_setup-{{ version }}.exe'
-    - source: https://github.com/namazso/OpenHashTab/releases/download/v{{ version }}/OpenHashTab_setup.exe
+    - name: '{{ downloads }}\openhashtab\openhashtab-{{ version }}.msi'
+    - source: https://github.com/namazso/OpenHashTab/releases/download/{{ version }}/OpenHashTab_Machine_x64.msi
     - source_hash: sha256={{ hash }}
     - makedirs: True

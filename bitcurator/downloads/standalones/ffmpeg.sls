@@ -14,7 +14,7 @@
 
 ffmpeg-download-only:
   file.managed:
-    - name: '{{ downloads }}\ffmpeg\ffmpeg-{{ version }}-full_build.zip'
+    - name: '{{ downloads }}\ffmpeg\ffmpeg-{{ version }}.zip'
     - source: https://github.com/GyanD/codexffmpeg/releases/download/{{ version }}/ffmpeg-{{ version }}-full_build.zip
     - source_hash: sha256={{ hash }}
     - makedirs: True

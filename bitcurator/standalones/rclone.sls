@@ -17,7 +17,7 @@ include:
 
 rclone-download:
   file.managed:
-    - name: 'C:\salt\tempdownload\rclone-v{{ version }}-windows-amd64.zip'
+    - name: 'C:\salt\tempdownload\rclone-{{ version }}.zip'
     - source: https://github.com/rclone/rclone/releases/download/v{{ version }}/rclone-v{{ version }}-windows-amd64.zip
     - source_hash: sha256={{ hash }}
     - makedirs: True
@@ -25,7 +25,7 @@ rclone-download:
 rclone-extract:
   archive.extracted:
     - name: '{{ inpath }}\'
-    - source: 'C:\salt\tempdownload\rclone-v{{ version }}-windows-amd64.zip'
+    - source: 'C:\salt\tempdownload\rclone-{{ version }}.zip'
     - enforce_toplevel: True
     - overwrite: True
     - require:

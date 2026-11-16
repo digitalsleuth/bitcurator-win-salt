@@ -10,22 +10,25 @@
 # renovate: datasource=github-releases depName=microsoft/winget-cli
 {% set version = '1.29.380' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set LOCALAPPDATA = salt['environ.get']('LOCALAPPDATA') %}
-{% set pkg = 'Microsoft.DesktopAppInstaller_8wekyb3d8bbwe-' ~ version ~ '.msixbundle' %}
+{% set winget_version = salt['cmd.powershell']('$(try { winget -v } catch { "0" }).split("v")[1]') %}
+{% set pkg = 'windows-winget-'~ version ~'.msixbundle' %}
 {% set exists = salt['file.file_exists'](downloads + '\\windows-winget\\' + pkg) %}
 
-{% if salt['file.file_exists'](LOCALAPPDATA + "\\Microsoft\\WindowsApps\\winget.exe") %}
+{% if exists %}
 
-winget-exists-offline:
-  test.nop
-
-{% elif exists %}
+{% if version > winget_version and winget_version != '0' %}
 
 windows-winget-install-offline:
   cmd.run:
-    - name: 'dism /Online /Add-ProvisionedAppxPackage /PackagePath:"{{ downloads }}\windows-winget\{{ pkg }}" /SkipLicense'
-    - shell: cmd
-    - cwd: '{{ downloads }}\windows-winget\'
+    - name: 'Add-AppxPackage -Path {{ downloads }}\windows-winget\{{ pkg }}'
+    - shell: powershell
+    - success_retcodes: 3010
+    - cwd: '{{ downloads }}\windows-winget'
+
+{% else %}
+Windows Winget is already installed and at an equal or higher version offline - {{ winget_version }}:
+  test.nop
+{% endif %}
 
 {% else %}
 {{ pkg }} does not exist - not installing:

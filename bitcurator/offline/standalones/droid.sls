@@ -12,7 +12,7 @@
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% set pkg = 'droid-binary-' ~ version ~ '-bin-win64-with-jre.zip' %}
+{% set pkg = 'droid-' ~ version ~ '.zip' %}
 {% set exists = salt['file.file_exists'](downloads + '\\droid\\' + pkg) %}
 
 {% if exists %}

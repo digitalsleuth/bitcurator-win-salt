@@ -14,7 +14,7 @@
 
 rclone-download-only:
   file.managed:
-    - name: '{{ downloads }}\rclone\rclone-v{{ version }}-windows-amd64.zip'
+    - name: '{{ downloads }}\rclone\rclone-{{ version }}.zip'
     - source: https://github.com/rclone/rclone/releases/download/v{{ version }}/rclone-v{{ version }}-windows-amd64.zip
     - source_hash: sha256={{ hash }}
     - makedirs: True

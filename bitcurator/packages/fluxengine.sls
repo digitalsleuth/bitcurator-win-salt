@@ -17,6 +17,11 @@ fluxengine:
 
 fluxengine-del-shortcut:
   file.absent:
-    - name: 'C:\Users\{{ user }}\Desktop\FluxEngine.lnk'
+    - names:
+      - 'C:\Users\{{ user }}\Desktop\FluxEngine.lnk'
+      - 'C:\Users\Public\Desktop\FluxEngine.lnk'
+      - 'C:\Users\Public\Desktop\fluxengine-gui.lnk'
+      - 'C:\Users\{{ user }}\Desktop\fluxengine-gui.lnk'
     - require:
       - pkg: fluxengine
+

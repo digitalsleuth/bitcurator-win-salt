@@ -44,7 +44,7 @@ python-evtx-folder-rename-download-only:
 
 python-evtx-python-download-only:
   cmd.run:
-    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel'
+    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel lxml'
     - cwd: '{{ downloads }}\python-evtx'
     - require:
       - sls: bitcurator.downloads.packages.python3

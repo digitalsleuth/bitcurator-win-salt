@@ -23,13 +23,12 @@ python-evtx-install-offline:
     - require:
       - sls: bitcurator.offline.packages.python3
 
-python-evtx-import-fix-offline:
-  file.replace:
-    - name: 'C:\Program Files\Python311\Scripts\evtx_eid_record_numbers.py'
-    - pattern: 'from filter_records'
-    - repl: 'from evtx_scripts.evtx_filter_records'
-    - count: 1
+python-evtx-install-lxml-offline:
+  cmd.run:
+    - name: '"C:\Program Files\Python311\python.exe" -m pip install --no-index --find-links=.\packages lxml'
+    - cwd: '{{ downloads }}\python-evtx\'
     - require:
+      - sls: bitcurator.offline.packages.python3
       - cmd: python-evtx-install-offline
 
 {% else %}

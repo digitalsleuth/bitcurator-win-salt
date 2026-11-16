@@ -27,7 +27,11 @@ fluxengine-install-offline:
 
 fluxengine-del-shortcut-offline:
   file.absent:
-    - name: 'C:\Users\{{ user }}\Desktop\FluxEngine.lnk'
+    - names:
+      - 'C:\Users\{{ user }}\Desktop\FluxEngine.lnk'
+      - 'C:\Users\Public\Desktop\FluxEngine.lnk'
+      - 'C:\Users\Public\Desktop\fluxengine-gui.lnk'
+      - 'C:\Users\{{ user }}\Desktop\fluxengine-gui.lnk'
     - require:
       - cmd: fluxengine-install-offline
       - user: user-{{ user }}

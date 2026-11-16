@@ -22,11 +22,10 @@ python-evtx:
     - require:
       - sls: bitcurator.packages.python3
 
-python-evtx-import-fix:
-  file.replace:
-    - name: 'C:\Program Files\Python311\Scripts\evtx_eid_record_numbers.py'
-    - pattern: 'from filter_records'
-    - repl: 'from evtx_scripts.evtx_filter_records'
-    - count: 1
+python-evtx-lxml-requirement:
+  pip.installed:
+    - name: lxml
+    - bin_env: 'C:\Program Files\Python311\python.exe'
+    - upgrade: True
     - require:
       - pip: python-evtx

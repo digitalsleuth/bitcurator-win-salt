@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: University of Albany
 # License: MIT License (https://github.com/UAlbanyArchives/mailbagit/blob/main/LICENSE)
-# Version: 0.7.3
+# Version: 0.7.5
 # Notes: 
 
 # renovate: datasource=pypi depName=mailbagit
-{% set version = '0.7.3' %}
+{% set version = '0.7.5' %}
 
 include:
   - bitcurator.packages.python3

@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: OpenAI
 # License: MIT License (https://github.com/openai/whisper/blob/main/LICENSE)
-# Version: 20240930
+# Version: 20250625
 # Notes: 
 
 # renovate: datasource=pypi depName=openai-whisper
-{% set version = '20240930' %}
+{% set version = '20250625' %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set exists = salt['file.directory_exists'](downloads + '\\openai-whisper\\packages') %}
 

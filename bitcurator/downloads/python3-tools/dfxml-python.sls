@@ -49,3 +49,10 @@ dfxml-python-python-download-only:
       - file: dfxml-python-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
       - sls: bitcurator.downloads.packages.python3
+
+dfxml-python-delete-archive:
+  file.absent:
+    - name: '{{ downloads }}\dfxml-python-main.zip'
+    - require:
+      - archive: dfxml-python-extract-download-only
+

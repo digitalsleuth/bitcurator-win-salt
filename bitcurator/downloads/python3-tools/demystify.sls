@@ -49,3 +49,9 @@ demystify-python-download-only:
       - file: demystify-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
       - sls: bitcurator.downloads.packages.python3
+
+demystify-delete-archive-download-only:
+  file.absent:
+    - name: '{{ downloads }}\demystify-{{ version }}.zip'
+    - require:
+      - archive: demystify-extract-download-only

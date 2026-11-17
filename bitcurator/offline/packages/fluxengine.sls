@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: David Given
 # License: MIT License (https://github.com/davidgiven/fluxengine/blob/master/COPYING.md)
-# Version: 26.10.35640
+# Version: 26.11.24131
 # Notes: Installs for current user
 
 # renovate: datasource=github-releases depName=davidgiven/fluxengine
-{% set version = '26.10.35640' %}
+{% set version = '26.11.24131' %}
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}

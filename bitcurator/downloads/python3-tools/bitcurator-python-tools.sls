@@ -49,3 +49,9 @@ bitcurator-python-tools-python-download-only:
       - file: bitcurator-python-tools-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
       - sls: bitcurator.downloads.packages.python3
+
+bitcurator-python-tools-delete-archive-download-only:
+  file.absent:
+    - name: '{{ downloads }}\bitcurator-python-tools-{{ version }}.zip'
+    - require:
+      - archive: bitcurator-python-tools-extract-download-only

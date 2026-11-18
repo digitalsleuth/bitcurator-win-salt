@@ -70,7 +70,7 @@ salt-conf-create:
     - name: 'C:\ProgramData\Salt Project\salt\conf\minion'
     - contents: |
         master: localhost
-        id: WIN-FOR
+        id: BitCurator
         winrepo_remotes_ng:
           - main https://github.com/digitalsleuth/salt-winrepo-ng.git
         winrepo_remotes:

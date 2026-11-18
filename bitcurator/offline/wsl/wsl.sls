@@ -9,15 +9,17 @@
 
 {% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
 {% set saltpath = salt['pillar.get']('saltpath', 'C:\Program Files\Salt Project\Salt\salt-call.exe') %}
-{% if wsl_choice == 'bitcurator24' %}
-  {% set wsl_text = 'BitCurator-24' %}
-{% elif wsl_choice == 'bitcurator26' %}
-  {% set wsl_text = 'BitCurator-26' %}
-{% endif %}
 {% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
 {% set home = "C:\\Users\\" + user %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
+{% set staged = [] %}
+{% for choice, name in {'bitcurator24': 'BitCurator-24', 'bitcurator26': 'BitCurator-26'}.items() %}
+  {% if salt['file.directory_exists'](downloads ~ '\\wsl\\' ~ choice) %}
+    {% do staged.append(name) %}
+  {% endif %}
+{% endfor %}
+{% set wsl_text = staged | join(' and ') if staged else 'BitCurator WSL' %}
 {% set version = salt['cp.get_file_str']("C:\ProgramData\Salt Project\Salt\srv\salt\bitcurator\VERSION") %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set defender_status = salt['cmd.powershell']('((Get-Service) -match "WinDefend").Name') %}
@@ -222,7 +224,7 @@ wsl-cmd-stager-offline:
 wsl-config-run-on-reboot-offline:
   reg.present:
     - name: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-    - vname: "WIN-FOR WSL Config"
+    - vname: "BitCurator WSL Config"
     - vtype: REG_SZ
     - vdata: 'C:\Windows\system32\cmd.exe /q /c {{ inpath }}\wsl\wsl-config.cmd'
     - require:

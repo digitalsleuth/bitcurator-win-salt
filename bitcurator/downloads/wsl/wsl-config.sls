@@ -113,10 +113,24 @@ wsl-sync-download-only:
     - require:
       - cmd: wsl-diskpart-compact-download-only
 
-wsl-move-bitcurator-download-only:
-  file.rename:
-    - name: '{{ downloads }}\wsl\bitcurator'
-    - source: '{{ inpath }}\wsl\bitcurator\'
-    - onlyif:
-      - fun: file.directory_exists
-        path: '{{ inpath }}\wsl\bitcurator'
+wsl-copy-{{ folder }}-download-only:
+  cmd.run:
+    - name: 'robocopy "{{ inpath }}\wsl\{{ folder }}" "{{ downloads }}\wsl\{{ folder }}" /E /R:1 /W:1 /XF diskpart-compact.txt'
+    - shell: cmd
+    - success_retcodes:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    - require:
+      - test: wsl-sync-download-only
+
+wsl-unregister-{{ folder }}-download-only:
+  cmd.run:
+    - name: powershell -nop -ep Bypass -c "if ((Get-Item '{{ downloads }}\wsl\{{ folder }}\ext4.vhdx').Length -ne (Get-Item '{{ inpath }}\wsl\{{ folder }}\ext4.vhdx').Length) { Write-Error 'The copied disk does not match the installed disk - not unregistering'; exit 1 }; wsl --unregister {{ distro }}; exit $LASTEXITCODE"
+    - shell: cmd
+    - require:
+      - cmd: wsl-copy-{{ folder }}-download-only

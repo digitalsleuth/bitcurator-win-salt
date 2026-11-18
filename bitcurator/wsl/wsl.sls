@@ -187,7 +187,7 @@ wsl-powershell-stager-customize-title:
 wsl-config-run-on-reboot:
   reg.present:
     - name: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-    - vname: "WIN-FOR WSL Config"
+    - vname: "BitCurator WSL Config"
     - vtype: REG_SZ
     - vdata: 'C:\Windows\system32\cmd.exe /q /c C:\salt\tempdownload\wsl-config.cmd'
     - require:

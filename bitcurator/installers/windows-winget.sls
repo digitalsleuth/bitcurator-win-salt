@@ -8,7 +8,7 @@
 # Notes: 
 
 {% set version = '1.29.380' %}
-{% set user = salt['pillar.get']('winfor_user', 'forensics') %}
+{% set user = salt['pillar.get']('bitcurator_user', 'bcadmin') %}
 {% set LOCALAPPDATA = salt['environ.get']('LOCALAPPDATA') %}
 {% set winget_version = salt['cmd.powershell']('$(try { winget -v } catch { "0" }).split("v")[1]') %}
 

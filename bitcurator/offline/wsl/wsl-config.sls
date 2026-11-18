@@ -1,21 +1,16 @@
-{% set wsl_choice = salt['pillar.get']('wsl_choice', 'bitcurator24') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 {% set PROGRAM_FILES = salt['environ.get']('PROGRAMFILES') %}
 {% set START_MENU = PROGRAMDATA + '\Microsoft\Windows\Start Menu' %}
 {% set START_PROGRAMS = START_MENU + '\Programs' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
-{% if wsl_choice == 'bitcurator24' %}
-  {% set distro = 'BitCurator-24' %}
-{% elif wsl_choice == 'bitcurator26' %}
-  {% set distro = 'BitCurator-26' %}
-{% endif %}
+{% set distros = {'bitcurator24': 'BitCurator-24', 'bitcurator26': 'BitCurator-26'} %}
 
 
 include:
   - bitcurator.config.shims
 
-{% for choice in ['bitcurator24', 'bitcurator26'] %}
+{% for choice, distro in distros.items() %}
 
 wsl-move-{{ choice }}-offline:
   file.rename:

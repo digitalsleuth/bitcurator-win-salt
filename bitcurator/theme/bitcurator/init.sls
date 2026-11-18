@@ -53,11 +53,16 @@
   {% set mode = 'install' %}
 {% endif %}
 
+{% if mode == 'download' %}
+
+bitcurator-theme-download-nothing-to-apply:
+  test.nop
+
+{% else %}
+
 include:
   {% if mode == 'offline' %}
   - bitcurator.offline.packages.portals
-  {% elif mode == 'download' %}
-  - bitcurator.downloads.packages.portals
   {% else %}
   - bitcurator.packages.portals
   {% endif %}
@@ -125,8 +130,6 @@ portals-end-process:
     - require:
       {% if mode == 'offline' %}
       - sls: bitcurator.offline.packages.portals
-      {% elif mode == 'download' %}
-      - sls: bitcurator.downloads.packages.portals
       {% else %}
       - sls: bitcurator.packages.portals
       {% endif %}
@@ -142,8 +145,6 @@ portals-{{ config }}-copy:
       - user: user-{{ user }}
       {% if mode == 'offline' %}
       - sls: bitcurator.offline.packages.portals
-      {% elif mode == 'download' %}
-      - sls: bitcurator.downloads.packages.portals
       {% else %}
       - sls: bitcurator.packages.portals
       {% endif %}
@@ -316,12 +317,14 @@ Unload NTUSER.DAT for {{ user }}:
 
 bitcurator-theme-suggest-reboot:
   cmd.run:
-    - name: Start-Process powershell -WindowStyle Hidden -ArgumentList "-command `"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('The theme will be fully applied for {{ user }} when they log in.', 'Win-FOR Theme')`""
+    - name: Start-Process powershell -WindowStyle Hidden -ArgumentList "-command `"Add-Type -AssemblyName System.Windows.Forms; [System.Windows.Forms.MessageBox]::Show('The theme will be fully applied for {{ user }} when they log in.', 'BitCurator Theme')`""
     - shell: powershell
     - require:
       - file: bitcurator-theme-stager
       - cmd: Load NTUSER.DAT for {{ user }}
       - reg: Add RunOnce key to {{ user }}
       - cmd: Unload NTUSER.DAT for {{ user }}
+
+{% endif %}
 
 {% endif %}

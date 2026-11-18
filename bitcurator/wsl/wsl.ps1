@@ -32,7 +32,7 @@ if (($repoFailures -ne 0 -and $repoFailures -ne $null) -or ($wslFailures -ne 0 -
 if ($repoFailures -ne 0 -and $repoFailures -ne $null) {
     $errors | Out-File $wslErrorLog -Append
     $errors = ''
-    Write-Host ("`n--- Win-FOR Installation Results ---`n$repoLogFile`n$repoResults") -ForegroundColor Yellow
+    Write-Host ("`n--- BitCurator Installation Results ---`n$repoLogFile`n$repoResults") -ForegroundColor Yellow
 }
 if ($wslFailures -ne 0 -and $wslFailures -ne $null) {
     $errors | Out-File $wslErrorLog -Append
@@ -43,7 +43,7 @@ if ($wslFailures -ne 0 -and $wslFailures -ne $null) {
     Write-Host "[!] In order to ensure all configuration changes are successful, it is recommended to reboot before first use." -ForegroundColor Yellow
 } else {
     Write-Host "[+] Installation finished successfully" -ForegroundColor Green
-    Write-Host ("`n--- Win-FOR Installation Results ---`n$repoLogFile`n$repoResults") -ForegroundColor Green
+    Write-Host ("`n--- BitCurator Installation Results ---`n$repoLogFile`n$repoResults") -ForegroundColor Green
     Write-Host ("`n--- WSL Installation Results ---`n$wslLogFile`n$wslResults") -ForegroundColor Green
     Write-Host "[!] In order to ensure all configuration changes are successful, it is recommended to reboot before first use.`n" -ForegroundColor Green
 }

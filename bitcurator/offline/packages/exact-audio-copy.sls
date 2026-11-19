@@ -18,19 +18,9 @@ include:
   - bitcurator.offline.packages.dotnetfx35
 
 exact-audio-copy-install-offline:
-  cmd.run:
-    - name: '"{{ downloads }}\exact-audio-copy\{{ pkg }}" /S'
-    - shell: cmd
-    - cwd: '{{ downloads }}\exact-audio-copy\'
-    - require:
-      - sls: bitcurator.offline.packages.dotnetfx35
-
-exact-audio-copy-del-shortcut-offline:
-  file.absent:
-    - name: 'C:\Users\Public\Desktop\Exact Audio Copy.lnk'
-    - require:
-      - cmd: exact-audio-copy-install-offline
-
+  test.nop:
+    - name: Exact Audio Copy must be installed manually due to dotnetfx35 requirement. See the {{ downloads }} folder for the installer.
+ 
 {% else %}
 {{ pkg }} does not exist - not installing:
   test.nop

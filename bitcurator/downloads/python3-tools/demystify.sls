@@ -15,43 +15,9 @@ include:
   - bitcurator.standalones.portable-python3
   - bitcurator.downloads.packages.python3
 
-demystify-download-only:
-  file.managed:
-    - name: '{{ downloads }}\demystify-{{ version }}.zip'
-    - source: https://github.com/exponential-decay/demystify/archive/refs/tags/v{{ version }}.zip
-    - skip_verify: True
-    - makedirs: True
-
-demystify-extract-download-only:
-  archive.extracted:
-    - name: '{{ downloads }}\'
-    - source: '{{ downloads }}\demystify-{{ version }}.zip'
-    - enforce_toplevel: False
-    - require:
-      - file: demystify-download-only
-
-demystify-folder-rename-download-only:
-  file.rename:
-    - name: '{{ downloads }}\demystify'
-    - source: '{{ downloads }}\demystify-{{ version }}'
-    - force: True
-    - makedirs: True
-    - require:
-      - archive: demystify-extract-download-only
-
 demystify-python-download-only:
   cmd.run:
-    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages . setuptools wheel'
-    - cwd: '{{ downloads }}\demystify'
+    - name: '{{ inpath }}\portable-python3\python.exe -m pip download --only-binary=:all: -d "{{ downloads }}\demystify\packages" demystify-digipres=={{ version }}'
     - require:
-      - file: demystify-download-only
-      - archive: demystify-extract-download-only
-      - file: demystify-folder-rename-download-only
       - sls: bitcurator.standalones.portable-python3
       - sls: bitcurator.downloads.packages.python3
-
-demystify-delete-archive-download-only:
-  file.absent:
-    - name: '{{ downloads }}\demystify-{{ version }}.zip'
-    - require:
-      - archive: demystify-extract-download-only

@@ -17,7 +17,7 @@ include:
 
 demystify-install-offline:
   cmd.run:
-    - name: '"C:\Program Files\Python311\python.exe" -m pip install --no-index --find-links=.\packages .'
+    - name: '"C:\Program Files\Python311\python.exe" -m pip install --no-index --find-links=.\packages demystify-digipres'
     - cwd: '{{ downloads }}\demystify\'
     - require:
       - sls: bitcurator.offline.packages.python3

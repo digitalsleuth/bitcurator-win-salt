@@ -20,7 +20,7 @@ include:
 
 mailbagit-install-offline:
   cmd.run:
-    - name: '"C:\Program Files\Python311\python.exe" -m pip install --no-index --find-links=.\packages mailbagit "mailbagit[gui]"'
+    - name: '"C:\Program Files\Python311\python.exe" -m pip install --no-index --find-links=.\packages mailbagit mailbagit[gui]'
     - cwd: '{{ downloads }}\mailbagit\'
     - require:
       - sls: bitcurator.offline.packages.python3

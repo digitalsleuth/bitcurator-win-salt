@@ -25,7 +25,7 @@ mailbagit-folder-download-only:
 
 mailbagit-download-only:
   cmd.run:
-    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages mailbagit mailbagit[gui]'
+    - name: '{{ inpath }}\portable-python3\python.exe -m pip download -d packages mailbagit mailbagit[gui] setuptools wheel'
     - cwd: '{{ downloads }}\mailbagit\'
     - require:
       - sls: bitcurator.standalones.portable-python3

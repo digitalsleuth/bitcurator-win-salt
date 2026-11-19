@@ -4,9 +4,13 @@
 # Category: Utilities
 # Author: Corey Forman (digitalsleuth)
 # License: GNU General Public License v3+
-# Version: 0.0
+# Version: 3.0.0
 # Notes: Copies the current states and the SaltStack directory alongside the downloads
 
+# renovate: datasource=github-releases depName=digitalsleuth/BitCurator-WIN
+{% set version = '3.0.0' %}
+{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
+{% set hash = get_hash('offline-staging') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 bitcurator-copy-current-states:
@@ -24,3 +28,13 @@ bitcurator-copy-saltstack-directory:
     - subdir: True
     - makedirs: True
     - replace: True
+
+bitcurator-download-current-bitcurator-win:
+  file.managed:
+    - name: '{{ downloads }}\offline\bitcurator-win-{{ version }}.exe'
+    - source: https://github.com/digitalsleuth/bitcurator-win/releases/download/v{{ version }}/bitcurator-win-v{{ version }}.exe
+    - source_hash: sha256={{ hash }}
+    - makedirs: True
+    - require:
+      - file: bitcurator-copy-current-states
+      - file: bitcurator-copy-saltstack-directory

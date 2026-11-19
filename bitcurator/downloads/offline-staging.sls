@@ -14,20 +14,16 @@
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
 bitcurator-copy-current-states:
-  file.copy:
-    - name: '{{ downloads }}\offline\bitcurator'
-    - source: 'C:\ProgramData\Salt Project\Salt\srv\salt\bitcurator'
-    - subdir: True
-    - makedirs: True
-    - replace: True
+  cmd.run:
+    - name: 'robocopy "C:\ProgramData\Salt Project\Salt\srv\salt\bitcurator" "{{ downloads }}\offline\bitcurator" /E /XJ /R:1 /W:1 /NFL /NDL /NJH /NP'
+    - shell: cmd
+    - success_retcodes: [1, 2, 3, 4, 5, 6, 7]
 
 bitcurator-copy-saltstack-directory:
-  file.copy:
-    - name: '{{ downloads }}\offline\Salt'
-    - source: 'C:\Program Files\Salt Project\Salt'
-    - subdir: True
-    - makedirs: True
-    - replace: True
+  cmd.run:
+    - name: 'robocopy "C:\Program Files\Salt Project\Salt" "{{ downloads }}\offline\Salt" /E /XJ /R:1 /W:1 /NFL /NDL /NJH /NP'
+    - shell: cmd
+    - success_retcodes: [1, 2, 3, 4, 5, 6, 7]
 
 bitcurator-download-current-bitcurator-win:
   file.managed:
@@ -36,5 +32,5 @@ bitcurator-download-current-bitcurator-win:
     - source_hash: sha256={{ hash }}
     - makedirs: True
     - require:
-      - file: bitcurator-copy-current-states
-      - file: bitcurator-copy-saltstack-directory
+      - cmd: bitcurator-copy-current-states
+      - cmd: bitcurator-copy-saltstack-directory

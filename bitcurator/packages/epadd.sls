@@ -8,34 +8,11 @@
 # Notes: Will prompt for firewall access on first launch
 
 {% set version = '11.1.4' %}
-{% from 'bitcurator/_macros/hashes.jinja' import get_hash %}
-{% set hash = get_hash('epadd') %}
-{% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
-{% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
 
 include:
   - bitcurator.repos
 
-epadd-download:
-  file.managed:
-    - name: '{{ inpath }}\epadd\epadd.exe'
-    - source: https://github.com/ePADD/epadd/releases/download/v{{ version }}/epadd.exe
-    - source_hash: sha256={{ hash }}
-    - makedirs: True
-
-epadd-jdk-install:
+epadd:
   pkg.installed:
-    - name: openjdk-adoptium
     - require:
       - sls: bitcurator.repos
-
-epadd-shortcut:
-  file.shortcut:
-    - name: '{{ PROGRAMDATA }}\Microsoft\Windows\Start Menu\Programs\ePADD.lnk'
-    - target: '{{ inpath }}\epadd\epadd.exe'
-    - force: True
-    - working_dir: '{{ inpath }}\epadd\'
-    - makedirs: True
-    - require:
-      - file: epadd-download
-      - pkg: epadd-jdk-install

@@ -12,14 +12,9 @@
 {% set hash = get_hash('epadd') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
-include:
-  - bitcurator.downloads.packages.openjdk-adoptium
-
 epadd-download-only:
   file.managed:
-    - name: '{{ downloads }}\epadd\epadd-{{ version }}.exe'
-    - source: https://github.com/ePADD/epadd/releases/download/v{{ version }}/epadd.exe
+    - name: '{{ downloads }}\epadd\epadd-{{ version }}.msi'
+    - source: https://github.com/ePADD/epadd/releases/download/v{{ version }}/epadd-{{ version }}-windows-x86_64.msi
     - source_hash: sha256={{ hash }}
     - makedirs: True
-    - require:
-      - sls: bitcurator.downloads.packages.openjdk-adoptium

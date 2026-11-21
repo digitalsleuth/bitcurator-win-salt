@@ -12,31 +12,16 @@
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}
-{% set pkg = 'epadd-' ~ version ~ '.exe' %}
+{% set pkg = 'epadd-' ~ version ~ '.msi' %}
 {% set exists = salt['file.file_exists'](downloads + '\\epadd\\' + pkg) %}
 
 {% if exists %}
 
-include:
-  - bitcurator.offline.packages.openjdk-adoptium
-
 epadd-offline:
-  file.managed:
-    - name: '{{ inpath }}\epadd\epadd.exe'
-    - source: '{{ downloads }}\epadd\{{ pkg }}'
-    - skip_verify: True
-    - makedirs: True
-
-epadd-shortcut-offline:
-  file.shortcut:
-    - name: '{{ PROGRAMDATA }}\Microsoft\Windows\Start Menu\Programs\ePADD.lnk'
-    - target: '{{ inpath }}\epadd\epadd.exe'
-    - force: True
-    - working_dir: '{{ inpath }}\epadd\'
-    - makedirs: True
-    - require:
-      - file: epadd-offline
-      - sls: bitcurator.offline.packages.openjdk-adoptium
+  cmd.run:
+    - name: 'msiexec /i "{{ downloads }}\epadd\{{ pkg }}" ALLUSERS=1 /qn /norestart'
+    - shell: cmd
+    - cwd: '{{ downloads }}\epadd\'
 
 {% else %}
 {{ pkg }} does not exist - not installing:

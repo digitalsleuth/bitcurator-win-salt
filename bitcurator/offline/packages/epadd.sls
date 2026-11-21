@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Stanford University's Special Collections and University Archives
 # License: Creative Commons Attribution 2.0 / Apache License v2.0 (https://github.com/ePADD/epadd/blob/main/README.md)
-# Version: 11.1.3
+# Version: 11.1.4
 # Notes: Will prompt for firewall access on first launch
 
 # renovate: datasource=github-releases depName=ePADD/epadd
-{% set version = '11.1.3' %}
+{% set version = '11.1.4' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set PROGRAMDATA = salt['environ.get']('PROGRAMDATA') %}

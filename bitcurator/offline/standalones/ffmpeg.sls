@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Fabrice Bellard et al (https://git.ffmpeg.org/gitweb/ffmpeg.git/blob_plain/HEAD:/MAINTAINERS)
 # License: GNU Lesser General Public License v2.1 (https://git.ffmpeg.org/gitweb/ffmpeg.git/blob_plain/HEAD:/LICENSE.md)
-# Version: 9.0.2
+# Version: 9.1
 # Notes: ffmpeg, ffprobe, ffplay
 
 # renovate: datasource=github-releases depName=GyanD/codexffmpeg
-{% set version = '9.0.2' %}
+{% set version = '9.1' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\standalone') %}
 {% set downloads = salt['pillar.get']('offline', 'C:\\bitcurator-downloads') %}
 {% set pkg = 'ffmpeg-' ~ version ~ '.zip' %}

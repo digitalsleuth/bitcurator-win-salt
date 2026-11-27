@@ -4,11 +4,11 @@
 # Category: Archival
 # Author: Jorj X. McKie and Artifex Software
 # License: GNU Affero General Public License v3 (https://github.com/pymupdf/PyMuPDF/blob/main/COPYING)
-# Version: 2.1
+# Version: 2.2
 # Notes: 
 
 # renovate: datasource=pypi depName=PyMuPDF
-{% set version = '2.1' %}
+{% set version = '2.2' %}
 {% set inpath = salt['pillar.get']('inpath', 'C:\\standalone') %}
 {% set downloads = salt['pillar.get']('downloads', 'C:\\bitcurator-downloads') %}
 
